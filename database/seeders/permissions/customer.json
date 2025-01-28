@@ -1,0 +1,11 @@
+{
+    "role": {
+        "name": "Customer",
+        "description": "Customers can access their own data.",
+        "is_active": 1
+    },
+    "permissions": [
+        "products-index",
+        "customers-index"
+    ]
+}

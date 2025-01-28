@@ -14,9 +14,6 @@ class Country extends Model
      * It will be deleted later.
      *
      */
-
-
     protected $table = 'countries';
     protected $fillable = ['code', 'name'];
-
 }
