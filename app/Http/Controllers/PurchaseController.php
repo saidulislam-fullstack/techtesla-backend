@@ -2,33 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Warehouse;
-use App\Models\Supplier;
-use App\Models\Product;
-use App\Models\Unit;
-use App\Models\Tax;
-use App\Models\Account;
-use App\Models\Purchase;
-use App\Models\ProductPurchase;
-use App\Models\Product_Warehouse;
-use App\Models\Payment;
-use App\Models\PaymentWithCheque;
-use App\Models\PaymentWithCreditCard;
-use App\Models\PosSetting;
-use App\Models\Currency;
-use App\Models\CustomField;
-use DB;
-use App\Models\GeneralSetting;
+use Exception;
 use Stripe\Stripe;
-use Auth;
+use App\Models\Tax;
+use App\Models\Unit;
 use App\Models\User;
-use App\Models\ProductVariant;
+use App\Models\Account;
+use App\Models\Payment;
+use App\Models\Product;
+use App\Models\Currency;
+use App\Models\Purchase;
+use App\Models\Supplier;
+use App\Models\Warehouse;
+use App\Models\PosSetting;
+use App\Traits\TenantInfo;
+use App\Models\CustomField;
 use App\Models\ProductBatch;
+use Illuminate\Http\Request;
+use App\Models\GeneralSetting;
+use App\Models\ProductVariant;
+use App\Models\ProductPurchase;
+use App\Models\PaymentWithCheque;
+use App\Models\Product_Warehouse;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use App\Models\PaymentWithCreditCard;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
-use App\Traits\TenantInfo;
 
 class PurchaseController extends Controller
 {
