@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	'dashboard' => 'Dashboard',
 	'language' => 'Bahasa',
@@ -103,6 +103,7 @@ return [
 	'Amount' => 'Jumlah',
 	'Staff' => 'Staff',
 	'Quotation' => 'Kuota',
+	"RFQuotation" => "RFQuotation",
 	'Create' => 'Buat',
 	'Adjustment' => 'Penyesuaian',
 	'Subtraction' => 'Pengurangan',
@@ -603,12 +604,12 @@ return [
 	"This product has IMEI or Serial numbers" => "Produk ini punya IMEI atau Serial numbers",
 	"IMEI or Serial Numbers" => "IMEI atau Serial Numbers",
 	"RTL Layout" => "RTL Layout",
-	"Cheque" =>"Cek",
-	"Cash" =>"Tunai",
-	"PayPal" =>"PayPal",
-	"Points" =>"Poin",
-	"Cancel" =>"Batal",
-	"Recent Transaction" =>"Transaksi terbaru",
+	"Cheque" => "Cek",
+	"Cash" => "Tunai",
+	"PayPal" => "PayPal",
+	"Points" => "Poin",
+	"Cancel" => "Batal",
+	"Recent Transaction" => "Transaksi terbaru",
 	"Discount Plan" => "Rencana diskon",
 	"Create Discount Plan" => "Buat rencana diskon",
 	"Inactive" => "Tidak Aktif",
@@ -821,4 +822,3 @@ return [
 	"Table" => "Table",
 	"Table Management" => "Pengaturan Tabel",
 ];
-?>

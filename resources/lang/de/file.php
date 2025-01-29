@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	"dashboard" => "Instrumententafel",
 	"language" => "Sprache",
@@ -102,6 +102,7 @@ return [
 	"Amount" => "Menge",
 	"Staff" => "Mitarbeiter",
 	"Quotation" => "Zitat",
+	"RFQuotation" => "RFQ-Angebot",
 	"Create" => "Erstellen",
 	"Adjustment" => "Einstellung",
 	"Subtraction" => "Subtraktion",
@@ -467,7 +468,7 @@ return [
 	"Update Payroll" => "Aktualisieren Sie die Abrechnung",
 	"Method" => "Methode",
 	"Sale Return" => "Verkauf zurück",
-	"Purchase Return" => "Rückgabe",	
+	"Purchase Return" => "Rückgabe",
 	"Net Sale Return" => "Nettoverkaufsrendite,",
 	"Net Purchase Return" => "Nettokauf zurück,",
 	"Attendance" => "Teilnahme",
@@ -605,4 +606,3 @@ return [
 	"IMEI or Serial Numbers" => "IMEI oder Seriennummern",
 	"RTL Layout" => "RTL-Layout",
 ];
-?>

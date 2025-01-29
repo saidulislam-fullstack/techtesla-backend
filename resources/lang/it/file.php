@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	"dashboard" => "Cruscotto",
 	"language" => "Linguaggio",
@@ -102,6 +102,7 @@ return [
 	"Amount" => "Quantità",
 	"Staff" => "Personale",
 	"Quotation" => "Quotazione",
+	"RFQuotation" => "RFQuotation",
 	"Create" => "Creare",
 	"Adjustment" => "registrazione",
 	"Subtraction" => "Sottrazione",
@@ -440,7 +441,7 @@ return [
 	"Image name must be same as product name" =>  "Il nome dell'immagine deve essere uguale al nome del prodotto",
 	"Paying Amount" => "Importo di pagamento",
 	"Payable Amount" => "Importo da pagare",
-	"Change" => "Modificare",	
+	"Change" => "Modificare",
 	"Back" => "Indietro",
 	"Role Permission" => "Permesso di ruolo",
 	"Exclusive: Poduct price = Actual product price + Tax. Inclusive: Actual product price = Product price - Tax" => "Esclusivo: prezzo del prodotto = prezzo effettivo del prodotto + tasse. Inclusivo: prezzo del prodotto effettivo = prezzo del prodotto - tasse.",
@@ -467,7 +468,7 @@ return [
 	"Update Payroll" => "Aggiorna paghe",
 	"Method" => "Metodo",
 	"Sale Return" => "Ritorno alla vendita",
-	"Purchase Return" => "Ritorno di acquisto",	
+	"Purchase Return" => "Ritorno di acquisto",
 	"Net Sale Return" => "Ritorno in vendita netto,",
 	"Net Purchase Return" => "Ritorno all'acquisto netto,",
 	"Attendance" => "partecipazione",
@@ -605,4 +606,3 @@ return [
 	"IMEI or Serial Numbers" => "IMEI o numeri di serie",
 	"RTL Layout" => "Layout RTL",
 ];
-?>

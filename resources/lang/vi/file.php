@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	"dashboard" => "bảng điều khiển",
 	"language" => "ngôn ngữ",
@@ -102,6 +102,7 @@ return [
 	"Amount" => "Số tiền",
 	"Staff" => "Nhân Viên",
 	"Quotation" => "Bảng báo giá",
+	"RFQuotation" => "RFQ",
 	"Create" => "Tạo nên",
 	"Adjustment" => "Điều chỉnh",
 	"Subtraction" => "Phép trừ",
@@ -311,7 +312,7 @@ return [
 	"Add Coupon" => "Thêm phiếu giảm giá",
 	"Coupon Code" => "mã giảm giá",
 	"Minimum Amount" => "Số tiền tối thiểu",
-		"Update Coupon" => "Cập nhật phiếu giảm giá",
+	"Update Coupon" => "Cập nhật phiếu giảm giá",
 	"Update Purchase" => "Cập nhật mua hàng",
 	"Update Sale" => "Cập nhật giảm giá",
 	"Update Product" => "Cập nhật sản phẩm",
@@ -332,7 +333,7 @@ return [
 	"Update Transfer" => "Cập nhật chuyển",
 	"Transfer Status" => "Chuyển trạng thái",
 	"Transfer Details" => "Chi tiết chuyển khoản",
-		"Return Details" => "Chi tiết trả lại",
+	"Return Details" => "Chi tiết trả lại",
 	"Return Note" => "Ghi chú trở lại",
 	"Update Return" => "Cập nhật trở lại",
 	"Card Details" => "Chi tiết thẻ",
@@ -355,7 +356,7 @@ return [
 	"Payment Reference" => "Tham chiếu thanh toán",
 	"Sale Reference" => "Bán tham khảo",
 	"Purchase Reference" => "Tham khảo mua hàng",
-		"Paid By" => "Được trả bởi",
+	"Paid By" => "Được trả bởi",
 	"Total Item" => "Tổng số mặt hàng",
 	"Total Quantity" => "Tổng số lượng",
 	"Paid Method" => "Phương thức trả phí",
@@ -386,7 +387,7 @@ return [
 	"Recieved By" => "Nhận bởi",
 	"Update Delivery" => "Cập nhật giao hàng",
 	"Update Expense Category" => "Cập nhật danh mục chi phí",
-		"Tax Rate" => "Thuế suất",
+	"Tax Rate" => "Thuế suất",
 	"Unit Discount" => "Giảm giá đơn vị",
 	"Import Purchase" => "Nhập khẩu mua hàng",
 	"Payment Note" => "Ghi chú thanh toán",
@@ -423,7 +424,7 @@ return [
 	"Packing" => "Đóng gói",
 	"Delivered" => "Đã giao hàng",
 	"Delivering" => "Cung cấp",
-		"Ordered" => "Đặt hàng",
+	"Ordered" => "Đặt hàng",
 	"No Tax" => "Không thuế",
 	"Sent" => "Gởi",
 	"Draft" => "Bản nháp",
@@ -604,4 +605,3 @@ return [
 	"IMEI or Serial Numbers" => "IMEI hoặc Số sê-ri",
 	"RTL Layout" => "Bố cục RTL",
 ];
-?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	"dashboard" => "papan pemuka",
 	"language" => "bahasa",
@@ -20,7 +20,7 @@ return [
 	"name" => "nama",
 	"submit" => "hantar",
 	"update" => "kemas kini",
-	"The field labels marked with * are required input fields" => "Label medan ditandai dengan * medan input yang diperlukan", 
+	"The field labels marked with * are required input fields" => "Label medan ditandai dengan * medan input yang diperlukan",
 	"settings" => "tetapan",
 	"logout" => "log keluar",
 	"return" => "kembali",
@@ -102,6 +102,7 @@ return [
 	"Amount" => "Jumlah",
 	"Staff" => "Kakitangan",
 	"Quotation" => "Sebutharga",
+	"RFQuotation" => "RFQuotation",
 	"Create" => "Buat",
 	"Adjustment" => "Pelarasan",
 	"Subtraction" => "Penolakan",
@@ -189,7 +190,7 @@ return [
 	"File Link" => "Pautan Fail",
 	"Delivery" => "Penghantaran",
 	"Delivered" => "Dihantar",
-	"For Digital product sale_unit will be n/a" => "Untuk unit jualan produk Digital akan n / a", 
+	"For Digital product sale_unit will be n/a" => "Untuk unit jualan produk Digital akan n / a",
 	"Forgot Password?" => "Lupa kata laluan?",
 	"Do not have an account?" => "Tiada akaun?",
 	"Register" => "Daftar",
@@ -301,7 +302,7 @@ return [
 	"Add Promotional Price" => "Tambah Harga Promosi",
 	"Product Tax" => "Cukai Produk",
 	"Tax Method" => "Kaedah Cukai",
-	"Featured product will be displayed in POS" => "Produk pilihan akan dipaparkan dalam POS", 
+	"Featured product will be displayed in POS" => "Produk pilihan akan dipaparkan dalam POS",
 	"Product Invoice Details" => "Butiran Invois Produk",
 	"Purchase Status" => "Status Pembelian",
 	"Add Gift Card" => "Tambah Kad Hadiah",
@@ -343,7 +344,7 @@ return [
 	"View Deposit" => "Deposit View",
 	"Import Biller" => "Import Biller",
 	"Update Biller" => "Kemas kini Biller",
-	"To display Image it must be stored in" => "Untuk memaparkan Imej ia mesti disimpan dalam", 
+	"To display Image it must be stored in" => "Untuk memaparkan Imej ia mesti disimpan dalam",
 	"directory" => "direktori",
 	"Import Supplier" => "Pembekal Import",
 	"Update Supplier" => "Pembekal Kemas kini",
@@ -437,7 +438,7 @@ return [
 	"Exclusive" => "Eksklusif",
 	"Inclusive" => "Inklusif",
 	"Combo Products" => "Produk Combo",
-	"Image name must be same as product name" => "Nama imej mestilah sama seperti nama produk", 
+	"Image name must be same as product name" => "Nama imej mestilah sama seperti nama produk",
 	"Paying Amount" => "Membayar Amaun",
 	"Payable Amount" => "Jumlah yang Dibayar",
 	"Change" => "Ubah",
@@ -467,7 +468,7 @@ return [
 	"Update Payroll" => "Kemas kini Penggajian",
 	"Method" => "Kaedah",
 	"Sale Return" => "Pulangan Jualan",
-	"Purchase Return" => "Pulangan Pembelian",	
+	"Purchase Return" => "Pulangan Pembelian",
 	"Net Sale Return" => "Pulangan Jualan Bersih,",
 	"Net Purchase Return" => "Pulangan Pembelian Bersih,",
 	"Attendance" => "Kehadiran",
@@ -605,4 +606,3 @@ return [
 	"IMEI or Serial Numbers" => "Nombor IMEI atau Siri",
 	"RTL Layout" => "Susun atur RTL",
 ];
-?>
