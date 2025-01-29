@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	'dashboard' => 'Dashibodi',
 	'language' => 'Lugha',
@@ -76,7 +76,8 @@ return [
 	'Attach Document' => 'Ambatanisha Hati',
 	'Select Product' => 'Chagua Bidhaa',
 	'Order' => 'Agiza',
-	'Order Table' => 'Jedwali la Agizo','Discount' => 'Punguzo',
+	'Order Table' => 'Jedwali la Agizo',
+	'Discount' => 'Punguzo',
 	'Unit Cost' => 'Gharama ya Kitengo',
 	'Unit Price' => 'Bei ya Kitengo',
 	'Net Unit Cost' => 'Gharama ya Kitengo Ndogo',
@@ -101,6 +102,7 @@ return [
 	'Amount' => 'Kiasi',
 	'Staff' => 'Wafanyakazi',
 	'Quotation' => 'Nukuu',
+	"RFQuotation" => "RFQuotation",
 	'Create' => 'Tengeneza',
 	'Adjustment' => 'Marekebisho',
 	'Subtraction' => 'Kutoa',
@@ -196,7 +198,8 @@ return [
 	'Gift Card' => 'Kadi ya Zawadi',
 	'Card' => 'Kadi',
 	'Expired Date' => 'Tarehe ya Muda',
-	'Recharge' => 'Jaza tena','Deposit' => 'Amana',
+	'Recharge' => 'Jaza tena',
+	'Deposit' => 'Amana',
 	'Choose Warehouse' => 'Chagua Ghala',
 	'Choose Supplier' => 'Chagua Muuzaji',
 	'Choose Customer' => 'Chagua Mteja',
@@ -297,7 +300,8 @@ return [
 	'Add Promotional Price' => 'Ongeza Bei ya Matangazo',
 	'Product Tax' => 'Kodi ya Bidhaa',
 	'Tax Method' => 'Njia ya Kodi',
-	'Featured product will be displayed in POS' => 'Bidhaa iliyoshikiliwa itaonyeshwa kwenye POS','Product Invoice Details' => 'Maelezo ya Ankara ya Bidhaa',
+	'Featured product will be displayed in POS' => 'Bidhaa iliyoshikiliwa itaonyeshwa kwenye POS',
+	'Product Invoice Details' => 'Maelezo ya Ankara ya Bidhaa',
 	'Purchase Status' => 'Hali ya Ununuzi',
 	'Add Gift Card' => 'Ongeza Kadi ya Zawadi',
 	'Card No' => 'Nambari ya Kadi',
@@ -398,7 +402,8 @@ return [
 	'From Warehouse' => 'Kutoka Ghala',
 	'To Warehouse' => 'Kwenda Ghala',
 	'Transfer Details' => 'Maelezo ya Uhamisho',
-	'Add Unit' => 'Ongeza Kiwango','Add Warehouse' => 'Ongeza Ghala',
+	'Add Unit' => 'Ongeza Kiwango',
+	'Add Warehouse' => 'Ongeza Ghala',
 	'All Warehouse' => 'Ghala Zote',
 	'Net Profit' => 'Faida Ndogo',
 	'Net Loss' => 'Hasara Ndogo',
@@ -497,7 +502,8 @@ return [
 	'Expected' => 'Inatarajiwa',
 	'Counted' => 'Kuhesabiwa',
 	'Difference' => 'Tofauti',
-	'Miscellaneous' => 'Mbalimbali',"SMS Setting" => "Mipangilio ya SMS",
+	'Miscellaneous' => 'Mbalimbali',
+	"SMS Setting" => "Mipangilio ya SMS",
 	"Send SMS" => "Tuma SMS",
 	"Gateway" => "Lango",
 	"Select SMS gateway..." => "Chagua lango la SMS...",
@@ -848,4 +854,3 @@ return [
 	"Buy Now" => "Nunua Sasa",
 	"Install" => "Sakinisha"
 ];
-?>

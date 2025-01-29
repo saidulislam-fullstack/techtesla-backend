@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	"dashboard" => "Dashboard",
 	"language" => "Taal",
@@ -102,6 +102,7 @@ return [
 	"Amount" => "Bedrag",
 	"Staff" => "Personeel",
 	"Quotation" => "Citaat",
+	"RFQuotation" => "RFQuotation",
 	"Create" => "Creëren",
 	"Adjustment" => "Aanpassing",
 	"Subtraction" => "Aftrekking",
@@ -440,7 +441,7 @@ return [
 	"Image name must be same as product name" =>  "De afbeeldingsnaam moet hetzelfde zijn als de productnaam",
 	"Paying Amount" => "Bedrag betalen",
 	"Payable Amount" => "Te betalen bedrag",
-	"Change" => "Verandering",	
+	"Change" => "Verandering",
 	"Back" => "Terug",
 	"Role Permission" => "Roltoestemming",
 	"Exclusive: Poduct price = Actual product price + Tax. Inclusive: Actual product price = Product price - Tax" => "Exclusief: productprijs = werkelijke productprijs + btw. Inclusief: werkelijke productprijs = productprijs - belasting.",
@@ -467,7 +468,7 @@ return [
 	"Update Payroll" => "Update Payroll",
 	"Method" => "Methode",
 	"Sale Return" => "Uitverkoop",
-	"Purchase Return" => "Aankoop rendement",	
+	"Purchase Return" => "Aankoop rendement",
 	"Net Sale Return" => "Netto-opbrengst,",
 	"Net Purchase Return" => "Netto aankoopteruggave,",
 	"Attendance" => "opkomst",
@@ -605,4 +606,3 @@ return [
 	"IMEI or Serial Numbers" => "IMEI of serienummers",
 	"RTL Layout" => "RTL-indeling",
 ];
-?>

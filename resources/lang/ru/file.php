@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	"dashboard" => "Приборная доска",
 	"language" => "язык",
@@ -102,6 +102,7 @@ return [
 	"Amount" => "Количество",
 	"Staff" => "Штат сотрудников",
 	"Quotation" => "Цитата",
+	"RFQuotation" => "RFQuotation",
 	"Create" => "Создайте",
 	"Adjustment" => "регулировка",
 	"Subtraction" => "Вычитание",
@@ -440,7 +441,7 @@ return [
 	"Image name must be same as product name" =>  "Название изображения должно совпадать с именем продукта",
 	"Paying Amount" => "Платежная сумма",
 	"Payable Amount" => "Сумма кредитоспособности",
-	"Change" => "менять",	
+	"Change" => "менять",
 	"Back" => "назад",
 	"Role Permission" => "Роль Разрешения",
 	"Exclusive: Poduct price = Actual product price + Tax. Inclusive: Actual product price = Product price - Tax" => "Эксклюзив: цена продукта = фактическая цена продукта + налог. Включено: фактическая цена продукта = цена продукта - налог.",
@@ -467,7 +468,7 @@ return [
 	"Update Payroll" => "Обновить платежную ведомость",
 	"Method" => "метод",
 	"Sale Return" => "Продажа Возврат",
-	"Purchase Return" => "Возврат покупки",	
+	"Purchase Return" => "Возврат покупки",
 	"Net Sale Return" => "Чистая прибыль от продаж,",
 	"Net Purchase Return" => "Чистый возврат покупки,",
 	"Attendance" => "посещаемость",
@@ -605,4 +606,3 @@ return [
 	"IMEI or Serial Numbers" => "IMEI или серийные номера",
 	"RTL Layout" => "Макет RTL",
 ];
-?>

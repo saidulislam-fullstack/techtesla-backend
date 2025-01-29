@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	"dashboard" => "Tableau de bord",
 	"language" => "La langue",
@@ -102,6 +102,7 @@ return [
 	"Amount" => "Montant",
 	"Staff" => "Personnel",
 	"Quotation" => "Devis",
+	"RFQuotation" => "RFQuotation",
 	"Create" => "Créer",
 	"Adjustment" => "Ajustement",
 	"Subtraction" => "Soustraction",
@@ -440,7 +441,7 @@ return [
 	"Image name must be same as product name" =>  "Le nom de l'image doit être identique au nom du produit",
 	"Paying Amount" => "Montant payant",
 	"Payable Amount" => "Montant payable",
-	"Change" => "Changement",	
+	"Change" => "Changement",
 	"Back" => "Retour",
 	"Role Permission" => "Permission de rôle",
 	"Exclusive: Poduct price = Actual product price + Tax. Inclusive: Actual product price = Product price - Tax" => "Exclusif: Prix du produit = Prix du produit réel + taxes. Inclus: Prix du produit réel = Prix du produit - Taxes.",
@@ -467,7 +468,7 @@ return [
 	"Update Payroll" => "Mise à jour de la paie",
 	"Method" => "Méthode",
 	"Sale Return" => "Retour de vente",
-	"Purchase Return" => "Retour d'achat",	
+	"Purchase Return" => "Retour d'achat",
 	"Net Sale Return" => "Rendement net de la vente,",
 	"Net Purchase Return" => "Retour d’achat net,",
 	"Attendance" => "Présence",
@@ -605,4 +606,3 @@ return [
 	"IMEI or Serial Numbers" => "IMEI ou numéros de série",
 	"RTL Layout" => "Disposition RTL",
 ];
-?>
