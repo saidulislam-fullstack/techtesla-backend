@@ -9,7 +9,7 @@ class CreateExpensesTable extends Migration
     public function up()
     {
         Schema::create('expenses', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('reference_no');
             $table->integer('expense_category_id');
             $table->integer('warehouse_id');

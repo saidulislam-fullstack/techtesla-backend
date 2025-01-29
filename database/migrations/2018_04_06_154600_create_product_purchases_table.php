@@ -14,7 +14,7 @@ class CreateProductPurchasesTable extends Migration
     public function up()
     {
         Schema::create('product_purchases', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('purchase_id');
             $table->integer('product_id');
             $table->double('qty');

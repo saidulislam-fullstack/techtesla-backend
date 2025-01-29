@@ -14,7 +14,7 @@ class CreateProductWarhouseTable extends Migration
     public function up()
     {
         Schema::create('product_warehouse', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('product_id');
             $table->integer('warehouse_id');
             $table->double('qty');

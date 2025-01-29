@@ -14,7 +14,7 @@ class CreatePaymentWithCreditCardTable extends Migration
     public function up()
     {
         Schema::create('payment_with_credit_card', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('payment_id');
             $table->integer('customer_id');
             $table->string('customer_stripe_id');

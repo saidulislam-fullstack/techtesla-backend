@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('requested_quotations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('reference_no');
+            $table->id();
+            $table->string('rfq_no')->unique();
             $table->enum('type', ['regular_mro', 'project', 'techtesla_stock'])->comment('Type of RFQ');
-            $table->unsignedBigInteger('added_by')->comment('User who added the RFQ');
+            $table->unsignedBigInteger('added_by')->nullable()->comment('User who added the RFQ'); // Make nullable
             $table->unsignedBigInteger('customer_id')->nullable()->comment('Customer associated with the RFQ');
             $table->date('date')->comment('Date of the RFQ');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending')->comment('Status of the RFQ');
@@ -24,8 +24,9 @@ return new class extends Migration
             $table->string('document')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
+
             // Foreign keys
-            $table->foreign('added_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('added_by')->references('id')->on('users')->onDelete('set null');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('set null');
         });
     }

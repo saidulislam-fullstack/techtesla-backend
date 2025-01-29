@@ -14,7 +14,7 @@ class CreateHrmSettingsTable extends Migration
     public function up()
     {
         Schema::create('hrm_settings', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('checkin');
             $table->string('checkout');
             $table->timestamps();

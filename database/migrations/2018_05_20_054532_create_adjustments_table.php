@@ -14,7 +14,7 @@ class CreateAdjustmentsTable extends Migration
     public function up()
     {
         Schema::create('adjustments', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('reference_no');
             $table->integer('warehouse_id');
             $table->string('document')->nullable();

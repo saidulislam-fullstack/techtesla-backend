@@ -14,7 +14,7 @@ class CreateProductQuotationTable extends Migration
     public function up()
     {
         Schema::create('product_quotation', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('quotation_id');
             $table->integer('product_id');
             $table->double('qty');

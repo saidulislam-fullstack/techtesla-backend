@@ -9,7 +9,7 @@ class CreateGiftCardRechargesTable extends Migration
     public function up()
     {
         Schema::create('gift_card_recharges', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('gift_card_id');
             $table->double('amount');
             $table->integer('user_id');
