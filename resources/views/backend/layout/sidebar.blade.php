@@ -169,17 +169,33 @@
         $index_permission_active = $role_has_permissions_list->where('name', 'quotes-index')->first();
     @endphp
     @if ($index_permission_active)
-        <li><a href="#quotation" aria-expanded="false" data-toggle="collapse"> <i
-                    class="dripicons-document"></i><span>{{ trans('file.Quotation') }}</span><span></a>
+        <li>
+            <a href="#quotation" aria-expanded="false" data-toggle="collapse">
+                <i class="dripicons-document"></i>
+                <span>{{ trans('file.Quotation') }}</span>
+            </a>
             <ul id="quotation" class="collapse list-unstyled ">
-                <li id="quotation-list-menu"><a
-                        href="{{ route('quotations.index') }}">{{ trans('file.Quotation List') }}</a></li>
+                <li id="quotation-list-menu">
+                    <a href="{{ route('quotations.index') }}">{{ trans('file.Quotation List') }}</a>
+                </li>
                 @php
                     $add_permission_active = $role_has_permissions_list->where('name', 'quotes-add')->first();
                 @endphp
                 @if ($add_permission_active)
-                    <li id="quotation-create-menu"><a
-                            href="{{ route('quotations.create') }}">{{ trans('file.Add Quotation') }}</a></li>
+                    <li id="quotation-create-menu">
+                        <a href="{{ route('quotations.create') }}">{{ trans('file.Add Quotation') }}</a>
+                    </li>
+                @endif
+                <li id="rf-quotation-list-menu">
+                    <a href="#">{{ trans('file.RFQuotation List') }}</a>
+                </li>
+                @php
+                    $add_permission_active = $role_has_permissions_list->where('name', 'rf-quotes-add')->first();
+                @endphp
+                @if ($add_permission_active)
+                    <li id="rf-quotation-create-menu">
+                        <a href="#">{{ trans('file.Add RFQuotation') }}</a>
+                    </li>
                 @endif
             </ul>
         </li>
@@ -222,7 +238,8 @@
                     class="dripicons-return"></i><span>{{ trans('file.return') }}</span></a>
             <ul id="return" class="collapse list-unstyled ">
                 @if ($sale_return_index_permission_active)
-                    <li id="sale-return-menu"><a href="{{ route('return-sale.index') }}">{{ trans('file.Sale') }}</a>
+                    <li id="sale-return-menu"><a
+                            href="{{ route('return-sale.index') }}">{{ trans('file.Sale') }}</a>
                     </li>
                 @endif
                 @if ($purchase_return_index_permission_active)

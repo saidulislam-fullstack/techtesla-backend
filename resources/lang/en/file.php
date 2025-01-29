@@ -103,6 +103,8 @@ return [
 	'Staff' => 'Staff',
 	'Quotation' => 'Quotation',
 	'RFQuotation' => 'RFQuotation',
+	'RFQuotation List' => 'RFQuotation List',
+	'Add RFQuotation' => 'Add RFQuotation',
 	'Create' => 'Create',
 	'Adjustment' => 'Adjustment',
 	'Subtraction' => 'Subtraction',
