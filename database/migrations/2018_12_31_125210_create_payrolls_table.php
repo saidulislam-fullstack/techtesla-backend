@@ -14,7 +14,7 @@ class CreatePayrollsTable extends Migration
     public function up()
     {
         Schema::create('payrolls', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('reference_no');
             $table->integer('employee_id');
             $table->integer('account_id');

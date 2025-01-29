@@ -14,7 +14,7 @@ class CreateExpenseCategoriesTable extends Migration
     public function up()
     {
         Schema::create('expense_categories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('code');
             $table->string('name');
             $table->boolean('is_active');

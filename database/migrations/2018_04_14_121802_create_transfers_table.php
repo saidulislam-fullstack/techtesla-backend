@@ -14,7 +14,7 @@ class CreateTransfersTable extends Migration
     public function up()
     {
         Schema::create('transfers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('reference_no');
             $table->integer('status');
             $table->integer('from_warehouse_id');

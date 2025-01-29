@@ -14,7 +14,7 @@ class CreateProductTransferTable extends Migration
     public function up()
     {
         Schema::create('product_transfer', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('transfer_id');
             $table->integer('product_id');
             $table->double('qty');

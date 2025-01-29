@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	"dashboard" => "painel de controle",
 	"language" => "língua",
@@ -20,7 +20,7 @@ return [
 	"name" => "nome",
 	"submit" => "enviar",
 	"update" => "atualizar",
-	"The field labels marked with * are required input fields" => "As etiquetas de campo marcadas com * são campos de entrada obrigatórios", 
+	"The field labels marked with * are required input fields" => "As etiquetas de campo marcadas com * são campos de entrada obrigatórios",
 	"settings" => "definições",
 	"logout" => "sair",
 	"return" => "Retorna",
@@ -102,6 +102,7 @@ return [
 	"Amount" => "Montante",
 	"Staff" => "Funcionários",
 	"Quotation" => "cotação",
+	"RFQuotation" => "RFQuotation",
 	"Create" => "Crio",
 	"Adjustment" => "Ajustamento",
 	"Subtraction" => "Subtração",
@@ -189,7 +190,7 @@ return [
 	"File Link" => "Link de Arquivo",
 	"Delivery" => "Entrega",
 	"Delivered" => "Entregue",
-	"For Digital product sale_unit will be n/a" => "Para a unidade de venda de produtos digitais será n / a", 
+	"For Digital product sale_unit will be n/a" => "Para a unidade de venda de produtos digitais será n / a",
 	"Forgot Password?" => "Esqueceu a senha?",
 	"Do not have an account?" => "Não possui uma conta?",
 	"Register" => "registo",
@@ -301,7 +302,7 @@ return [
 	"Add Promotional Price" => "Adicionar preço promocional",
 	"Product Tax" => "Imposto sobre produtos",
 	"Tax Method" => "Método Tributário",
-	"Featured product will be displayed in POS" => "Produto em destaque será exibido no POS", 
+	"Featured product will be displayed in POS" => "Produto em destaque será exibido no POS",
 	"Product Invoice Details" => "Detalhes da fatura do produto",
 	"Purchase Status" => "Status de compra",
 	"Add Gift Card" => "Adicionar vale-presente",
@@ -343,7 +344,7 @@ return [
 	"View Deposit" => "Ver depósito",
 	"Import Biller" => "Importar Biller",
 	"Update Biller" => "Atualizar faturamento",
-	"To display Image it must be stored in" => "Para exibir a imagem, ela deve ser armazenada em", 
+	"To display Image it must be stored in" => "Para exibir a imagem, ela deve ser armazenada em",
 	"directory" => "diretório",
 	"Import Supplier" => "Fornecedor de Importação",
 	"Update Supplier" => "Atualizar fornecedor",
@@ -437,7 +438,7 @@ return [
 	"Exclusive" => "Exclusivo",
 	"Inclusive" => "Inclusive",
 	"Combo Products" => "Produtos Combo",
-	"Image name must be same as product name" => "O nome da imagem deve ser o mesmo que o nome do produto", 
+	"Image name must be same as product name" => "O nome da imagem deve ser o mesmo que o nome do produto",
 	"Paying Amount" => "Quantia Pagante",
 	"Payable Amount" => "Valor a Pagar",
 	"Change" => "mudança",
@@ -467,7 +468,7 @@ return [
 	"Update Payroll" => "Atualizar folha de pagamento",
 	"Method" => "Método",
 	"Sale Return" => "Retorno de venda",
-	"Purchase Return" => "Retorno de compra",	
+	"Purchase Return" => "Retorno de compra",
 	"Net Sale Return" => "Retorno Líquido de Venda,",
 	"Net Purchase Return" => "Retorno de Compra Líquido,",
 	"Attendance" => "Comparecimento",
@@ -605,4 +606,3 @@ return [
 	"IMEI or Serial Numbers" => "IMEI ou números de série",
 	"RTL Layout" => "Layout RTL",
 ];
-?>

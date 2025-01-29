@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	'dashboard' => '儀表板',
 	'language' => '語言',
@@ -102,6 +102,7 @@ return [
 	'Amount' => '金額',
 	'Staff' => '員工',
 	'Quotation' => '報價單',
+	"RFQuotation" => "RFQuotation",
 	'Create' => '建立',
 	'Adjustment' => '調整',
 	'Subtraction' => '減法',
@@ -426,7 +427,7 @@ return [
 	'No Tax' => '無稅',
 	'Sent' => '已發送',
 	"Draft" => "草稿",
-	"Stock Value by Price" =>"按售價計算的庫存價值",
+	"Stock Value by Price" => "按售價計算的庫存價值",
 	"Stock Value by Cost" => "按成本計算的庫存價值",
 	"Estimate Profit" => "估計利潤",
 	"Time Zone" => "時區",
@@ -604,12 +605,12 @@ return [
 	"This product has IMEI or Serial numbers" => "此產品有 IMEI 或序列號",
 	"IMEI or Serial Numbers" => "IMEI 或序列號",
 	"RTL Layout" => "RTL 佈局",
-	"Cheque" =>"支票",
-	"Cash" =>"現金",
-	"PayPal" =>"PayPal",
-	"Points" =>"積分",
-	"Cancel" =>"取消",
-	"Recent transaction" =>"最近交易",
+	"Cheque" => "支票",
+	"Cash" => "現金",
+	"PayPal" => "PayPal",
+	"Points" => "積分",
+	"Cancel" => "取消",
+	"Recent transaction" => "最近交易",
 	"Discount Plan" => "折扣計劃",
 	"Create Discount Plan" => "建立折扣計劃",
 	"Inactive" => "不活躍",
@@ -631,4 +632,3 @@ return [
 	"Update Discount Plan" => "更新折扣計劃",
 	"Update Discount" => "更新折扣",
 ];
-?>

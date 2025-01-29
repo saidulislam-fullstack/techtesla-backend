@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
 	"dashboard" => "لوحة القيادة",
 	"language" => "لغة",
@@ -102,6 +102,7 @@ return [
 	"Amount" => "كمية",
 	"Staff" => "العاملين",
 	"Quotation" => "اقتباس",
+	"RFQuotation" => "RFQ",
 	"Create" => "خلق",
 	"Adjustment" => "تعديل",
 	"Subtraction" => "طرح",
@@ -441,7 +442,7 @@ return [
 	"Paying Amount" => "دفع المبلغ",
 	"Payable Amount" => "المبلغ المستحق",
 	"Change" => "يتغيرون",
-	"Back" => "الى الخلف",	
+	"Back" => "الى الخلف",
 	"Role Permission" => "إذن الدور",
 	"Exclusive: Poduct price = Actual product price + Tax. Inclusive: Actual product price = Product price - Tax" => "حصريًا: سعر المنتج = سعر المنتج الفعلي + الضريبة. شامل: سعر المنتج الفعلي = سعر المنتج - الضريبة.",
 	"Accounting" => "محاسبة",
@@ -604,12 +605,11 @@ return [
 	"This product has IMEI or Serial numbers" => "يحتوي هذا المنتج على IMEI أو أرقام تسلسلية",
 	"IMEI or Serial Numbers" => "IMEI أو الأرقام التسلسلية",
 	"RTL Layout" => "تخطيط RTL",
-	"Cheque" =>"التحقق من",
-	"Cash" =>"نقدي",
-	"PayPal" =>"باي بال",
-	"Points" =>"نقاط",
-	"Cancel" =>"يلغي",
-	"Recent transaction" =>"المعاملة الأخيرة",
-	
+	"Cheque" => "التحقق من",
+	"Cash" => "نقدي",
+	"PayPal" => "باي بال",
+	"Points" => "نقاط",
+	"Cancel" => "يلغي",
+	"Recent transaction" => "المعاملة الأخيرة",
+
 ];
-?>

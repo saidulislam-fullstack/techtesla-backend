@@ -14,7 +14,7 @@ class CreateProductVariantsTable extends Migration
     public function up()
     {
         Schema::create('product_variants', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('product_id');
             $table->integer('variant_id');
             $table->integer('position');

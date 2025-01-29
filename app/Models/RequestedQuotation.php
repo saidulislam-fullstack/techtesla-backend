@@ -12,7 +12,7 @@ class RequestedQuotation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'reference_no',
+        'rfq_no',
         'type',
         'added_by',
         'customer_id',
@@ -29,7 +29,7 @@ class RequestedQuotation extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->reference_no = 'RFQ-' . date('YmdHis');
+            $model->rfq_no = 'RFQ-' . date('YmdHis');
             $model->added_by = auth()->id();
         });
     }
