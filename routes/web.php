@@ -35,6 +35,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\RequestedQuotationController;
 use App\Http\Controllers\ReturnController;
 use App\Http\Controllers\ReturnPurchaseController;
 use App\Http\Controllers\RoleController;
@@ -320,6 +321,8 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
 
     Route::resource('quotations', QuotationController::class);
 
+    // RFQuotation
+    Route::resource('rf-quotation', RequestedQuotationController::class);
 
     Route::controller(PurchaseController::class)->group(function () {
         Route::prefix('purchases')->group(function () {
@@ -457,7 +460,7 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
         Route::get('user/genpass', 'generatePassword');
         Route::post('user/deletebyselection', 'deleteBySelection');
     });
-    
+
     Route::resource('user', UserController::class);
 
     Route::controller(SettingController::class)->group(function () {
@@ -490,14 +493,14 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
         Route::post('expense_categories/import', 'import')->name('expense_category.import');
         Route::post('expense_categories/deletebyselection', 'deleteBySelection');
     });
-    
+
     Route::resource('expense_categories', ExpenseCategoryController::class);
 
     Route::controller(ExpenseController::class)->group(function () {
         Route::post('expenses/expense-data', 'expenseData')->name('expenses.data');
         Route::post('expenses/deletebyselection', 'deleteBySelection');
     });
-    
+
     Route::resource('expenses', ExpenseController::class);
 
     Route::controller(GiftCardController::class)->group(function () {
@@ -505,7 +508,7 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
         Route::post('gift_cards/recharge/{id}', 'recharge')->name('gift_cards.recharge');
         Route::post('gift_cards/deletebyselection', 'deleteBySelection');
     });
-    
+
     Route::resource('gift_cards', GiftCardController::class);
     Route::resource('couriers', CourierController::class);
 
@@ -513,7 +516,7 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
         Route::get('coupons/gencode', 'generateCode');
         Route::post('coupons/deletebyselection', 'deleteBySelection');
     });
-    
+
     Route::resource('coupons', CouponController::class);
 
     // Accounting routes
@@ -522,7 +525,7 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
         Route::get('balancesheet', 'balanceSheet')->name('accounts.balancesheet');
         Route::post('account-statement', 'accountStatement')->name('accounts.statement');
     });
-    
+
     Route::resource('accounts', AccountsController::class);
 
     Route::resource('money-transfers', MoneyTransferController::class);
@@ -559,7 +562,7 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
         Route::get('approve-holiday/{id}', 'approveHoliday')->name('approveHoliday');
         Route::get('holidays/my-holiday/{year}/{month}', 'myHoliday')->name('myHoliday');
     });
-    
+
     Route::resource('holidays', HolidayController::class);
 
     Route::controller(CashRegisterController::class)->group(function () {
