@@ -323,6 +323,14 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
     Route::resource('quotations', QuotationController::class);
 
     // RFQuotation
+    Route::controller(RequestedQuotationController::class)->group(function () {
+        Route::prefix('rf-quotation')->group(function () {
+            Route::post('rf-quotation-data', 'rfQuotationData')->name('rf-quotations.data');
+            Route::get('product_rf-quotation/{id}', 'productRFQuotationData');
+            Route::get('product_search', 'productSearch')->name('product_rf-quotation.search');
+            Route::get('getproduct/{id}', 'getProduct')->name('rf-quotation.get-product');
+        });
+    });
     Route::resource('rf-quotation', RequestedQuotationController::class);
 
     // Price Collection
