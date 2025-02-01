@@ -342,8 +342,8 @@
         var customer_group_rate;
         var row_product_price;
         var pos;
-        var currency = <?php echo json_encode($currency); ?>;
-        var without_stock = <?php echo json_encode($general_setting->without_stock); ?>;
+        var currency = @json($currency);
+        var without_stock = @json($general_setting->without_stock);
 
         $('.selectpicker').selectpicker({
             style: 'btn-link',
