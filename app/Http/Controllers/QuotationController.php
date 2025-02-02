@@ -481,6 +481,12 @@ class QuotationController extends Controller
     {
         $product_code = [];
         $product_name = [];
+        $product_type  = [];
+        $product_id = [];
+        $product_list = [];
+        $qty_list = [];
+        $batch_no = [];
+        $product_batch_id = [];
         $product_qty = [];
         $product_price = [];
         $product_data = [];

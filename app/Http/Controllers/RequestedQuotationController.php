@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tax;
+use App\Models\Unit;
 use App\Models\Product;
 use App\Models\Customer;
 use App\Models\Warehouse;
@@ -41,8 +43,10 @@ class RequestedQuotationController extends Controller
     {
         $warehouse_list = Warehouse::where('is_active', true)->get();
         $customer_list = Customer::where('is_active', true)->get();
+        $product_list_with_variant = $this->productWithVariant();
+        $product_list_without_variant = $this->productWithoutVariant();
 
-        return view('backend.rf_quotation.create', compact('customer_list', 'warehouse_list'));
+        return view('backend.rf_quotation.create', compact('customer_list', 'warehouse_list', 'product_list_with_variant', 'product_list_without_variant'));
     }
 
     /**
@@ -85,135 +89,19 @@ class RequestedQuotationController extends Controller
         //
     }
 
-    /**
-     * Get the list of product.
-     */
-    public function getProduct($id)
+    private function productWithVariant()
     {
-        $product_code = [];
-        $product_name = [];
-        $product_qty = [];
-        $product_price = [];
-        $product_data = [];
-        $product_type = [];
-        $product_id = [];
-        $product_list = [];
-        $qty_list = [];
-        $batch_no = [];
-        $product_batch_id = [];
-
-        // Retrieve data of product without variant
-        $lims_product_warehouse_data = Product::join('product_warehouse', 'products.id', '=', 'product_warehouse.product_id')
-            ->where([
-                ['products.is_active', true],
-                ['product_warehouse.warehouse_id', $id],
-            ])
-            ->whereNull('product_warehouse.variant_id')
-            ->whereNull('product_warehouse.product_batch_id')
-            ->select('product_warehouse.*')
+        return Product::join('product_variants', 'products.id', 'product_variants.product_id')
+            ->ActiveStandard()
+            ->whereNotNull('is_variant')
+            ->select('products.id', 'products.name', 'product_variants.item_code')
+            ->orderBy('position')
             ->get();
+    }
 
-        foreach ($lims_product_warehouse_data as $product_warehouse) {
-            $product_qty[] = $product_warehouse->qty;
-            $product_price[] = $product_warehouse->price;
-            $lims_product_data = Product::find($product_warehouse->product_id);
-            $product_code[] =  $lims_product_data->code;
-            $product_name[] = $lims_product_data->name;
-            $product_type[] = $lims_product_data->type;
-            $product_id[] = $lims_product_data->id;
-            $product_list[] = null;
-            $qty_list[] = null;
-            $batch_no[] = null;
-            $product_batch_id[] = null;
-        }
-
-        // Disable strict mode for database
-        config()->set('database.connections.mysql.strict', false);
-        DB::reconnect();
-
-        $lims_product_with_batch_warehouse_data = Product::join('product_warehouse', 'products.id', '=', 'product_warehouse.product_id')
-            ->where([
-                ['products.is_active', true],
-                ['product_warehouse.warehouse_id', $id],
-            ])
-            ->whereNull('product_warehouse.variant_id')
-            ->whereNotNull('product_warehouse.product_batch_id')
-            ->select('product_warehouse.*')
-            ->groupBy('product_warehouse.product_id')
-            ->get();
-
-        // Re-enable strict mode
-        config()->set('database.connections.mysql.strict', true);
-        DB::reconnect();
-
-        foreach ($lims_product_with_batch_warehouse_data as $product_warehouse) {
-            $product_qty[] = $product_warehouse->qty;
-            $product_price[] = $product_warehouse->price;
-            $lims_product_data = Product::find($product_warehouse->product_id);
-            $product_code[] =  $lims_product_data->code;
-            $product_name[] = $lims_product_data->name;
-            $product_type[] = $lims_product_data->type;
-            $product_id[] = $lims_product_data->id;
-            $product_list[] = null;
-            $qty_list[] = null;
-
-            $product_batch_data = ProductBatch::select('id', 'batch_no')->find($product_warehouse->product_batch_id);
-            $batch_no[] = $product_batch_data->batch_no ?? null;
-            $product_batch_id[] = $product_batch_data->id ?? null;
-        }
-
-        // Retrieve data of product with variant
-        $lims_product_warehouse_data = Product::join('product_warehouse', 'products.id', '=', 'product_warehouse.product_id')
-            ->where([
-                ['products.is_active', true],
-                ['product_warehouse.warehouse_id', $id],
-            ])
-            ->whereNotNull('product_warehouse.variant_id')
-            ->select('product_warehouse.*')
-            ->get();
-
-        foreach ($lims_product_warehouse_data as $product_warehouse) {
-            $product_qty[] = $product_warehouse->qty;
-            $lims_product_data = Product::find($product_warehouse->product_id);
-            $lims_product_variant_data = ProductVariant::select('item_code')
-                ->FindExactProduct($product_warehouse->product_id, $product_warehouse->variant_id)
-                ->first();
-
-            $product_code[] =  $lims_product_variant_data->item_code;
-            $product_name[] = $lims_product_data->name;
-            $product_type[] = $lims_product_data->type;
-            $product_id[] = $lims_product_data->id;
-            $product_list[] = null;
-            $qty_list[] = null;
-            $batch_no[] = null;
-            $product_batch_id[] = null;
-        }
-
-        // Retrieve product data of digital and combo
-        $lims_product_data = Product::whereNotIn('type', ['standard'])->where('is_active', true)->get();
-        foreach ($lims_product_data as $product) {
-            $product_qty[] = $product->qty;
-            $product_code[] =  $product->code;
-            $product_name[] = $product->name;
-            $product_type[] = $product->type;
-            $product_id[] = $product->id;
-            $product_list[] = $product->product_list;
-            $qty_list[] = $product->qty_list;
-        }
-
-        $product_data = [
-            $product_code,
-            $product_name,
-            $product_qty,
-            $product_type,
-            $product_id,
-            $product_list,
-            $qty_list,
-            $product_price,
-            $batch_no,
-            $product_batch_id
-        ];
-
-        return $product_data;
+    private function productWithoutVariant()
+    {
+        return Product::ActiveStandard()->select('id', 'name', 'code')
+            ->whereNull('is_variant')->get();
     }
 }

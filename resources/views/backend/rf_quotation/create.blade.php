@@ -53,15 +53,10 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('file.Warehouse') }} *</label>
-                                            <select id="warehouse_id" name="warehouse_id" required
-                                                class="selectpicker form-control" data-live-search="true"
-                                                title="Select warehouse...">
-                                                @foreach ($warehouse_list as $warehouse)
-                                                    <option value="{{ $warehouse->id }}">{{ $warehouse->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            <label>{{ trans('file.Attach Document') }}</label> <i class="dripicons-question"
+                                                data-toggle="tooltip"
+                                                title="Only jpg, jpeg, png, gif, pdf, csv, docx, xlsx and txt file is supported"></i>
+                                            <input type="file" name="document" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-md-12 mt-2">
@@ -70,6 +65,15 @@
                                             <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>
                                             <input type="text" name="product_name" id="productSearch"
                                                 placeholder="Please type product code and select..." class="form-control" />
+                                        </div>
+                                        <ul id="productSearchResult" class="list-group mt-1"></ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>{{ trans('file.Note') }}</label>
+                                            <textarea rows="5" class="form-control" name="note"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -100,93 +104,67 @@
 @endsection
 @push('scripts')
     <script type="text/javascript">
+        var product_list_with_variant = @json($product_list_with_variant);
+        var product_list_without_variant = @json($product_list_without_variant);
+        var product_array = [];
+        var productSearch = $('#productSearch');
+
+        // foreach product with variant and without variant and push into product_array
+        product_list_with_variant.forEach(function(product) {
+            product_array.push(escapeHtml(product.code) + '|' + replaceNewLines(escapeHtml(product.name)));
+        });
+        product_list_without_variant.forEach(function(product) {
+            product_array.push(escapeHtml(product.code) + '|' + replaceNewLines(escapeHtml(product.name)));
+        });
+
+        console.log(product_list_without_variant);
+
+
         $("ul#quotation").siblings('a').attr('aria-expanded', 'true');
         $("ul#quotation").addClass("show");
         $("ul#quotation #rf-quotation-create-menu").addClass("active");
-
-        var product_array = [];
-        var product_code = [];
-        var product_name = [];
-        var product_qty = [];
-        var product_type = [];
-        var product_id = [];
-        var product_list = [];
-        var qty_list = [];
-        var product_warehouse_price = [];
-
 
         $('.selectpicker').selectpicker({
             style: 'btn-link',
         });
 
-        $('select[name="warehouse_id"]').on('change', function() {
-            var id = $(this).val();
-            $.get('getproduct/' + id, function(data) {
-                product_array = [];
-                product_code = data[0];
-                product_name = data[1];
-                product_qty = data[2];
-                product_type = data[3];
-                product_id = data[4];
-                product_list = data[5];
-                qty_list = data[6];
-                product_warehouse_price = data[7];
-                $.each(product_code, function(index) {
-                    product_array.push(product_code[index] + ' (' + product_name[index] + ')');
-                });
+        // search product
+        productSearch.on('input', function() {
+            var search = $(this).val();
+            var regex = new RegExp(search, 'i');
+            var result = product_array.filter(product => product.match(regex));
+            var html = '';
+            result.slice(0, 10).forEach(function(product) {
+                var product = product.split('|');
+                html += '<li class="list-group-item product-item" data-code="' + product[0] + '">' +
+                    product[1] +
+                    '</li>';
             });
+            $('#productSearchResult').html(html);
         });
 
-        $('#productSearch').on('input', function() {
-            var customer_id = $('#customer_id').val();
-            var warehouse_id = $('#warehouse_id').val();
-            temp_data = $('#productSearch').val();
-            if (!customer_id) {
-                $('#productSearch').val(temp_data.substring(0, temp_data.length - 1));
-                alert('Please select Customer!');
-            } else if (!warehouse_id) {
-                $('#productSearch').val(temp_data.substring(0, temp_data.length - 1));
-                alert('Please select Warehouse!');
-            }
+        // Handle product selection from search results
+        $(document).on('click', '.product-item', function() {
+            var selectedProduct = $(this).data('code');
+            productSearch.val(selectedProduct); // Set input value to selected product code
+            $('#productSearchResult').html(''); // Clear search results
         });
 
-        var productSearch = $('#productSearch');
-
-        productSearch.autocomplete({
-            source: function(request, response) {
-                var matcher = new RegExp(".?" + $.ui.autocomplete.escapeRegex(request.term), "i");
-                response($.grep(product_array, function(item) {
-                    return matcher.test(item);
-                }));
-            },
-            response: function(event, ui) {
-                if (ui.content.length == 1) {
-                    var data = ui.content[0].value;
-                    console.log(data);
-
-                    $(this).autocomplete("close");
-                    productSearch(data);
+        function escapeHtml(text) {
+            return text.replace(/[&<>"']/g, function(char) {
+                const escapeMap = {
+                    '&': "&amp;",
+                    '<': "&lt;",
+                    '>': "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;"
                 };
-            },
-            select: function(event, ui) {
-                var data = ui.item.value;
-                productSearch(data);
-            }
-        });
-
-
-        function productSearch(data) {
-            $.ajax({
-                type: 'GET',
-                url: 'lims_product_search',
-                data: {
-                    data: data
-                },
-                success: function(data) {
-                    console.log(data);
-
-                }
+                return escapeMap[char];
             });
+        }
+
+        function replaceNewLines(text) {
+            return text.replace(/[\n\r]/g, "<br>");
         }
     </script>
 @endpush
