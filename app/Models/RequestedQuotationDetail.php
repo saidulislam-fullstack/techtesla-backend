@@ -15,7 +15,6 @@ class RequestedQuotationDetail extends Model
         'requested_quotation_id',
         'product_id',
         'quantity',
-        'price',
         'proposed_price',
     ];
 

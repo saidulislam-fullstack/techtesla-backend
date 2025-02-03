@@ -206,6 +206,7 @@
                 id="custom-style">
         @endif
     @endif
+    @stack('styles')
     <!-- Google fonts - Roboto -->
     <link rel="preload" href="https://fonts.googleapis.com/css?family=Nunito:400,500,700" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
@@ -239,8 +240,6 @@
             <header class="container-fluid">
                 <nav class="navbar">
                     <a id="toggle-btn" href="#" class="menu-btn"><i class="fa fa-bars"> </i></a>
-
-
                     <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                         <div class="dropdown">
                             <a class="btn-pos btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -585,7 +584,6 @@
                 </nav>
             </header>
         @endif
-
 
         <div style="display:none" id="content" class="animate-bottom">
             @include('includes.session_message')
@@ -1166,6 +1164,7 @@
         </div>
         <!-- end supplier modal -->
     </div>
+    @stack('scripts')
     @if (!config('database.connections.saleprosaas_landlord'))
         <script type="text/javascript" src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery/jquery-ui.min.js') }}"></script>
@@ -1282,7 +1281,6 @@
             </script>
         @endif
     @endif
-    @stack('scripts')
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
@@ -1458,6 +1456,7 @@
             style: 'btn-link',
         });
     </script>
+    @stack('js')
 </body>
 
 </html>

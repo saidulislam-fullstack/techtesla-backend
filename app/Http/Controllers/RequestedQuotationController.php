@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\RequestedQuotationDataTable;
 use App\Models\Tax;
 use App\Models\Unit;
 use App\Models\Product;
@@ -31,9 +32,9 @@ class RequestedQuotationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(RequestedQuotationDataTable $dataTable)
     {
-        return view('backend.rf_quotation.index');
+        return $dataTable->render('backend.rf_quotation.index');
     }
 
     /**
@@ -59,17 +60,42 @@ class RequestedQuotationController extends Controller
             'date' => 'required|date',
             'document' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,csv,docx,xlsx|max:10240',
             'type' => 'required|in:1,2,3',
+            'product_id' => 'required|array',
             'product_code' => 'required|array',
             'quantity' => 'required|array',
             'proposed_price' => 'required|array',
             'note' => 'nullable|string',
             'delivery_info' => 'nullable|string',
+            'product_id.*' => 'required|integer',
             'product_code.*' => 'required|string',
             'quantity.*' => 'required|integer',
             'proposed_price.*' => 'required|numeric',
         ]);
 
-        dd($data);
+        DB::transaction(function () use ($data) {
+            $rf_quotation = RequestedQuotation::create([
+                'customer_id' => $data['customer_id'],
+                'date' => $data['date'],
+                'type' => $data['type'],
+                'document' => $data['document'],
+                'note' => $data['note'],
+                'delivery_info' => $data['delivery_info'],
+            ]);
+
+            $rf_quotation->items()->createMany(array_map(function (
+                $product_id,
+                $quantity,
+                $proposed_price
+            ) {
+                return [
+                    'product_id' => $product_id,
+                    'quantity' => $quantity,
+                    'proposed_price' => $proposed_price,
+                ];
+            }, $data['product_id'], $data['quantity'], $data['proposed_price']));
+        });
+
+        return redirect()->route('rf_quotation.index')->with('message', 'Requested quotation created successfully.');
     }
 
     /**

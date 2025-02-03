@@ -20,7 +20,7 @@
                                         <div class="form-group">
                                             <label for="rfq_date">{{ trans('file.Date') }}</label><span class="required">
                                                 *</span>
-                                            <input type="date" name="rfq_date" id="rfq_date" class="form-control"
+                                            <input type="date" name="date" id="rfq_date" class="form-control"
                                                 required />
                                         </div>
                                     </div>
@@ -40,9 +40,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label>{{ trans('file.customer') }} </label>
-                                            <select id="customer_id" name="customer_id" required
-                                                class="selectpicker form-control" data-live-search="true" id="customer-id"
-                                                title="Select customer...">
+                                            <select id="customer_id" name="customer_id" class="selectpicker form-control"
+                                                data-live-search="true" id="customer-id" title="Select customer...">
                                                 @foreach ($customer_list as $customer)
                                                     <option value="{{ $customer->id }}">
                                                         {{ $customer->name . ' (' . $customer->phone_number . ')' }}
@@ -127,10 +126,12 @@
 
         // foreach product with variant and without variant and push into product_array
         product_list_with_variant.forEach(function(product) {
-            product_array.push(escapeHtml(product.item_code) + '|' + replaceNewLines(escapeHtml(product.name)));
+            product_array.push(escapeHtml(product.item_code) + '|' + replaceNewLines(escapeHtml(product.name)) +
+                '|' + product.id);
         });
         product_list_without_variant.forEach(function(product) {
-            product_array.push(escapeHtml(product.code) + '|' + replaceNewLines(escapeHtml(product.name)));
+            product_array.push(escapeHtml(product.code) + '|' + replaceNewLines(escapeHtml(product.name)) + '|' +
+                product.id);
         });
 
         console.log(product_list_without_variant);
@@ -158,7 +159,8 @@
             var html = '';
             result.slice(0, 10).forEach(function(product) {
                 var product = product.split('|');
-                html += '<li class="list-group-item product-item" data-code="' + product[0] + '">' +
+                html += '<li class="list-group-item product-item" data-code="' + product[0] +
+                    '" data-id="' + product[2] + '">' +
                     product[1] +
                     '</li>';
             });
@@ -175,6 +177,7 @@
             let productDetails = product.split('|');
             let productCode = productDetails[0];
             let productName = productDetails[1];
+            let productId = productDetails[2];
             $('#productSearchResult').html(''); // Clear search results
             $('#productSearch').val(''); // Clear search input
             // Check if product already exists in the table
@@ -188,7 +191,7 @@
             } else {
                 let row = '<tr>' +
                     '<td>' + productName + '<input type="hidden" name="product_code[]" value="' + productCode +
-                    '"></td>' +
+                    '"><input type="hidden" name="product_id[]" value="' + productId + '" /></td>' +
                     '<td><input type="number" name="quantity[]" class="form-control" value="' + quantity +
                     '" required></td>' +
                     '<td><input type="number" name="proposed_price[]" class="form-control" value="' +
