@@ -114,7 +114,12 @@ class RequestedQuotationController extends Controller
      */
     public function edit(RequestedQuotation $rf_quotation)
     {
-        return view('backend.rf_quotation.edit');
+        $item = $rf_quotation->load('items.product', 'customer');
+        $warehouse_list = Warehouse::where('is_active', true)->get();
+        $customer_list = Customer::where('is_active', true)->get();
+        $product_list_with_variant = $this->productWithVariant();
+        $product_list_without_variant = $this->productWithoutVariant();
+        return view('backend.rf_quotation.edit', compact('item', 'customer_list', 'warehouse_list', 'product_list_with_variant', 'product_list_without_variant'));
     }
 
     /**
