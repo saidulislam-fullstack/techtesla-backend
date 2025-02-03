@@ -868,5 +868,7 @@ return [
 	"Update Courier" => "Update Courier",
 	"Sale and Quotation without stock" => "Sale and Quotation without stock",
 	"Yes" => "Yes",
-	"No" => "No"
+	"No" => "No",
+	"Proposed Price" => "Proposed Price",
+	"Delivery Address" => "Delivery Address",
 ];

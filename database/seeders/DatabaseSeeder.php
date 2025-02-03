@@ -2,6 +2,8 @@
 
 use Database\Seeders\AccountSeeder;
 use Database\Seeders\BillerSeeder;
+use Database\Seeders\BrandSeeder;
+use Database\Seeders\CategorySeeder;
 use Database\Seeders\CourierSeeder;
 use Database\Seeders\CurrencySeeder;
 use Database\Seeders\CustomerSeeder;
@@ -26,6 +28,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            BrandSeeder::class,
+            CategorySeeder::class,
             RolePermissionSeeder::class,
             GeneralSettingSeeder::class,
             LanguageSeeder::class,
