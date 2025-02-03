@@ -59,7 +59,7 @@ class RequestedQuotationController extends Controller
             'customer_id' => 'nullable|integer',
             'date' => 'required|date',
             'document' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,csv,docx,xlsx|max:10240',
-            'type' => 'required|in:1,2,3',
+            'type' => 'required|in:regular_mro,project,techtesla_stock',
             'product_id' => 'required|array',
             'product_code' => 'required|array',
             'quantity' => 'required|array',
@@ -82,7 +82,8 @@ class RequestedQuotationController extends Controller
             ]);
 
             if ($request->hasFile('document')) {
-                $rf_quotation->store('rf-quotation/document', $request->file('document'));
+                $path = $request->file('document')->store('rf-quotation/document', 'public');
+                $rf_quotation->update(['document' => $path]);
             }
 
             $rf_quotation->items()->createMany(array_map(function (

@@ -872,4 +872,5 @@ return [
 	"Proposed Price" => "Proposed Price",
 	"Delivery Address" => "Delivery Address",
 	"Requested Quotation List" => "Requested Quotation List",
+	"Update RFQuotation" => "Update RFQuotation",
 ];

@@ -31,9 +31,9 @@
                                             <select name="type" id="rfq_type" class="selectpicker form-control"
                                                 data-live-search="true" title="Select Type..." required>
                                                 <option value="">Select Type</option>
-                                                <option value="1">Regular MRO</option>
-                                                <option value="2">Project</option>
-                                                <option value="3">TecTesla Stock</option>
+                                                <option value="regular_mro">Regular MRO</option>
+                                                <option value="project">Project</option>
+                                                <option value="techtesla_stock">TecTesla Stock</option>
                                             </select>
                                         </div>
                                     </div>
@@ -197,7 +197,7 @@
                     '<td><input type="number" name="proposed_price[]" class="form-control" value="' +
                     proposedPrice +
                     '" required></td>' +
-                    '<td><button class="btn btn-danger remove-row">Remove</button></td>' +
+                    '<td><button class="btn btn-danger remove-row"><i class="fa fa-trash"></i></button></td>' +
                     '</tr>';
                 // Append the new row to the table
                 $('#myTable tbody').append(row);

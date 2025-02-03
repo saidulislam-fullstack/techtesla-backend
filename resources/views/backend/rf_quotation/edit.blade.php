@@ -30,10 +30,11 @@
                                                 *</span>
                                             <select name="type" id="rfq_type" class="selectpicker form-control"
                                                 data-live-search="true" title="Select Type..." required>
-                                                <option value="">Select Type</option>
-                                                <option value="1" @selected($item->type == 1)>Regular MRO</option>
-                                                <option value="2" @selected($item->type == 2)>Project</option>
-                                                <option value="3" @selected($item->type == 3)>TecTesla Stock</option>
+                                                <option value="techtesla_stock" @selected($item->type = 'techtesla_stock')>Regular MRO
+                                                </option>
+                                                <option value="project" @selected($item->type = 'project')>Project</option>
+                                                <option value="techtesla_stock" @selected($item->type = 'techtesla_stock')>TecTesla Stock
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -97,8 +98,9 @@
                                                                     value="{{ $order->quantity }}" required />
                                                             </td>
                                                             <td>
-                                                                <input type="number" name="price[]" class="form-control"
-                                                                    value="{{ $order->price }}" required />
+                                                                <input type="number" name="proposed_price[]"
+                                                                    class="form-control"
+                                                                    value="{{ $order->proposed_price }}" required />
                                                             </td>
                                                             <td>
                                                                 <button type="button" class="btn btn-danger remove-row">
@@ -143,4 +145,9 @@
     </section>
 @endsection
 @push('scripts')
+    <script>
+        $("ul#quotation").siblings('a').attr('aria-expanded', 'true');
+        $("ul#quotation").addClass("show");
+        $("ul#quotation #rf-quotation-list-menu").addClass("active");
+    </script>
 @endpush
