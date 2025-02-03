@@ -1164,7 +1164,7 @@
         </div>
         <!-- end supplier modal -->
     </div>
-    @stack('scripts')
+    @stack('js')
     @if (!config('database.connections.saleprosaas_landlord'))
         <script type="text/javascript" src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('vendor/jquery/jquery-ui.min.js') }}"></script>
@@ -1456,7 +1456,7 @@
             style: 'btn-link',
         });
     </script>
-    @stack('js')
+    @stack('scripts')
 </body>
 
 </html>

@@ -27,11 +27,11 @@
         </div>
     </section>
 @endsection
-@push('scripts')
-    {{-- <script src="{{ asset('vendor/yajra-laravel-datatables/dataTables.responsive.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('vendor/yajra-laravel-datatables/datatables.min.js') }}"></script> --}}
-@endpush
 @push('js')
+    {{-- <script src="{{ asset('vendor/yajra-laravel-datatables/dataTables.responsive.min.js') }}"></script> --}}
+    <script src="{{ asset('vendor/yajra-laravel-datatables/datatables.min.js') }}"></script>
+@endpush
+@push('scripts')
     <script>
         $("ul#quotation").siblings('a').attr('aria-expanded', 'true');
         $("ul#quotation").addClass("show");
