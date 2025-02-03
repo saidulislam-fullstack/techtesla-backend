@@ -24,8 +24,8 @@ class RequestedQuotationController extends Controller
         $this->middleware('auth');
         $this->middleware('permission:rf-quotes-index')->only('index', 'show');
         $this->middleware('permission:rf-quotes-add')->only('create', 'store');
-        // $this->middleware('permission:rf-quotes-edit')->only('edit', 'update');
-        // $this->middleware('permission:rf-quotes-delete')->only('destroy');
+        $this->middleware('permission:rf-quotes-edit')->only('edit', 'update');
+        $this->middleware('permission:rf-quotes-delete')->only('destroy');
     }
 
     /**
@@ -54,13 +54,28 @@ class RequestedQuotationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'customer_id' => 'nullable|integer',
+            'date' => 'required|date',
+            'document' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,csv,docx,xlsx|max:10240',
+            'type' => 'required|in:1,2,3',
+            'product_code' => 'required|array',
+            'quantity' => 'required|array',
+            'proposed_price' => 'required|array',
+            'note' => 'nullable|string',
+            'delivery_info' => 'nullable|string',
+            'product_code.*' => 'required|string',
+            'quantity.*' => 'required|integer',
+            'proposed_price.*' => 'required|numeric',
+        ]);
+
+        dd($data);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(RequestedQuotation $requestedQuotation)
+    public function show(RequestedQuotation $rf_quotation)
     {
         //
     }
@@ -68,7 +83,7 @@ class RequestedQuotationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RequestedQuotation $requestedQuotation)
+    public function edit(RequestedQuotation $rf_quotation)
     {
         return view('backend.rf_quotation.edit');
     }
@@ -76,7 +91,7 @@ class RequestedQuotationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RequestedQuotation $requestedQuotation)
+    public function update(Request $request, RequestedQuotation $rf_quotation)
     {
         //
     }
@@ -84,7 +99,7 @@ class RequestedQuotationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RequestedQuotation $requestedQuotation)
+    public function destroy(RequestedQuotation $rf_quotation)
     {
         //
     }
