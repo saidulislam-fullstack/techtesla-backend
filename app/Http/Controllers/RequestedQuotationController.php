@@ -72,15 +72,18 @@ class RequestedQuotationController extends Controller
             'proposed_price.*' => 'required|numeric',
         ]);
 
-        DB::transaction(function () use ($data) {
+        DB::transaction(function () use ($data, $request) {
             $rf_quotation = RequestedQuotation::create([
                 'customer_id' => $data['customer_id'],
                 'date' => $data['date'],
                 'type' => $data['type'],
-                'document' => $data['document'],
                 'note' => $data['note'],
                 'delivery_info' => $data['delivery_info'],
             ]);
+
+            if ($request->hasFile('document')) {
+                $rf_quotation->store('rf-quotation/document', $request->file('document'));
+            }
 
             $rf_quotation->items()->createMany(array_map(function (
                 $product_id,
@@ -95,7 +98,7 @@ class RequestedQuotationController extends Controller
             }, $data['product_id'], $data['quantity'], $data['proposed_price']));
         });
 
-        return redirect()->route('rf_quotation.index')->with('message', 'Requested quotation created successfully.');
+        return redirect()->route('rf-quotation.index')->with('message', 'Requested quotation created successfully.');
     }
 
     /**
