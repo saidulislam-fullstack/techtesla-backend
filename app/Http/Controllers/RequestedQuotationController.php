@@ -14,6 +14,7 @@ use App\Models\ProductVariant;
 use App\Models\RequestedQuotation;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\RequestedQuotationDetail;
 
 class RequestedQuotationController extends Controller
 {
@@ -128,7 +129,64 @@ class RequestedQuotationController extends Controller
      */
     public function update(Request $request, RequestedQuotation $rf_quotation)
     {
-        //
+        $data = $request->validate([
+            'customer_id' => 'nullable|integer',
+            'date' => 'required|date',
+            'document' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,csv,docx,xlsx|max:10240',
+            'type' => 'required|in:regular_mro,project,techtesla_stock',
+            'product_id' => 'required|array',
+            'id' => 'nullable|array',
+            'quantity' => 'required|array',
+            'proposed_price' => 'required|array',
+            'note' => 'nullable|string',
+            'delivery_info' => 'nullable|string',
+            'id.*' => 'nullable|integer',
+            'product_id.*' => 'required|integer',
+            'quantity.*' => 'required|integer',
+            'proposed_price.*' => 'required|numeric',
+        ]);
+
+        DB::transaction(function () use ($data, $request, $rf_quotation) {
+            $rf_quotation->update([
+                'customer_id' => $data['customer_id'],
+                'date' => $data['date'],
+                'type' => $data['type'],
+                'note' => $data['note'],
+                'delivery_info' => $data['delivery_info'],
+            ]);
+
+            if ($request->hasFile('document')) {
+                // remove old file
+                if ($rf_quotation->document) {
+                    unlink(storage_path('app/public/' . $rf_quotation->document));
+                }
+                $path = $request->file('document')->store('rf-quotation/document', 'public');
+                $rf_quotation->update(['document' => $path]);
+            }
+
+            $existing_item_id = [];
+
+            // update or create new items
+            foreach ($data['product_id'] as $key => $value) {
+                $id = isset($data['id'][$key]) ? $data['id'][$key] : null;
+                $item = RequestedQuotationDetail::updateOrCreate(
+                    ['id' => $data['id'][$key]],
+                    [
+                        'product_id' => $value,
+                        'quantity' => $data['quantity'][$key],
+                        'proposed_price' => $data['proposed_price'][$key],
+                    ]
+                );
+                if ($id) {
+                    $existing_item_id[] = $item->id;
+                }
+            }
+
+            // existing items from request
+            $rf_quotation->items()->whereNotIn('id', $existing_item_id)->delete();
+        });
+
+        return redirect()->route('rf-quotation.index')->with('message', 'Requested quotation updated successfully.');
     }
 
     /**
@@ -136,7 +194,14 @@ class RequestedQuotationController extends Controller
      */
     public function destroy(RequestedQuotation $rf_quotation)
     {
-        //
+        DB::transaction(function () use ($rf_quotation) {
+            if ($rf_quotation->document) {
+                unlink(storage_path('app/public/' . $rf_quotation->document));
+            }
+            $rf_quotation->items()->delete();
+            $rf_quotation->delete();
+        });
+        return redirect()->route('rf-quotation.index')->with('message', 'Requested quotation deleted successfully.');
     }
 
     private function productWithVariant()

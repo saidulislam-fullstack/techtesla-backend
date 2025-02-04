@@ -26,7 +26,7 @@ class RequestedQuotationDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 $btn = '';
                 $btn .= '<div class="btn-group" role="group">';
-                $btn .= '<a href="' . route('rf-quotation.show', $query->id) . '" class="btn btn-sm btn-info" title="View"><i class="fa fa-eye"></i></a>';
+                // $btn .= '<a href="' . route('rf-quotation.show', $query->id) . '" class="btn btn-sm btn-info" title="View"><i class="fa fa-eye"></i></a>';
                 $btn .= '<a href="' . route('rf-quotation.edit', $query->id) . '" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit"></i></a>';
                 $btn .= '<button type="button" class="btn btn-sm btn-danger" onclick="deleteData(' . $query->id . ')" title="Delete"><i class="fa fa-trash"></i></button>';
                 $btn .= '</div>';

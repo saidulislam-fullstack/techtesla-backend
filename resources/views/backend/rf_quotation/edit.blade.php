@@ -91,6 +91,8 @@
                                                             <td>
                                                                 <input type="hidden" name="product_id[]"
                                                                     value="{{ $order->product_id }}" />
+                                                                <input type="hidden" name="id[]"
+                                                                    value="{{ $order->id }}" />
                                                                 {{ $order->product->name }}
                                                             </td>
                                                             <td>
@@ -145,9 +147,115 @@
     </section>
 @endsection
 @push('scripts')
-    <script>
+    <script type="text/javascript">
+        var product_list_with_variant = @json($product_list_with_variant);
+        var product_list_without_variant = @json($product_list_without_variant);
+        var product_array = [];
+        var productSearch = $('#productSearch');
+
+        // foreach product with variant and without variant and push into product_array
+        product_list_with_variant.forEach(function(product) {
+            product_array.push(escapeHtml(product.item_code) + '|' + replaceNewLines(escapeHtml(product.name)) +
+                '|' + product.id);
+        });
+        product_list_without_variant.forEach(function(product) {
+            product_array.push(escapeHtml(product.code) + '|' + replaceNewLines(escapeHtml(product.name)) + '|' +
+                product.id);
+        });
+
+        console.log(product_list_without_variant);
+        console.log(product_list_with_variant);
+
         $("ul#quotation").siblings('a').attr('aria-expanded', 'true');
         $("ul#quotation").addClass("show");
         $("ul#quotation #rf-quotation-list-menu").addClass("active");
+
+        $('.selectpicker').selectpicker({
+            style: 'btn-link',
+        });
+
+        // search product
+        productSearch.on('input', function() {
+            var search = $(this).val();
+            var regex = new RegExp(search, 'i');
+            // if search is empty, clear search results
+            if (search == '') {
+                $('#productSearchResult').html('');
+                return;
+            }
+            var result = product_array.filter(product => product.match(regex));
+            var html = '';
+            result.slice(0, 10).forEach(function(product) {
+                var product = product.split('|');
+                html += '<li class="list-group-item product-item" data-code="' + product[0] +
+                    '" data-id="' + product[2] + '">' +
+                    product[1] +
+                    '</li>';
+            });
+            $('#productSearchResult').html(html);
+        });
+
+        // Handle product selection from search results
+        $(document).on('click', '.product-item', function() {
+            let selectedProduct = $(this).data('code');
+            let product = product_array.find(product => product.split('|')[0] == selectedProduct);
+            let quantity = 1;
+            let proposedPrice = 0;
+            // search product in product_array
+            let productDetails = product.split('|');
+            let productCode = productDetails[0];
+            let productName = productDetails[1];
+            let productId = productDetails[2];
+            $('#productSearchResult').html(''); // Clear search results
+            $('#productSearch').val(''); // Clear search input
+            // Check if product already exists in the table
+            let existingRow = $('#myTable tbody tr').filter(function() {
+                return $(this).find('input[name="product_id[]"]').val() == productId;
+            });
+            if (existingRow.length > 0) {
+                // Product already exists, update quantity
+                let currentQuantity = parseInt(existingRow.find('input[name="quantity[]"]').val(), 10);
+                existingRow.find('input[name="quantity[]"]').val(currentQuantity + 1);
+            } else {
+                let row = '<tr>' +
+                    '<td>' + productName + '<input type="hidden" name="product_code[]" value="' + productCode +
+                    '"><input type="hidden" name="id[]" value=""><input type="hidden" name="product_id[]" value="' +
+                    productId + '" /></td>' +
+                    '<td><input type="number" name="quantity[]" class="form-control" value="' + quantity +
+                    '" required></td>' +
+                    '<td><input type="number" name="proposed_price[]" class="form-control" value="' +
+                    proposedPrice +
+                    '" required></td>' +
+                    '<td><button class="btn btn-danger remove-row"><i class="fa fa-trash"></i></button></td>' +
+                    '</tr>';
+                // Append the new row to the table
+                $('#myTable tbody').append(row);
+            }
+        });
+
+        // Remove product from the table
+        $(document).on('click', '.remove-row', function() {
+            $(this).closest('tr').remove();
+        });
+
+        function escapeHtml(text) {
+            if (typeof text !== 'string') {
+                return text || '';
+            }
+            return text.replace(/[&<>"']/g, function(char) {
+                const escapeMap = {
+                    '&': "&amp;",
+                    '<': "&lt;",
+                    '>': "&gt;",
+                    '"': "&quot;",
+                    "'": "&#039;"
+                };
+                return escapeMap[char];
+            });
+        }
+
+        function replaceNewLines(text) {
+            return text.replace(/[\n\r]/g, "<br>");
+        }
     </script>
 @endpush
