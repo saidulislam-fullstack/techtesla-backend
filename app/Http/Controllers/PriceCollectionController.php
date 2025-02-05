@@ -61,6 +61,39 @@ class PriceCollectionController extends Controller
             ->with('message', 'Price Collection created successfully.');
     }
 
+    public function selection(RequestedQuotation $rfq)
+    {
+        $items = PriceCollection::with([
+            'rfqItem',
+            'product',
+            'supplier'
+        ])
+            ->where('rfq_id', $rfq->id)
+            ->orderBy('is_selected')
+            ->orderBy('supplier_id')
+            ->orderBy('product_id')
+            ->get();
+
+        return view('backend.price_collection.selection', compact('items', 'rfq'));
+    }
+
+    public function selectionStore(Request $request, RequestedQuotation $rfq)
+    {
+        $data = $request->validate([
+            'item_id' => 'required|array',
+            'item_id.*' => 'required|exists:price_collections,id',
+        ]);
+
+        foreach ($data['item_id'] as $item_id) {
+            $item = PriceCollection::find($item_id);
+            $item->is_selected = 1;
+            $item->save();
+        }
+
+        return redirect()->route('rf-quotation.index')
+            ->with('message', 'Price Collection created successfully.');
+    }
+
     public function getRfqItems(Request $request)
     {
         $rfq_items = RequestedQuotation::with('items.product')

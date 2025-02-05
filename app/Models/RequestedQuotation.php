@@ -48,4 +48,14 @@ class RequestedQuotation extends Model
     {
         return $this->hasMany(RequestedQuotationDetail::class);
     }
+
+    public function priceCollection()
+    {
+        return $this->hasMany(PriceCollection::class, 'rfq_id');
+    }
+
+    public function getHasPriceCollectionSelectedAttribute()
+    {
+        return $this->priceCollection()->where('is_selected', true)->exists();
+    }
 }
