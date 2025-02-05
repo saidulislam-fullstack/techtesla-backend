@@ -14,6 +14,7 @@ class RequestedQuotationDetail extends Model
     protected $fillable = [
         'requested_quotation_id',
         'product_id',
+        'product_code',
         'quantity',
         'proposed_price',
     ];

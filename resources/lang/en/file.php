@@ -873,4 +873,13 @@ return [
 	"Delivery Address" => "Delivery Address",
 	"Requested Quotation List" => "Requested Quotation List",
 	"Update RFQuotation" => "Update RFQuotation",
+	"Select RFQ" => "Select RFQ",
+	"Add Price Collection" => "Add Price Collection",
+	"RFQ" => "RFQ",
+	"Collection Table" => "Collection Table",
+	"Market Price" => "Market Price",
+	"Price Collect Selection" => "Price Collect Selection",
+	"Customer Proposed Price" => "Customer Proposed Price",
+	"Select" => "Select",
+	"After submission selection will be effected on RFQ" => "After submission selection will be effected on RFQ",
 ];

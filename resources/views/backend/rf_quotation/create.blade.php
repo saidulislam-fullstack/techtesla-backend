@@ -125,10 +125,10 @@
         var productSearch = $('#productSearch');
 
         // foreach product with variant and without variant and push into product_array
-        product_list_with_variant.forEach(function(product) {
-            product_array.push(escapeHtml(product.item_code) + '|' + replaceNewLines(escapeHtml(product.name)) +
-                '|' + product.id);
-        });
+        // product_list_with_variant.forEach(function(product) {
+        //     product_array.push(escapeHtml(product.item_code) + '|' + replaceNewLines(escapeHtml(product.name)) +
+        //         '|' + product.id);
+        // });
         product_list_without_variant.forEach(function(product) {
             product_array.push(escapeHtml(product.code) + '|' + replaceNewLines(escapeHtml(product.name)) + '|' +
                 product.id);

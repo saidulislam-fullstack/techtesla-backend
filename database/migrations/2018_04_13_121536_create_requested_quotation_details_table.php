@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('requested_quotation_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('requested_quotation_id')->comment('Requested quotation ID');
+            $table->string('product_code')->comment('Product Code');
             $table->unsignedBigInteger('product_id')->comment('Product ID');
             $table->integer('quantity')->comment('Quantity of the product');
             $table->decimal('proposed_price', 10, 2)->nullable()->comment('Proposed price of the product');
