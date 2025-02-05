@@ -327,6 +327,8 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
 
     // Price Collection
     Route::controller(PriceCollectionController::class)->group(function () {
+        Route::get('price-collection/selection/{rfq}', 'selection')->name('price-collection.selection');
+        Route::post('price-collection/selection/{rfq}', 'selectionStore')->name('price-collection.selection.store');
         Route::get('price-collection/create', 'create')->name('price-collection.create');
         Route::post('price-collection/store', 'store')->name('price-collection.store');
         Route::post('price-collection/get-rfq-items', 'getRfqItems')->name('price-collection.getRfqItems');

@@ -878,4 +878,8 @@ return [
 	"RFQ" => "RFQ",
 	"Collection Table" => "Collection Table",
 	"Market Price" => "Market Price",
+	"Price Collect Selection" => "Price Collect Selection",
+	"Customer Proposed Price" => "Customer Proposed Price",
+	"Select" => "Select",
+	"After submission selection will be effected on RFQ" => "After submission selection will be effected on RFQ",
 ];
