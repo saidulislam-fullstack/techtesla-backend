@@ -43,7 +43,7 @@ class PriceCollectionController extends Controller
             'rfq_item_id.*' => 'required|exists:requested_quotation_details,id',
             'supplier_id.*' => 'required|exists:suppliers,id',
             'market_price.*' => 'required|numeric',
-            'note.*' => 'nullable|array',
+            'note.*' => 'nullable|string',
         ]);
 
         foreach ($request->rfq_id as $key => $rfq_id) {
@@ -69,10 +69,8 @@ class PriceCollectionController extends Controller
             'supplier'
         ])
             ->where('rfq_id', $rfq->id)
-            ->orderBy('is_selected')
-            ->orderBy('supplier_id')
-            ->orderBy('product_id')
-            ->get();
+            ->get()
+            ->groupBy('product_id');
 
         return view('backend.price_collection.selection', compact('items', 'rfq'));
     }
@@ -84,10 +82,22 @@ class PriceCollectionController extends Controller
             'item_id.*' => 'required|exists:price_collections,id',
         ]);
 
-        foreach ($data['item_id'] as $item_id) {
-            $item = PriceCollection::find($item_id);
-            $item->is_selected = 1;
-            $item->save();
+        // Group the selected items by product_id
+        $grouped_items = collect($data['item_id'])->map(function ($item_id) {
+            return PriceCollection::find($item_id);
+        })->groupBy('product_id');
+
+        // Loop through each product group and update the selected item
+        foreach ($grouped_items as $product_id => $items) {
+            PriceCollection::where('product_id', $product_id)
+                ->whereNotIn('id', $items->pluck('id')->toArray())
+                ->update(['is_selected' => 0]);
+
+            // Now, select the new item(s)
+            foreach ($items as $selected_item) {
+                $selected_item->is_selected = 1;
+                $selected_item->save();
+            }
         }
 
         return redirect()->route('rf-quotation.index')
