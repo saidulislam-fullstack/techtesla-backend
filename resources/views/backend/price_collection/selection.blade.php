@@ -27,18 +27,26 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($items as $item)
+                                            @foreach ($items as $product_id => $product_items)
                                                 <tr>
-                                                    <td>
-                                                        <input type="checkbox" name="item_id[]" @checked($item->is_selected)
-                                                            value="{{ $item->id }}">
+                                                    <td colspan="5" class="text-center font-weight-bold">
+                                                        Product: {{ $product_items->first()->product?->name }}
                                                     </td>
-                                                    <td>{{ $item->product?->name }}</td>
-                                                    <td>{{ $item->rfqItem?->proposed_price }}</td>
-                                                    <td>{{ $item->supplier?->name }}</td>
-                                                    <td>{{ $item->price }}</td>
                                                 </tr>
+                                                @foreach ($product_items as $item)
+                                                    <tr>
+                                                        <td>
+                                                            <input type="radio" name="item_id[{{ $product_id }}]"
+                                                                @checked($item->is_selected) value="{{ $item->id }}">
+                                                        </td>
+                                                        <td>{{ $item->product?->name }}</td>
+                                                        <td>{{ $item->rfqItem?->proposed_price }}</td>
+                                                        <td>{{ $item->supplier?->name }}</td>
+                                                        <td>{{ $item->price }}</td>
+                                                    </tr>
+                                                @endforeach
                                             @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>
