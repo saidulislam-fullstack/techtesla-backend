@@ -170,10 +170,17 @@ class RequestedQuotationController extends Controller
 
             $existing_item_id = [];
 
+            $existing_item_id = $data['id'] ?? [];
+
+            // Prevent accidental deletion of all items
+            if (!empty($existing_item_id)) {
+                $rf_quotation->items()->whereNotIn('id', $existing_item_id)->delete();
+            }
+
             // update or create new items
             foreach ($data['product_id'] as $key => $value) {
                 $id = isset($data['id'][$key]) ? $data['id'][$key] : null;
-                $item = RequestedQuotationDetail::updateOrCreate(
+                $item = $rf_quotation->items()->updateOrCreate(
                     ['id' => $data['id'][$key]],
                     [
                         'product_id' => $value,
@@ -186,9 +193,6 @@ class RequestedQuotationController extends Controller
                     $existing_item_id[] = $item->id;
                 }
             }
-
-            // existing items from request
-            $rf_quotation->items()->whereNotIn('id', $existing_item_id)->delete();
         });
 
         return redirect()->route('rf-quotation.index')->with('message', 'Requested quotation updated successfully.');
