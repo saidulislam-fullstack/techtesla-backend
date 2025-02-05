@@ -873,4 +873,9 @@ return [
 	"Delivery Address" => "Delivery Address",
 	"Requested Quotation List" => "Requested Quotation List",
 	"Update RFQuotation" => "Update RFQuotation",
+	"Select RFQ" => "Select RFQ",
+	"Add Price Collection" => "Add Price Collection",
+	"RFQ" => "RFQ",
+	"Collection Table" => "Collection Table",
+	"Market Price" => "Market Price",
 ];

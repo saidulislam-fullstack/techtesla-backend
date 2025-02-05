@@ -31,6 +31,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MoneyTransferController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PayrollController;
+use App\Http\Controllers\PriceCollectionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\QuotationController;
@@ -323,6 +324,13 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
 
     // RFQuotation
     Route::resource('rf-quotation', RequestedQuotationController::class);
+
+    // Price Collection
+    Route::controller(PriceCollectionController::class)->group(function () {
+        Route::get('price-collection/create', 'create')->name('price-collection.create');
+        Route::post('price-collection/store', 'store')->name('price-collection.store');
+        Route::post('price-collection/get-rfq-items', 'getRfqItems')->name('price-collection.getRfqItems');
+    });
 
     Route::controller(PurchaseController::class)->group(function () {
         Route::prefix('purchases')->group(function () {

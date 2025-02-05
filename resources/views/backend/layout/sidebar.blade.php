@@ -197,6 +197,14 @@
                         <a href="{{ route('rf-quotation.create') }}">{{ trans('file.Add RFQuotation') }}</a>
                     </li>
                 @endif
+                @php
+                    $add_permission_active = $role_has_permissions_list->where('name', 'price-collection-add')->first();
+                @endphp
+                @if ($add_permission_active)
+                    <li id="price-collection-create-menu">
+                        <a href="{{ route('price-collection.create') }}">{{ trans('file.Add Price Collection') }}</a>
+                    </li>
+                @endif
             </ul>
         </li>
     @endif
