@@ -89,15 +89,17 @@ class RequestedQuotationController extends Controller
 
             $rf_quotation->items()->createMany(array_map(function (
                 $product_id,
+                $product_code,
                 $quantity,
                 $proposed_price
             ) {
                 return [
                     'product_id' => $product_id,
+                    'product_code' => $product_code,
                     'quantity' => $quantity,
                     'proposed_price' => $proposed_price,
                 ];
-            }, $data['product_id'], $data['quantity'], $data['proposed_price']));
+            }, $data['product_id'], $data['product_code'], $data['quantity'], $data['proposed_price']));
         });
 
         return redirect()->route('rf-quotation.index')->with('message', 'Requested quotation created successfully.');
@@ -136,12 +138,14 @@ class RequestedQuotationController extends Controller
             'type' => 'required|in:regular_mro,project,techtesla_stock',
             'product_id' => 'required|array',
             'id' => 'nullable|array',
+            'product_code' => 'required|array',
             'quantity' => 'required|array',
             'proposed_price' => 'required|array',
             'note' => 'nullable|string',
             'delivery_info' => 'nullable|string',
             'id.*' => 'nullable|integer',
             'product_id.*' => 'required|integer',
+            'product_code.*' => 'required|string',
             'quantity.*' => 'required|integer',
             'proposed_price.*' => 'required|numeric',
         ]);
@@ -173,6 +177,7 @@ class RequestedQuotationController extends Controller
                     ['id' => $data['id'][$key]],
                     [
                         'product_id' => $value,
+                        'product_code' => $data['product_code'][$key],
                         'quantity' => $data['quantity'][$key],
                         'proposed_price' => $data['proposed_price'][$key],
                     ]

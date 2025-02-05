@@ -91,6 +91,8 @@
                                                             <td>
                                                                 <input type="hidden" name="product_id[]"
                                                                     value="{{ $order->product_id }}" />
+                                                                <input type="hidden" name="product_code[]"
+                                                                    value="{{ $order->product_code }}" />
                                                                 <input type="hidden" name="id[]"
                                                                     value="{{ $order->id }}" />
                                                                 {{ $order->product->name }}
@@ -210,7 +212,7 @@
             $('#productSearch').val(''); // Clear search input
             // Check if product already exists in the table
             let existingRow = $('#myTable tbody tr').filter(function() {
-                return $(this).find('input[name="product_id[]"]').val() == productId;
+                return $(this).find('input[name="product_code[]"]').val() == productCode;
             });
             if (existingRow.length > 0) {
                 // Product already exists, update quantity
