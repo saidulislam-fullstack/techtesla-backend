@@ -172,10 +172,10 @@
         <li>
             <a href="#quotation" aria-expanded="false" data-toggle="collapse">
                 <i class="dripicons-document"></i>
-                <span>{{ trans('file.Quotation') }}</span>
+                <span>{{ trans('file.RFQ') }}</span>
             </a>
             <ul id="quotation" class="collapse list-unstyled ">
-                <li id="quotation-list-menu">
+                {{-- <li id="quotation-list-menu">
                     <a href="{{ route('quotations.index') }}">{{ trans('file.Quotation List') }}</a>
                 </li>
                 @php
@@ -184,6 +184,14 @@
                 @if ($add_permission_active)
                     <li id="quotation-create-menu">
                         <a href="{{ route('quotations.create') }}">{{ trans('file.Add Quotation') }}</a>
+                    </li>
+                @endif --}}
+                @php
+                    $add_permission_active = $role_has_permissions_list->where('name', 'rf-quotes-dashboard')->first();
+                @endphp
+                @if ($add_permission_active)
+                    <li id="rf-quotation-dashboard-menu">
+                        <a href="{{ route('rf-quotation.dashboard') }}">{{ trans('file.Dashboard') }}</a>
                     </li>
                 @endif
                 <li id="rf-quotation-list-menu">
@@ -203,6 +211,14 @@
                 @if ($add_permission_active)
                     <li id="price-collection-create-menu">
                         <a href="{{ route('price-collection.create') }}">{{ trans('file.Add Price Collection') }}</a>
+                    </li>
+                @endif
+                @php
+                    $add_permission_active = $role_has_permissions_list->where('name', 'rf-quotes-dashboard')->first();
+                @endphp
+                @if ($add_permission_active)
+                    <li id="rf-quotation-report-menu">
+                        <a href="{{ route('rf-quotation.report') }}">{{ trans('file.Report') }}</a>
                     </li>
                 @endif
             </ul>

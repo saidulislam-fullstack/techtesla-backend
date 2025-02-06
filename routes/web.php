@@ -323,7 +323,9 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
     Route::resource('quotations', QuotationController::class);
 
     // RFQuotation
-    Route::resource('rf-quotation', RequestedQuotationController::class);
+    Route::resource('rf-quotation', RequestedQuotationController::class)->except(['show']);
+    Route::get('rf-quotation/dashboard', [RequestedQuotationController::class, 'dashboard'])->name('rf-quotation.dashboard');
+    Route::get('rf-quotation/report', [RequestedQuotationController::class, 'report'])->name('rf-quotation.report');
 
     // Price Collection
     Route::controller(PriceCollectionController::class)->group(function () {
