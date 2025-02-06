@@ -168,7 +168,7 @@ class ProductController extends Controller
                 $product_image = explode(",", $product->image);
                 $product_image = htmlspecialchars($product_image[0]);
                 if($product_image)
-                    $nestedData['image'] = '<img src="'.url('images/product', $product_image).'" height="80" width="80">';
+                    $nestedData['image'] = '<img src="'.url('public/images/product', $product_image).'" height="80" width="80">';
                 else
                     $nestedData['image'] = '<img src="images/zummXD2dvAtI.png" height="80" width="80">';
                 $nestedData['name'] = $product->name;
