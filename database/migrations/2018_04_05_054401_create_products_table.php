@@ -14,11 +14,11 @@ class CreateProductsTable extends Migration
             $table->string('code');
             $table->string('type');
             $table->string('barcode_symbology');
-            $table->integer('brand_id')->nullable();
-            $table->integer('category_id');
-            $table->integer('unit_id');
-            $table->integer('purchase_unit_id');
-            $table->integer('sale_unit_id');
+            $table->unsignedBigInteger('brand_id')->nullable();
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('purchase_unit_id');
+            $table->unsignedBigInteger('sale_unit_id');
             $table->double('cost');
             $table->double('price');
             $table->double('qty')->nullable();
@@ -29,6 +29,8 @@ class CreateProductsTable extends Migration
             $table->date('last_date')->nullable();
             $table->integer('tax_id')->nullable();
             $table->integer('tax_method')->nullable();
+            $table->string('model')->nullable();
+            $table->string('origin')->nullable();
             $table->longText('image')->nullable();
             $table->tinyInteger('featured')->nullable();
             $table->text('product_details')->nullable();
