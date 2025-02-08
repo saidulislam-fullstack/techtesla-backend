@@ -29,7 +29,9 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-2">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mt-2">
                                         <label>{{ trans('file.Select Product') }}</label>
                                         <div class="search-box input-group">
                                             <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>

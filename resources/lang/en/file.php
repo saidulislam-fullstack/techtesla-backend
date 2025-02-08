@@ -884,4 +884,6 @@ return [
 	"After submission selection will be effected on RFQ" => "After submission selection will be effected on RFQ",
 	"Report" => "Report",
 	"Dashboard" => "Dashboard",
+	"Model" => "Model",
+	"Origin" => "Origin",
 ];
