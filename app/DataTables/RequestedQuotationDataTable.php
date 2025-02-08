@@ -26,7 +26,9 @@ class RequestedQuotationDataTable extends DataTable
             ->addColumn('action', function ($query) {
                 $btn = '';
                 $btn .= '<div class="btn-group" role="group">';
-                $btn .= '<a href="' . route('price-collection.selection', $query->id) . '" class="btn btn-sm btn-info" title="Selection"><i class="fa fa-money"></i></a>';
+                if ($query->priceCollection->count() > 0) {
+                    $btn .= '<a href="' . route('price-collection.selection', $query->id) . '" class="btn btn-sm btn-info" title="Selection"><i class="fa fa-money"></i></a>';
+                }
                 if (!$query->has_price_collection_selected) {
                     $btn .= '<a href="' . route('rf-quotation.edit', $query->id) . '" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit"></i></a>';
                     $btn .= '<button type="button" class="btn btn-sm btn-danger" onclick="deleteData(' . $query->id . ')" title="Delete"><i class="fa fa-trash"></i></button>';
@@ -47,7 +49,7 @@ class RequestedQuotationDataTable extends DataTable
      */
     public function query(RequestedQuotation $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('priceCollection');
     }
 
     /**

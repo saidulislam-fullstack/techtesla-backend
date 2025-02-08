@@ -78,16 +78,17 @@
                     <li id="purchase-create-menu">
                         <a href="{{ route('purchases.create') }}">{{ trans('file.Add Purchase') }}</a>
                     </li>
-                    <li id="purchase-import-menu">
+                    {{-- <li id="purchase-import-menu">
                         <a href="{{ url('purchases/purchase_by_csv') }}">
                             {{ trans('file.Import Purchase By CSV') }}
                         </a>
-                    </li>
+                    </li> --}}
                 @endif
             </ul>
         </li>
     @endif
-    @php
+
+    {{-- @php
         $sale_index_permission_active = $role_has_permissions_list->where('name', 'sales-index')->first();
 
         $gift_card_permission_active = $role_has_permissions_list->where('name', 'gift_card')->first();
@@ -98,11 +99,7 @@
 
         $sale_add_permission_active = $role_has_permissions_list->where('name', 'sales-add')->first();
     @endphp
-    @if (
-        $sale_index_permission_active ||
-            $gift_card_permission_active ||
-            $coupon_permission_active ||
-            $delivery_permission_active)
+    @if ($sale_index_permission_active || $gift_card_permission_active || $coupon_permission_active || $delivery_permission_active)
         <li>
             <a href="#sale" aria-expanded="false" data-toggle="collapse">
                 <i class="dripicons-cart"></i>
@@ -164,7 +161,8 @@
                 @endif
             </ul>
         </li>
-    @endif
+    @endif --}}
+
     @php
         $index_permission_active = $role_has_permissions_list->where('name', 'quotes-index')->first();
     @endphp
@@ -224,7 +222,8 @@
             </ul>
         </li>
     @endif
-    @php
+
+    {{-- @php
         $index_permission_active = $role_has_permissions_list->where('name', 'transfers-index')->first();
     @endphp
     @if ($index_permission_active)
@@ -248,9 +247,9 @@
                 @endif
             </ul>
         </li>
-    @endif
+    @endif --}}
 
-    @php
+    {{-- @php
         $sale_return_index_permission_active = $role_has_permissions_list->where('name', 'returns-index')->first();
 
         $purchase_return_index_permission_active = $role_has_permissions_list
@@ -262,8 +261,7 @@
                     class="dripicons-return"></i><span>{{ trans('file.return') }}</span></a>
             <ul id="return" class="collapse list-unstyled ">
                 @if ($sale_return_index_permission_active)
-                    <li id="sale-return-menu"><a
-                            href="{{ route('return-sale.index') }}">{{ trans('file.Sale') }}</a>
+                    <li id="sale-return-menu"><a href="{{ route('return-sale.index') }}">{{ trans('file.Sale') }}</a>
                     </li>
                 @endif
                 @if ($purchase_return_index_permission_active)
@@ -272,7 +270,8 @@
                 @endif
             </ul>
         </li>
-    @endif
+    @endif --}}
+
     @php
         $index_permission_active = $role_has_permissions_list->where('name', 'account-index')->first();
 
@@ -312,7 +311,8 @@
             </ul>
         </li>
     @endif
-    @php
+
+    {{-- @php
         $department_active = $role_has_permissions_list->where('name', 'department')->first();
 
         $index_employee_active = $role_has_permissions_list->where('name', 'employees-index')->first();
@@ -323,7 +323,6 @@
 
         $holiday_active = $role_has_permissions_list->where('name', 'holiday')->first();
     @endphp
-
     @if ($department_active || $index_employee_active || $attendance_active || $payroll_active || $holiday_active)
         <li class="">
             <a href="#hrm" aria-expanded="false" data-toggle="collapse">
@@ -356,7 +355,8 @@
                 @endif
             </ul>
         </li>
-    @endif
+    @endif --}}
+
     @php
         $user_index_permission_active = $role_has_permissions_list->where('name', 'users-index')->first();
 
@@ -434,7 +434,7 @@
         </li>
     @endif
 
-    @php
+    {{-- @php
         $profit_loss_active = $role_has_permissions_list->where('name', 'profit-loss')->first();
 
         $best_seller_active = $role_has_permissions_list->where('name', 'best-seller')->first();
@@ -477,28 +477,7 @@
 
         $supplier_due_report_active = $role_has_permissions_list->where('name', 'supplier-due-report')->first();
     @endphp
-    @if (
-        $profit_loss_active ||
-            $best_seller_active ||
-            $warehouse_report_active ||
-            $warehouse_stock_report_active ||
-            $product_report_active ||
-            $daily_sale_active ||
-            $monthly_sale_active ||
-            $daily_purchase_active ||
-            $monthly_purchase_active ||
-            $purchase_report_active ||
-            $sale_report_active ||
-            $sale_report_chart_active ||
-            $payment_report_active ||
-            $product_expiry_report_active ||
-            $product_qty_alert_active ||
-            $dso_report_active ||
-            $user_report_active ||
-            $customer_report_active ||
-            $supplier_report_active ||
-            $due_report_active ||
-            $supplier_due_report_active)
+    @if ($profit_loss_active || $best_seller_active || $warehouse_report_active || $warehouse_stock_report_active || $product_report_active || $daily_sale_active || $monthly_sale_active || $daily_purchase_active || $monthly_purchase_active || $purchase_report_active || $sale_report_active || $sale_report_chart_active || $payment_report_active || $product_expiry_report_active || $product_qty_alert_active || $dso_report_active || $user_report_active || $customer_report_active || $supplier_report_active || $due_report_active || $supplier_due_report_active)
         <li><a href="#report" aria-expanded="false" data-toggle="collapse"> <i
                     class="dripicons-document-remove"></i><span>{{ trans('file.Reports') }}</span></a>
             <ul id="report" class="collapse list-unstyled ">
@@ -534,8 +513,7 @@
                 @endif
                 @if ($monthly_sale_active)
                     <li id="monthly-sale-report-menu">
-                        <a
-                            href="{{ url('report/monthly_sale/' . date('Y')) }}">{{ trans('file.Monthly Sale') }}</a>
+                        <a href="{{ url('report/monthly_sale/' . date('Y')) }}">{{ trans('file.Monthly Sale') }}</a>
                     </li>
                 @endif
                 @if ($daily_purchase_active)
@@ -604,8 +582,7 @@
                 @if ($due_report_active)
                     <li id="due-report-menu">
                         {!! Form::open(['route' => 'report.customerDueByDate', 'method' => 'post', 'id' => 'customer-due-report-form']) !!}
-                        <input type="hidden" name="start_date"
-                            value="{{ date('Y-m-d', strtotime('-1 year')) }}" />
+                        <input type="hidden" name="start_date" value="{{ date('Y-m-d', strtotime('-1 year')) }}" />
                         <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
                         <a id="due-report-link" href="">{{ trans('file.Customer Due Report') }}</a>
                         {!! Form::close() !!}
@@ -619,8 +596,7 @@
                 @if ($supplier_due_report_active)
                     <li id="supplier-due-report-menu">
                         {!! Form::open(['route' => 'report.supplierDueByDate', 'method' => 'post', 'id' => 'supplier-due-report-form']) !!}
-                        <input type="hidden" name="start_date"
-                            value="{{ date('Y-m-d', strtotime('-1 year')) }}" />
+                        <input type="hidden" name="start_date" value="{{ date('Y-m-d', strtotime('-1 year')) }}" />
                         <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
                         <a id="supplier-due-report-link" href="">{{ trans('file.Supplier Due Report') }}</a>
                         {!! Form::close() !!}
@@ -660,8 +636,9 @@
                 @endif
             </ul>
         </li>
-    @endif
-    @if (!config('database.connections.saleprosaas_landlord'))
+    @endif --}}
+
+    {{-- @if (!config('database.connections.saleprosaas_landlord'))
         <li><a href="#addons" aria-expanded="false" data-toggle="collapse"> <i
                     class="dripicons-flag"></i><span>{{ trans('file.Addons') }}</span></a>
             <ul id="addons" class="collapse list-unstyled">
@@ -672,7 +649,8 @@
                 @endif
             </ul>
         </li>
-    @endif
+    @endif --}}
+
     <li><a href="#setting" aria-expanded="false" data-toggle="collapse"> <i
                 class="dripicons-gear"></i><span>{{ trans('file.settings') }}</span></a>
         <ul id="setting" class="collapse list-unstyled ">
@@ -816,12 +794,12 @@
             @endif
         </ul>
     </li>
-    @if (Auth::user()->role_id != 5)
+    {{-- @if (Auth::user()->role_id != 5)
         <li>
             <a target="_blank" href="{{ url('/documentation') }}">
                 <i class="dripicons-information"></i>
                 <span>{{ trans('file.Documentation') }}</span>
             </a>
         </li>
-    @endif
+    @endif --}}
 </ul>
