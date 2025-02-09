@@ -2,77 +2,83 @@
 @section('content')
 
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div>
+<div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert"
+        aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div>
 @endif
 @if(session()->has('message'))
-  <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div>
+<div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert"
+        aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div>
 @endif
 <div class="row">
-  <div class="container-fluid">
-    <div class="col-md-12">
-        <div class="brand-text float-left mt-4">
-            <h3>{{trans('file.welcome')}} <span>{{Auth::user()->name}}</span> </h3>
-        </div>
-        @if($customer->points)
-        <div class="brand-text float-right mt-4">
-            <h3>{{trans('file.Reward Points')}}: <span>{{$customer->points}}</span> </h3>
-            <h3>{{trans('file.One Point is Equivalent to:')}}
-                @if($general_setting->currency_position == 'prefix')
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="brand-text float-left mt-4">
+                <h3>{{trans('file.welcome')}} <span>{{Auth::user()->name}}</span> </h3>
+            </div>
+            @if(($customer->id ?? null))
+            <div class="brand-text float-right mt-4">
+                <h3>{{trans('file.Reward Points')}}: <span>{{($customer->id ?? null)}}</span> </h3>
+                <h3>{{trans('file.One Point is Equivalent to:')}}
+                    @if($general_setting->currency_position == 'prefix')
                     <span>{{$currency->code}} {{$lims_reward_point_setting_data->per_point_amount}}</span>
-                @else
+                    @else
                     <span>{{$lims_reward_point_setting_data->per_point_amount}} {{$currency->code}}</span>
-                @endif
-            </h3>
+                    @endif
+                </h3>
+            </div>
+            @endif
         </div>
-        @endif
     </div>
-  </div>
 </div>
 <!-- Counts Section -->
 <section class="dashboard-counts">
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
 
-          <ul class="nav nav-tabs mt-2" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" href="#customer-sale" role="tab" data-toggle="tab">{{trans('file.Sale')}}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#customer-payment" role="tab" data-toggle="tab">{{trans('file.Payment')}}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#customer-quotation" role="tab" data-toggle="tab">{{trans('file.Quotation')}}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#customer-return" role="tab" data-toggle="tab">{{trans('file.Return')}}</a>
-            </li>
-          </ul>
+                    <ul class="nav nav-tabs mt-2" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#customer-sale" role="tab"
+                                data-toggle="tab">{{trans('file.Sale')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#customer-payment" role="tab"
+                                data-toggle="tab">{{trans('file.Payment')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#customer-quotation" role="tab"
+                                data-toggle="tab">{{trans('file.Quotation')}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#customer-return" role="tab"
+                                data-toggle="tab">{{trans('file.Return')}}</a>
+                        </li>
+                    </ul>
 
-          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade show active" id="customer-sale">
-                <div class="table-responsive">
-                  <table id="sale-table" class="table">
-                    <thead>
-                      <tr>
-                        <th class="not-exported"></th>
-                        <th>{{trans('file.date')}}</th>
-                        <th>{{trans('file.reference')}}</th>
-                        <th>{{trans('file.Biller')}}</th>
-                        <th>{{trans('file.Warehouse')}}</th>
-                        <th>{{trans('file.Sale Status')}}</th>
-                        <th>{{trans('file.Payment Status')}}</th>
-                        <th>{{trans('file.grand total')}}</th>
-                        <th>{{trans('file.Paid')}}</th>
-                        <th>{{trans('file.Due')}}</th>
-                        <th>{{trans('file.action')}}</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach($lims_sale_data as $key => $sale)
-                        <?php
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade show active" id="customer-sale">
+                            <div class="table-responsive">
+                                <table id="sale-table" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="not-exported"></th>
+                                            <th>{{trans('file.date')}}</th>
+                                            <th>{{trans('file.reference')}}</th>
+                                            <th>{{trans('file.Biller')}}</th>
+                                            <th>{{trans('file.Warehouse')}}</th>
+                                            <th>{{trans('file.Sale Status')}}</th>
+                                            <th>{{trans('file.Payment Status')}}</th>
+                                            <th>{{trans('file.grand total')}}</th>
+                                            <th>{{trans('file.Paid')}}</th>
+                                            <th>{{trans('file.Due')}}</th>
+                                            <th>{{trans('file.action')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($lims_sale_data as $key => $sale)
+                                        <?php
                             $coupon = \App\Models\Coupon::find($sale->coupon_id);
                             if($coupon)
                               $coupon_code = $coupon->code;
@@ -90,215 +96,253 @@
                             $staff_note = preg_replace('/\s+/S', " ", $sale->staff_note);
                         ?>
 
-                      <tr data-sale='["{{date($general_setting->date_format, strtotime($sale->created_at->toDateString()))}}", "{{$sale->reference_no}}", "{{$status}}", "{{$sale->biller->name}}", "{{$sale->biller->company_name}}", "{{$sale->biller->email}}", "{{$sale->biller->phone_number}}", "{{$sale->biller->address}}", "{{$sale->biller->city}}", "{{$sale->customer->name}}", "{{$sale->customer->phone_number}}", "{{$sale->customer->address}}", "{{$sale->customer->city}}", "{{$sale->id}}", "{{$sale->total_tax}}", "{{$sale->total_discount}}", "{{$sale->total_price}}", "{{$sale->order_tax}}", "{{$sale->order_tax_rate}}", "{{$sale->order_discount}}", "{{$sale->shipping_cost}}", "{{$sale->grand_total}}", "{{$sale->paid_amount}}", "{{$sale_note}}", "{{$staff_note}}", "{{$sale->user->name}}", "{{$sale->user->email}}", "{{$sale->warehouse->name}}", "{{$coupon_code}}", "{{$sale->coupon_discount}}"]'>
-                        <td>{{$key}}</td>
-                        <td>{{ date($general_setting->date_format, strtotime($sale->created_at->toDateString())) }}</td>
-                        <td>{{$sale->reference_no}}</td>
-                        <td>{{$sale->biller->name}}</td>
-                        <td>{{$sale->warehouse->name}}</td>
-                        @if($sale->sale_status == 1)
-                        <td><div class="badge badge-success">{{$status}}</div></td>
-                        @elseif($sale->sale_status == 2)
-                        <td><div class="badge badge-danger">{{$status}}</div></td>
-                        @else
-                        <td><div class="badge badge-warning">{{$status}}</div></td>
-                        @endif
-                        @if($sale->payment_status == 1)
-                        <td><div class="badge badge-danger">{{trans('file.Pending')}}</div></td>
-                        @elseif($sale->payment_status == 2)
-                        <td><div class="badge badge-danger">{{trans('file.Due')}}</div></td>
-                        @elseif($sale->payment_status == 3)
-                        <td><div class="badge badge-success">{{trans('file.Partial')}}</div></td>
-                        @else
-                        <td><div class="badge badge-success">{{trans('file.Paid')}}</div></td>
-                        @endif
-                        <td>{{number_format($sale->grand_total, 2)}}</td>
-                        <td>{{number_format($sale->paid_amount, 2)}}</td>
-                        <td>{{number_format($sale->grand_total - $sale->paid_amount, 2)}}</td>
-                        <td><button type="button" class="btn btn-info btn-sm sale-view-btn" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button></td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                    <tfoot class="tfoot active">
-                      <tr>
-                          <th></th>
-                          <th>Total:</th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th></th>
-                          <th>{{number_format(0, $general_setting->decimal, '.', '')}}</th>
-                          <th>{{number_format(0, $general_setting->decimal, '.', '')}}</th>
-                          <th>{{number_format(0, $general_setting->decimal, '.', '')}}</th>
-                          <th></th>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-            </div>
+                                        <tr
+                                            data-sale='["{{date($general_setting->date_format, strtotime($sale->created_at->toDateString()))}}", "{{$sale->reference_no}}", "{{$status}}", "{{$sale->biller->name}}", "{{$sale->biller->company_name}}", "{{$sale->biller->email}}", "{{$sale->biller->phone_number}}", "{{$sale->biller->address}}", "{{$sale->biller->city}}", "{{$sale->customer->name}}", "{{$sale->customer->phone_number}}", "{{$sale->customer->address}}", "{{$sale->customer->city}}", "{{$sale->id}}", "{{$sale->total_tax}}", "{{$sale->total_discount}}", "{{$sale->total_price}}", "{{$sale->order_tax}}", "{{$sale->order_tax_rate}}", "{{$sale->order_discount}}", "{{$sale->shipping_cost}}", "{{$sale->grand_total}}", "{{$sale->paid_amount}}", "{{$sale_note}}", "{{$staff_note}}", "{{$sale->user->name}}", "{{$sale->user->email}}", "{{$sale->warehouse->name}}", "{{$coupon_code}}", "{{$sale->coupon_discount}}"]'>
+                                            <td>{{$key}}</td>
+                                            <td>{{ date($general_setting->date_format,
+                                                strtotime($sale->created_at->toDateString())) }}</td>
+                                            <td>{{$sale->reference_no}}</td>
+                                            <td>{{$sale->biller->name}}</td>
+                                            <td>{{$sale->warehouse->name}}</td>
+                                            @if($sale->sale_status == 1)
+                                            <td>
+                                                <div class="badge badge-success">{{$status}}</div>
+                                            </td>
+                                            @elseif($sale->sale_status == 2)
+                                            <td>
+                                                <div class="badge badge-danger">{{$status}}</div>
+                                            </td>
+                                            @else
+                                            <td>
+                                                <div class="badge badge-warning">{{$status}}</div>
+                                            </td>
+                                            @endif
+                                            @if($sale->payment_status == 1)
+                                            <td>
+                                                <div class="badge badge-danger">{{trans('file.Pending')}}</div>
+                                            </td>
+                                            @elseif($sale->payment_status == 2)
+                                            <td>
+                                                <div class="badge badge-danger">{{trans('file.Due')}}</div>
+                                            </td>
+                                            @elseif($sale->payment_status == 3)
+                                            <td>
+                                                <div class="badge badge-success">{{trans('file.Partial')}}</div>
+                                            </td>
+                                            @else
+                                            <td>
+                                                <div class="badge badge-success">{{trans('file.Paid')}}</div>
+                                            </td>
+                                            @endif
+                                            <td>{{number_format($sale->grand_total, 2)}}</td>
+                                            <td>{{number_format($sale->paid_amount, 2)}}</td>
+                                            <td>{{number_format($sale->grand_total - $sale->paid_amount, 2)}}</td>
+                                            <td><button type="button" class="btn btn-info btn-sm sale-view-btn"
+                                                    title="{{trans('file.View')}}"><i
+                                                        class="dripicons-preview"></i></button></td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot class="tfoot active">
+                                        <tr>
+                                            <th></th>
+                                            <th>Total:</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>{{number_format(0, $general_setting->decimal, '.', '')}}</th>
+                                            <th>{{number_format(0, $general_setting->decimal, '.', '')}}</th>
+                                            <th>{{number_format(0, $general_setting->decimal, '.', '')}}</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
 
-            <div role="tabpanel" class="tab-pane fade" id="customer-payment">
-                <div class="table-responsive mb-4">
-                    <table id="payment-table" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th class="not-exported-payment"></th>
-                                <th>{{trans('file.Date')}}</th>
-                                <th>{{trans('file.Payment Reference')}}</th>
-                                <th>{{trans('file.Sale Reference')}}</th>
-                                <th>{{trans('file.Amount')}}</th>
-                                <th>{{trans('file.Paid Method')}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($lims_payment_data as $key=>$payment)
-                                <tr>
-                                    <td>{{$key}}</td>
-                                    <td>{{date($general_setting->date_format, strtotime($payment->created_at))}}</td>
-                                    <td>{{$payment->payment_reference}}</td>
-                                    <td>{{$payment->sale_reference}}</td>
-                                    <td>{{$payment->amount}}</td>
-                                    <td>{{$payment->paying_method}}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot class="tfoot active">
-                            <tr>
-                                <th></th>
-                                <th>Total:</th>
-                                <th></th>
-                                <th></th>
-                                <th>{{number_format(0, $general_setting->decimal, '.', '')}}</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
+                        <div role="tabpanel" class="tab-pane fade" id="customer-payment">
+                            <div class="table-responsive mb-4">
+                                <table id="payment-table" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="not-exported-payment"></th>
+                                            <th>{{trans('file.Date')}}</th>
+                                            <th>{{trans('file.Payment Reference')}}</th>
+                                            <th>{{trans('file.Sale Reference')}}</th>
+                                            <th>{{trans('file.Amount')}}</th>
+                                            <th>{{trans('file.Paid Method')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($lims_payment_data as $key=>$payment)
+                                        <tr>
+                                            <td>{{$key}}</td>
+                                            <td>{{date($general_setting->date_format, strtotime($payment->created_at))}}
+                                            </td>
+                                            <td>{{$payment->payment_reference}}</td>
+                                            <td>{{$payment->sale_reference}}</td>
+                                            <td>{{$payment->amount}}</td>
+                                            <td>{{$payment->paying_method}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot class="tfoot active">
+                                        <tr>
+                                            <th></th>
+                                            <th>Total:</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th>{{number_format(0, $general_setting->decimal, '.', '')}}</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
 
-            <div role="tabpanel" class="tab-pane fade" id="customer-quotation">
-                <div class="table-responsive mb-4">
-                    <table id="quotation-table" class="table quotation-list">
-                        <thead>
-                            <tr>
-                                <th class="not-exported"></th>
-                                <th>{{trans('file.Date')}}</th>
-                                <th>{{trans('file.reference')}}</th>
-                                <th>{{trans('file.Biller')}}</th>
-                                <th>{{trans('file.customer')}}</th>
-                                <th>{{trans('file.Supplier')}}</th>
-                                <th>{{trans('file.Quotation Status')}}</th>
-                                <th>{{trans('file.grand total')}}</th>
-                                <th>{{trans('file.action')}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($lims_quotation_data as $key=>$quotation)
-                            <?php
+                        <div role="tabpanel" class="tab-pane fade" id="customer-quotation">
+                            <div class="table-responsive mb-4">
+                                <table id="quotation-table" class="table quotation-list">
+                                    <thead>
+                                        <tr>
+                                            <th class="not-exported"></th>
+                                            <th>{{trans('file.Date')}}</th>
+                                            <th>{{trans('file.reference')}}</th>
+                                            <th>{{trans('file.Biller')}}</th>
+                                            <th>{{trans('file.customer')}}</th>
+                                            <th>{{trans('file.Supplier')}}</th>
+                                            <th>{{trans('file.Quotation Status')}}</th>
+                                            <th>{{trans('file.grand total')}}</th>
+                                            <th>{{trans('file.action')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($lims_quotation_data as $key=>$quotation)
+                                        <?php
                                 if($quotation->quotation_status == 1)
                                     $status = trans('file.Pending');
                                 else
                                     $status = trans('file.Sent');
                             ?>
-                            <tr class="quotation-link" data-quotation='["{{date($general_setting->date_format, strtotime($quotation->created_at->toDateString()))}}", "{{$quotation->reference_no}}", "{{$status}}", "{{$quotation->biller->name}}", "{{$quotation->biller->company_name}}","{{$quotation->biller->email}}", "{{$quotation->biller->phone_number}}", "{{$quotation->biller->address}}", "{{$quotation->biller->city}}", "{{$quotation->customer->name}}", "{{$quotation->customer->phone_number}}", "{{$quotation->customer->address}}", "{{$quotation->customer->city}}", "{{$quotation->id}}", "{{$quotation->total_tax}}", "{{$quotation->total_discount}}", "{{$quotation->total_price}}", "{{$quotation->order_tax}}", "{{$quotation->order_tax_rate}}", "{{$quotation->order_discount}}", "{{$quotation->shipping_cost}}", "{{$quotation->grand_total}}", "{{$quotation->note}}", "{{$quotation->user->name}}", "{{$quotation->user->email}}"]'>
-                                <td>{{$key}}</td>
-                                <td>{{ date($general_setting->date_format, strtotime($quotation->created_at->toDateString())) . ' '. $quotation->created_at->toTimeString() }}</td>
-                                <td>{{ $quotation->reference_no }}</td>
-                                <td>{{ $quotation->biller->name }}</td>
-                                <td>{{ $quotation->customer->name }}</td>
-                                @if($quotation->supplier_id)
-                                <td>{{ $quotation->supplier->name }}</td>
-                                @else
-                                <td>N/A</td>
-                                @endif
-                                @if($quotation->quotation_status == 1)
-                                    <td><div class="badge badge-danger">{{$status}}</div></td>
-                                @else
-                                    <td><div class="badge badge-success">{{$status}}</div></td>
-                                @endif
-                                <td>{{ $quotation->grand_total }}</td>
-                                <td><button type="button" class="btn btn-info btn-sm quotation-view-btn" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button></td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot class="tfoot active">
-                            <th></th>
-                            <th>{{trans('file.Total')}}</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
+                                        <tr class="quotation-link"
+                                            data-quotation='["{{date($general_setting->date_format, strtotime($quotation->created_at->toDateString()))}}", "{{$quotation->reference_no}}", "{{$status}}", "{{$quotation->biller->name}}", "{{$quotation->biller->company_name}}","{{$quotation->biller->email}}", "{{$quotation->biller->phone_number}}", "{{$quotation->biller->address}}", "{{$quotation->biller->city}}", "{{$quotation->customer->name}}", "{{$quotation->customer->phone_number}}", "{{$quotation->customer->address}}", "{{$quotation->customer->city}}", "{{$quotation->id}}", "{{$quotation->total_tax}}", "{{$quotation->total_discount}}", "{{$quotation->total_price}}", "{{$quotation->order_tax}}", "{{$quotation->order_tax_rate}}", "{{$quotation->order_discount}}", "{{$quotation->shipping_cost}}", "{{$quotation->grand_total}}", "{{$quotation->note}}", "{{$quotation->user->name}}", "{{$quotation->user->email}}"]'>
+                                            <td>{{$key}}</td>
+                                            <td>{{ date($general_setting->date_format,
+                                                strtotime($quotation->created_at->toDateString())) . ' '.
+                                                $quotation->created_at->toTimeString() }}</td>
+                                            <td>{{ $quotation->reference_no }}</td>
+                                            <td>{{ $quotation->biller->name }}</td>
+                                            <td>{{ $quotation->customer->name }}</td>
+                                            @if($quotation->supplier_id)
+                                            <td>{{ $quotation->supplier->name }}</td>
+                                            @else
+                                            <td>N/A</td>
+                                            @endif
+                                            @if($quotation->quotation_status == 1)
+                                            <td>
+                                                <div class="badge badge-danger">{{$status}}</div>
+                                            </td>
+                                            @else
+                                            <td>
+                                                <div class="badge badge-success">{{$status}}</div>
+                                            </td>
+                                            @endif
+                                            <td>{{ $quotation->grand_total }}</td>
+                                            <td><button type="button" class="btn btn-info btn-sm quotation-view-btn"
+                                                    title="{{trans('file.View')}}"><i
+                                                        class="dripicons-preview"></i></button></td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot class="tfoot active">
+                                        <th></th>
+                                        <th>{{trans('file.Total')}}</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
 
-            <div role="tabpanel" class="tab-pane fade" id="customer-return">
-                <div class="table-responsive mb-4">
-                    <table id="return-table" class="table return-list">
-                        <thead>
-                            <tr>
-                                <th class="not-exported"></th>
-                                <th>{{trans('file.Date')}}</th>
-                                <th>{{trans('file.reference')}}</th>
-                                <th>{{trans('file.Biller')}}</th>
-                                <th>{{trans('file.customer')}}</th>
-                                <th>{{trans('file.Warehouse')}}</th>
-                                <th>{{trans('file.grand total')}}</th>
-                                <th class="not-exported">{{trans('file.action')}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($lims_return_data as $key=>$return)
-                            <tr class="return-link" data-return='["{{date($general_setting->date_format, strtotime($return->created_at->toDateString()))}}", "{{$return->reference_no}}", "{{$return->warehouse->name}}", "{{$return->biller->name}}", "{{$return->biller->company_name}}","{{$return->biller->email}}", "{{$return->biller->phone_number}}", "{{$return->biller->address}}", "{{$return->biller->city}}", "{{$return->customer->name}}", "{{$return->customer->phone_number}}", "{{$return->customer->address}}", "{{$return->customer->city}}", "{{$return->id}}", "{{$return->total_tax}}", "{{$return->total_discount}}", "{{$return->total_price}}", "{{$return->order_tax}}", "{{$return->order_tax_rate}}", "{{$return->grand_total}}", "{{$return->return_note}}", "{{$return->staff_note}}", "{{$return->user->name}}", "{{$return->user->email}}"]'>
-                                <td>{{$key}}</td>
-                                <td>{{ date($general_setting->date_format, strtotime($return->created_at->toDateString())) . ' '. $return->created_at->toTimeString() }}</td>
-                                <td>{{ $return->reference_no }}</td>
-                                <td>{{ $return->biller->name }}</td>
-                                <td>{{ $return->customer->name }}</td>
-                                <td>{{$return->warehouse->name}}</td>
-                                <td class="grand-total">{{ $return->grand_total }}</td>
-                                <td><button type="button" class="btn btn-info btn-sm return-view-btn" title="{{trans('file.View')}}"><i class="dripicons-preview"></i></button></td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot class="tfoot active">
-                            <th></th>
-                            <th>{{trans('file.Total')}}</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tfoot>
-                    </table>
+                        <div role="tabpanel" class="tab-pane fade" id="customer-return">
+                            <div class="table-responsive mb-4">
+                                <table id="return-table" class="table return-list">
+                                    <thead>
+                                        <tr>
+                                            <th class="not-exported"></th>
+                                            <th>{{trans('file.Date')}}</th>
+                                            <th>{{trans('file.reference')}}</th>
+                                            <th>{{trans('file.Biller')}}</th>
+                                            <th>{{trans('file.customer')}}</th>
+                                            <th>{{trans('file.Warehouse')}}</th>
+                                            <th>{{trans('file.grand total')}}</th>
+                                            <th class="not-exported">{{trans('file.action')}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($lims_return_data as $key=>$return)
+                                        <tr class="return-link"
+                                            data-return='["{{date($general_setting->date_format, strtotime($return->created_at->toDateString()))}}", "{{$return->reference_no}}", "{{$return->warehouse->name}}", "{{$return->biller->name}}", "{{$return->biller->company_name}}","{{$return->biller->email}}", "{{$return->biller->phone_number}}", "{{$return->biller->address}}", "{{$return->biller->city}}", "{{$return->customer->name}}", "{{$return->customer->phone_number}}", "{{$return->customer->address}}", "{{$return->customer->city}}", "{{$return->id}}", "{{$return->total_tax}}", "{{$return->total_discount}}", "{{$return->total_price}}", "{{$return->order_tax}}", "{{$return->order_tax_rate}}", "{{$return->grand_total}}", "{{$return->return_note}}", "{{$return->staff_note}}", "{{$return->user->name}}", "{{$return->user->email}}"]'>
+                                            <td>{{$key}}</td>
+                                            <td>{{ date($general_setting->date_format,
+                                                strtotime($return->created_at->toDateString())) . ' '.
+                                                $return->created_at->toTimeString() }}</td>
+                                            <td>{{ $return->reference_no }}</td>
+                                            <td>{{ $return->biller->name }}</td>
+                                            <td>{{ $return->customer->name }}</td>
+                                            <td>{{$return->warehouse->name}}</td>
+                                            <td class="grand-total">{{ $return->grand_total }}</td>
+                                            <td><button type="button" class="btn btn-info btn-sm return-view-btn"
+                                                    title="{{trans('file.View')}}"><i
+                                                        class="dripicons-preview"></i></button></td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot class="tfoot active">
+                                        <th></th>
+                                        <th>{{trans('file.Total')}}</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<div id="sale-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="sale-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    class="modal fade text-left">
     <div role="document" class="modal-dialog">
         <div class="modal-content">
             <div class="container mt-3 pb-2 border-bottom">
                 <div class="row">
                     <div class="col-md-3">
-                        <button id="sale-print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+                        <button id="sale-print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i
+                                class="dripicons-print"></i> {{trans('file.Print')}}</button>
                     </div>
                     <div class="col-md-6">
-                        <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
+                        <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">
+                            {{$general_setting->site_title}}</h3>
                     </div>
                     <div class="col-md-3">
-                        <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
+                        <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close"
+                            class="close d-print-none"><span aria-hidden="true"><i
+                                    class="dripicons-cross"></i></span></button>
                     </div>
                     <div class="col-md-12 text-center">
                         <i style="font-size: 15px;">{{trans('file.Sale Details')}}</i>
@@ -326,25 +370,30 @@
     </div>
 </div>
 
-<div id="quotation-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="quotation-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    class="modal fade text-left">
     <div role="document" class="modal-dialog">
-      <div class="modal-content">
-        <div class="container mt-3 pb-2 border-bottom">
-            <div class="row">
-                <div class="col-md-3">
-                    <button id="quotation-print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
-                </div>
-                <div class="col-md-6">
-                    <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
-                </div>
-                <div class="col-md-3">
-                    <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
-                </div>
-                <div class="col-md-12 text-center">
-                    <i style="font-size: 15px;">{{trans('file.Quotation Details')}}</i>
+        <div class="modal-content">
+            <div class="container mt-3 pb-2 border-bottom">
+                <div class="row">
+                    <div class="col-md-3">
+                        <button id="quotation-print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i
+                                class="dripicons-print"></i> {{trans('file.Print')}}</button>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">
+                            {{$general_setting->site_title}}</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close"
+                            class="close d-print-none"><span aria-hidden="true"><i
+                                    class="dripicons-cross"></i></span></button>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <i style="font-size: 15px;">{{trans('file.Quotation Details')}}</i>
+                    </div>
                 </div>
             </div>
-        </div>
             <div id="quotation-content" class="modal-body">
             </div>
             <br>
@@ -362,29 +411,34 @@
                 </tbody>
             </table>
             <!-- <div id="quotation-footer" class="modal-body"></div> -->
-      </div>
+        </div>
     </div>
 </div>
 
-<div id="return-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+<div id="return-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    class="modal fade text-left">
     <div role="document" class="modal-dialog">
-      <div class="modal-content">
-        <div class="container mt-3 pb-2 border-bottom">
-        <div class="row">
-            <div class="col-md-3">
-                <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i class="dripicons-print"></i> {{trans('file.Print')}}</button>
+        <div class="modal-content">
+            <div class="container mt-3 pb-2 border-bottom">
+                <div class="row">
+                    <div class="col-md-3">
+                        <button id="print-btn" type="button" class="btn btn-default btn-sm d-print-none"><i
+                                class="dripicons-print"></i> {{trans('file.Print')}}</button>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">
+                            {{$general_setting->site_title}}</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close"
+                            class="close d-print-none"><span aria-hidden="true"><i
+                                    class="dripicons-cross"></i></span></button>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <i style="font-size: 15px;">{{trans('file.Return Details')}}</i>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <h3 id="exampleModalLabel" class="modal-title text-center container-fluid">{{$general_setting->site_title}}</h3>
-            </div>
-            <div class="col-md-3">
-                <button type="button" id="close-btn" data-dismiss="modal" aria-label="Close" class="close d-print-none"><span aria-hidden="true"><i class="dripicons-cross"></i></span></button>
-            </div>
-            <div class="col-md-12 text-center">
-                <i style="font-size: 15px;">{{trans('file.Return Details')}}</i>
-            </div>
-        </div>
-    </div>
             <div id="return-content" class="modal-body">
             </div>
             <br>
@@ -402,7 +456,7 @@
                 </tbody>
             </table>
             <!-- <div id="return-footer" class="modal-body"></div> -->
-      </div>
+        </div>
     </div>
 </div>
 
