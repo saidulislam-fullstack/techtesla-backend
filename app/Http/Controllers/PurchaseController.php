@@ -418,6 +418,7 @@ class PurchaseController extends Controller
         $data = $request->except('document');
         //return dd($data);
         $data['user_id'] = Auth::id();
+        $data['status'] = $request->status ?? 3;
         $data['reference_no'] = 'pr-' . date("Ymd") . '-' . date("his");
         $document = $request->document;
         if ($document) {
