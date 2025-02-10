@@ -29,7 +29,8 @@
                                             <label for="rfq_type">{{ trans('file.Type') }}</label><span class="required">
                                                 *</span>
                                             <select name="type" id="rfq_type" class="selectpicker form-control"
-                                                data-live-search="true" title="Select Type..." required>
+                                                onchange="selectedType(this)" data-live-search="true" title="Select Type..."
+                                                required>
                                                 <option value="">Select Type</option>
                                                 <option value="regular_mro">Regular MRO</option>
                                                 <option value="project">Project</option>
@@ -39,7 +40,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('file.customer') }} </label>
+                                            <label class="customer-label">{{ trans('file.customer') }} </label>
                                             <select id="customer_id" name="customer_id" class="selectpicker form-control"
                                                 data-live-search="true" id="customer-id" title="Select customer...">
                                                 @foreach ($customer_list as $customer)
@@ -227,6 +228,19 @@
 
         function replaceNewLines(text) {
             return text.replace(/[\n\r]/g, "<br>");
+        }
+
+        function selectedType(e) {
+            // if type is project or regular_mro then customer_id is required
+            if (e.value == 'project' || e.value == 'regular_mro') {
+                // customer-label append * span with class text-danger
+                $('.customer-label').append('<span>*</span>');
+                $('#customer_id').prop('required', true);
+            } else {
+                // remove * span from customer-label
+                $('.customer-label span').remove();
+                $('#customer_id').prop('required', false);
+            }
         }
     </script>
 @endpush
