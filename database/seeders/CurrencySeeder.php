@@ -14,8 +14,8 @@ class CurrencySeeder extends Seeder
     public function run(): void
     {
         Currency::create([
-            'name' => 'USD',
-            'code' => '$',
+            'name' => 'BDT',
+            'code' => '৳',
             'exchange_rate' => 1,
             'is_active' => 1,
         ]);

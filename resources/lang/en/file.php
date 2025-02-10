@@ -886,4 +886,5 @@ return [
 	"Dashboard" => "Dashboard",
 	"Model" => "Model",
 	"Origin" => "Origin",
+	"Received" => "Received",
 ];
