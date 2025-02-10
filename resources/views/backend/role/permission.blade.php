@@ -501,14 +501,14 @@
                                                 <div class="icheckbox_square-blue checked" aria-checked="false"
                                                     aria-disabled="false">
                                                     <div class="checkbox">
-                                                        @if (in_array('RFQuotes-index', $all_permission))
-                                                            <input type="checkbox" value="1" id="RFQuotes-index"
-                                                                name="RFQuotes-index" checked>
+                                                        @if (in_array('rf-quotes-index', $all_permission))
+                                                            <input type="checkbox" value="1" id="rf-quotes-index"
+                                                                name="rf-quotes-index" checked>
                                                         @else
-                                                            <input type="checkbox" value="1" id="RFQuotes-index"
-                                                                name="RFQuotes-index">
+                                                            <input type="checkbox" value="1" id="rf-quotes-index"
+                                                                name="rf-quotes-index">
                                                         @endif
-                                                        <label for="RFQuotes-index"></label>
+                                                        <label for="rf-quotes-index"></label>
                                                     </div>
                                                 </div>
                                             </td>
@@ -516,14 +516,14 @@
                                                 <div class="icheckbox_square-blue checked" aria-checked="false"
                                                     aria-disabled="false">
                                                     <div class="checkbox">
-                                                        @if (in_array('RFQuotes-add', $all_permission))
-                                                            <input type="checkbox" value="1" id="RFQuotes-add"
-                                                                name="RFQuotes-add" checked>
+                                                        @if (in_array('rf-quotes-add', $all_permission))
+                                                            <input type="checkbox" value="1" id="rf-quotes-add"
+                                                                name="rf-quotes-add" checked>
                                                         @else
-                                                            <input type="checkbox" value="1" id="RFQuotes-add"
-                                                                name="RFQuotes-add">
+                                                            <input type="checkbox" value="1" id="rf-quotes-add"
+                                                                name="rf-quotes-add">
                                                         @endif
-                                                        <label for="RFQuotes-add"></label>
+                                                        <label for="rf-quotes-add"></label>
                                                     </div>
                                                 </div>
                                             </td>
@@ -531,14 +531,14 @@
                                                 <div class="icheckbox_square-blue checked" aria-checked="false"
                                                     aria-disabled="false">
                                                     <div class="checkbox">
-                                                        @if (in_array('RFQuotes-edit', $all_permission))
-                                                            <input type="checkbox" value="1" id="RFQuotes-edit"
-                                                                name="RFQuotes-edit" checked>
+                                                        @if (in_array('rf-quotes-edit', $all_permission))
+                                                            <input type="checkbox" value="1" id="rf-quotes-edit"
+                                                                name="rf-quotes-edit" checked>
                                                         @else
-                                                            <input type="checkbox" value="1" id="RFQuotes-edit"
-                                                                name="RFQuotes-edit">
+                                                            <input type="checkbox" value="1" id="rf-quotes-edit"
+                                                                name="rf-quotes-edit">
                                                         @endif
-                                                        <label for="RFQuotes-edit"></label>
+                                                        <label for="rf-quotes-edit"></label>
                                                     </div>
                                                 </div>
                                             </td>
@@ -546,14 +546,14 @@
                                                 <div class="icheckbox_square-blue" aria-checked="false"
                                                     aria-disabled="false">
                                                     <div class="checkbox">
-                                                        @if (in_array('RFQuotes-delete', $all_permission))
-                                                            <input type="checkbox" value="1" id="RFQuotes-delete"
-                                                                name="RFQuotes-delete" checked>
+                                                        @if (in_array('rf-quotes-delete', $all_permission))
+                                                            <input type="checkbox" value="1" id="rf-quotes-delete"
+                                                                name="rf-quotes-delete" checked>
                                                         @else
-                                                            <input type="checkbox" value="1" id="RFQuotes-delete"
-                                                                name="RFQuotes-delete">
+                                                            <input type="checkbox" value="1" id="rf-quotes-delete"
+                                                                name="rf-quotes-delete">
                                                         @endif
-                                                        <label for="RFQuotes-delete"></label>
+                                                        <label for="rf-quotes-delete"></label>
                                                     </div>
                                                 </div>
                                             </td>
