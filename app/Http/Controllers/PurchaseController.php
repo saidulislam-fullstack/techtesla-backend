@@ -232,16 +232,18 @@ class PurchaseController extends Controller
                     $nestedData['options'] .= '<li>
                         <a href="' . route('purchases.edit', $purchase->id) . '" class="btn btn-link"><i class="dripicons-document-edit"></i> ' . trans('file.edit') . '</a>
                         </li>';
-                if (in_array("purchase-payment-index", $request['all_permission']))
-                    $nestedData['options'] .=
-                        '<li>
-                            <button type="button" class="get-payment btn btn-link" data-id = "' . $purchase->id . '"><i class="fa fa-money"></i> ' . trans('file.View Payment') . '</button>
+                if ($purchase->status != 3) {
+                    if (in_array("purchase-payment-index", $request['all_permission']))
+                        $nestedData['options'] .=
+                            '<li>
+                        <button type="button" class="get-payment btn btn-link" data-id = "' . $purchase->id . '"><i class="fa fa-money"></i> ' . trans('file.View Payment') . '</button>
                         </li>';
-                if (in_array("purchase-payment-add", $request['all_permission']))
-                    $nestedData['options'] .=
-                        '<li>
-                            <button type="button" class="add-payment btn btn-link" data-id = "' . $purchase->id . '" data-toggle="modal" data-target="#add-payment"><i class="fa fa-plus"></i> ' . trans('file.Add Payment') . '</button>
-                        </li>';
+                    if (in_array("purchase-payment-add", $request['all_permission']))
+                        $nestedData['options'] .=
+                            '<li>
+                    <button type="button" class="add-payment btn btn-link" data-id = "' . $purchase->id . '" data-toggle="modal" data-target="#add-payment"><i class="fa fa-plus"></i> ' . trans('file.Add Payment') . '</button>
+                    </li>';
+                }
                 if (in_array("purchases-delete", $request['all_permission']))
                     $nestedData['options'] .= \Form::open(["route" => ["purchases.destroy", $purchase->id], "method" => "DELETE"]) . '
                             <li>
@@ -418,6 +420,7 @@ class PurchaseController extends Controller
         $data = $request->except('document');
         //return dd($data);
         $data['user_id'] = Auth::id();
+        $data['status'] = $request->status ?? 3;
         $data['reference_no'] = 'pr-' . date("Ymd") . '-' . date("his");
         $document = $request->document;
         if ($document) {
