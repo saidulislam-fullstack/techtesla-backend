@@ -16,7 +16,7 @@ class AddPaymentIdAndChangeSaleIdToPaymentsTable extends Migration
         Schema::table('payments', function (Blueprint $table) {
             $table->integer('purchase_id')->nullable()->after('id');
             $table->integer('sale_id')->nullable()->change();
-            $table->decimal('change', 10, 2)->nullable();
+            // $table->decimal('change', 10, 2)->nullable();
         });
     }
 
