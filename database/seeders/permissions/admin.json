@@ -25,6 +25,8 @@
         "rf-quotes-add",
         "rf-quotes-edit",
         "rf-quotes-delete",
+        "rf-quotes-dashboard",
+        "rf-quotes-report",
         "price-collection-index",
         "price-collection-add",
         "price-collection-edit",

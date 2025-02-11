@@ -29,7 +29,13 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-2">
+                                    <div class="col-md-6">
+                                        <ul class="list-group" id="productResultUl">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mt-2">
                                         <label>{{ trans('file.Select Product') }}</label>
                                         <div class="search-box input-group">
                                             <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>
@@ -55,16 +61,6 @@
                                                 </thead>
                                                 <tbody>
                                                 </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <td colspan="3"></td>
-                                                        <td>
-                                                            <input type="text" id="total" class="form-control"
-                                                                readonly />
-                                                        </td>
-                                                        <td></td>
-                                                    </tr>
-                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
@@ -185,10 +181,26 @@
                                 rfq_id: item.requested_quotation_id,
                             };
                         });
+                        // insert productResultUl list of productCollection
+                        var html = '';
+                        $.each(productCollection, function(key, value) {
+                            html += '<li class="list-group-item product-item" data-id="' + value.id +
+                                '" data-name="' + value.name + '" data-rfq-item-id="' + value
+                                .rfq_item_id +
+                                '" data-rfq-id="' + value.rfq_id + '">' +
+                                value.name +
+                                '</li>';
+                        });
+                        $('#productResultUl').html(html);
+                        // table clear
+                        $('#myTable tbody').html('');
                         console.log(productCollection);
                         console.log(rfqItemCollection);
                     }
                 });
+            } else {
+                $('#productResultUl').html('');
+                productCollection = [];
             }
         }
     </script>

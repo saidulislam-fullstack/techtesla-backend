@@ -882,4 +882,10 @@ return [
 	"Customer Proposed Price" => "Customer Proposed Price",
 	"Select" => "Select",
 	"After submission selection will be effected on RFQ" => "After submission selection will be effected on RFQ",
+	"Report" => "Report",
+	"Dashboard" => "Dashboard",
+	"Model" => "Model",
+	"Origin" => "Origin",
+	"Received" => "Received",
+	"Selection" => "Selection",
 ];

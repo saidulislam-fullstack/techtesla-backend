@@ -27,6 +27,8 @@ class Product extends Model
         "last_date",
         "tax_id",
         "tax_method",
+        "model",
+        "origin",
         "image",
         "file",
         "is_embeded",

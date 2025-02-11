@@ -213,6 +213,22 @@ class RequestedQuotationController extends Controller
         return redirect()->route('rf-quotation.index')->with('message', 'Requested quotation deleted successfully.');
     }
 
+    /**
+     * Get dashboard data
+     */
+    public function dashboard()
+    {
+        return view('backend.rf_quotation.dashboard');
+    }
+
+    /**
+     * Get report data
+     */
+    public function report(Request $request)
+    {
+        return view('backend.rf_quotation.report');
+    }
+
     private function productWithVariant()
     {
         return Product::join('product_variants', 'products.id', 'product_variants.product_id')

@@ -25,12 +25,20 @@ class RequestedQuotationDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
                 $btn = '';
-                $btn .= '<div class="btn-group" role="group">';
-                $btn .= '<a href="' . route('price-collection.selection', $query->id) . '" class="btn btn-sm btn-info" title="Selection"><i class="fa fa-money"></i></a>';
-                if (!$query->has_price_collection_selected) {
-                    $btn .= '<a href="' . route('rf-quotation.edit', $query->id) . '" class="btn btn-sm btn-primary" title="Edit"><i class="fa fa-edit"></i></a>';
-                    $btn .= '<button type="button" class="btn btn-sm btn-danger" onclick="deleteData(' . $query->id . ')" title="Delete"><i class="fa fa-trash"></i></button>';
+                $btn .= '<div class="btn-group">';
+                $btn .= '<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . trans("file.action") . '
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>';
+                $btn .= '<ul class="dropdown-menu dropdown-menu-right dropdown-default" user="menu">';
+                if ($query->priceCollection->count() > 0) {
+                    $btn .= '<li><a href="' . route('price-collection.selection', $query->id) . '" class="btn btn-link" title="Selection"><i class="fa fa-check"></i> ' . trans("file.Selection") . '</a></li>';
                 }
+                if (! $query->has_price_collection_selected) {
+                    $btn .= '<li><a href="' . route('rf-quotation.edit', $query->id) . '" class="btn btn-link" title="Edit"><i class="dripicons-document-edit"></i> ' . trans("file.edit") . '</a></li>';
+                    $btn .= '<li><button type="button" class="btn btn-link" onclick="deleteData(' . $query->id . ')" title="Delete"><i class="dripicons-trash"></i> ' . trans("file.delete") . '</button></li>';
+                }
+                $btn .= '</ul>';
                 $btn .= '</div>';
                 return $btn;
             })
@@ -47,7 +55,7 @@ class RequestedQuotationDataTable extends DataTable
      */
     public function query(RequestedQuotation $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->newQuery()->with('priceCollection');
     }
 
     /**
