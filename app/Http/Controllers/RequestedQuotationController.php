@@ -110,7 +110,8 @@ class RequestedQuotationController extends Controller
      */
     public function show(RequestedQuotation $rf_quotation)
     {
-        //
+        $item = $rf_quotation->load('items.product', 'customer');
+        return view('backend.rf_quotation.show', compact('item'));
     }
 
     /**

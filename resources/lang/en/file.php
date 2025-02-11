@@ -888,4 +888,11 @@ return [
 	"Origin" => "Origin",
 	"Received" => "Received",
 	"Selection" => "Selection",
+	"Requested Quotation Show" => "Requested Quotation Show",
+	"RFQ No" => "RFQ No",
+	"Customer Name" => "Customer Name",
+	"Customer Email" => "Customer Email",
+	"Customer Phone" => "Customer Phone",
+	"Customer Address" => "Customer Address",
+	"Customer Contact" => "Customer Contact",
 ];
