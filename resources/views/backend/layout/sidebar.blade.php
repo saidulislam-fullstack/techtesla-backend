@@ -212,6 +212,16 @@
                     </li>
                 @endif
                 @php
+                    $add_permission_active = $role_has_permissions_list
+                        ->where('name', 'rf-quotes-supplier-wise')
+                        ->first();
+                @endphp
+                @if ($add_permission_active)
+                    <li id="rf-quotation-supplier-wise-menu">
+                        <a href="{{ route('rf-quotation.supplier-wise') }}">{{ trans('file.Supplier Wise RFQ') }}</a>
+                    </li>
+                @endif
+                @php
                     $add_permission_active = $role_has_permissions_list->where('name', 'rf-quotes-dashboard')->first();
                 @endphp
                 @if ($add_permission_active)
