@@ -230,6 +230,14 @@ class RequestedQuotationController extends Controller
         return view('backend.rf_quotation.report');
     }
 
+    /**
+     * Get rfq product list by supplier wise
+     */
+    public function supplierWise(Request $request)
+    {
+        return view('backend.rf_quotation.supplier-wise');
+    }
+
     private function productWithVariant()
     {
         return Product::join('product_variants', 'products.id', 'product_variants.product_id')
