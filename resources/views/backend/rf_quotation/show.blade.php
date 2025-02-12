@@ -51,9 +51,9 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Product</th>
-                                        <th>Quantity</th>
-                                        <th>Proposed Price</th>
+                                        <th>{{ trans('file.Product') }}</th>
+                                        <th>{{ trans('file.Quantity') }}</th>
+                                        <th>{{ trans('file.Proposed Price') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
