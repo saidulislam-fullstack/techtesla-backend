@@ -1,4 +1,13 @@
 @extends('backend.layout.main')
+@push('styles')
+    <style>
+        @media print {
+            #printBtn {
+                display: none;
+            }
+        }
+    </style>
+@endpush
 @section('content')
     <section id="quotationSection">
         <div class="container-fluid">
@@ -77,7 +86,8 @@
             </div>
             <!-- Print Button -->
             <div class="text-center mt-3">
-                <button type="button" class="btn btn-primary" onclick="printQuotation()">Print</button>
+                <button type="button" class="btn btn-primary no-print" id="printBtn"
+                    onclick="printQuotation()">Print</button>
             </div>
         </div>
     </section>
