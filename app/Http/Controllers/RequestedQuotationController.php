@@ -235,7 +235,14 @@ class RequestedQuotationController extends Controller
      */
     public function supplierWise(Request $request)
     {
-        return view('backend.rf_quotation.supplier-wise');
+        $rfQs = RequestedQuotation::with('priceCollection.product', 'priceCollection.supplier')
+            ->whereHas('priceCollection', function ($query) {
+                $query->where('is_selected', true);
+            })->get();
+
+        // dd($rfQs);
+
+        return view('backend.rf_quotation.supplier-wise', compact('rfQs'));
     }
 
     private function productWithVariant()
