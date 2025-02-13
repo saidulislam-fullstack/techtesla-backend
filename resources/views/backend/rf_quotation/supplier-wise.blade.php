@@ -15,8 +15,12 @@
                             <div class="form-group">
                                 <label for="rfq_id">{{ trans('file.RFQ') }}:</label><span class="required">
                                     *</span>
+<<<<<<< HEAD
                                 <select name="rfq_id" id="rfq_id" class="form-control selectpicker"
                                     onchange="selectRFQ(this)" required>
+=======
+                                <select name="rfq_id" id="rfq_id" class="form-control selectpicker" required>
+>>>>>>> 02855dc (refactor)
                                     <option value="">{{ trans('file.Select RFQ') }}</option>
                                     @foreach ($rfQs as $item)
                                         <option value="{{ $item->id }}">{{ $item->rfq_no }}</option>
@@ -28,13 +32,18 @@
                             <div class="form-group">
                                 <label for="supplier_id">{{ trans('file.Supplier') }}</label><span class="required">
                                     *</span>
+<<<<<<< HEAD
                                 <select name="supplier_id" id="supplier_id" class="form-control selectpicker"
                                     onchange="selectSuppler(this)" required>
+=======
+                                <select name="supplier_id" id="supplier_id" class="form-control selectpicker" required>
+>>>>>>> 02855dc (refactor)
                                     <option value="">{{ trans('file.Select Supplier') }}</option>
                                 </select>
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div class="row">
                         <div class="table-responsive">
                             <table class="table table-bordered table-striped" id="supplier-wise-table">
@@ -78,6 +87,8 @@
                             </table>
                         </div>
                     </div>
+=======
+>>>>>>> 02855dc (refactor)
                 </div>
             </div>
     </section>
