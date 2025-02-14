@@ -897,4 +897,5 @@ return [
 	"Customer Contact" => "Customer Contact",
 	"Supplier Wise RFQ" => "Supplier Wise RFQ",
 	"Supplier Wise RFQ Show" => "Supplier Wise RFQ Show",
+	"Select Supplier" => "Select Supplier",
 ];
