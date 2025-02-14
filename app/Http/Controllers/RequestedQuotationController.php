@@ -235,12 +235,13 @@ class RequestedQuotationController extends Controller
      */
     public function supplierWise(Request $request)
     {
-        $rfQs = RequestedQuotation::with('priceCollection.product', 'priceCollection.supplier')
+        $rfQs = RequestedQuotation::with([
+            'priceCollection.product:id,name,code,type,cost,price,is_variant',
+            'priceCollection.supplier:id,name,company_name,email,phone_number,address'
+        ])
             ->whereHas('priceCollection', function ($query) {
                 $query->where('is_selected', true);
             })->get();
-
-        // dd($rfQs);
 
         return view('backend.rf_quotation.supplier-wise', compact('rfQs'));
     }
