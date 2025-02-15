@@ -895,4 +895,10 @@ return [
 	"Customer Phone" => "Customer Phone",
 	"Customer Address" => "Customer Address",
 	"Customer Contact" => "Customer Contact",
+	"Supplier Wise RFQ" => "Supplier Wise RFQ",
+	"Supplier Wise RFQ Show" => "Supplier Wise RFQ Show",
+	"Select Supplier" => "Select Supplier",
+	"Sl" => "Sl",
+	"Sub Total" => "Sub Total",
+	"Grand Total" => "Grand Total",
 ];

@@ -230,6 +230,22 @@ class RequestedQuotationController extends Controller
         return view('backend.rf_quotation.report');
     }
 
+    /**
+     * Get rfq product list by supplier wise
+     */
+    public function supplierWise(Request $request)
+    {
+        $rfQs = RequestedQuotation::with([
+            'priceCollection.product:id,name,code,type,cost,price,is_variant',
+            'priceCollection.supplier:id,name,company_name,email,phone_number,address'
+        ])
+            ->whereHas('priceCollection', function ($query) {
+                $query->where('is_selected', true);
+            })->get();
+
+        return view('backend.rf_quotation.supplier-wise', compact('rfQs'));
+    }
+
     private function productWithVariant()
     {
         return Product::join('product_variants', 'products.id', 'product_variants.product_id')

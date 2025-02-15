@@ -83,13 +83,14 @@ class PriceCollectionController extends Controller
         ]);
 
         // Group the selected items by product_id
-        $grouped_items = collect($data['item_id'])->map(function ($item_id) {
-            return PriceCollection::find($item_id);
+        $grouped_items = collect($data['item_id'])->map(function ($item_id) use ($rfq) {
+            return PriceCollection::where('rfq_id', $rfq->id)->find($item_id);
         })->groupBy('product_id');
 
         // Loop through each product group and update the selected item
         foreach ($grouped_items as $product_id => $items) {
             PriceCollection::where('product_id', $product_id)
+                ->where('rfq_id', $rfq->id)
                 ->whereNotIn('id', $items->pluck('id')->toArray())
                 ->update(['is_selected' => 0]);
 
