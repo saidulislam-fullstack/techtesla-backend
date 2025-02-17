@@ -16,8 +16,9 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->string('reference_no');
-            $table->integer('warehouse_id');
-            $table->integer('supplier_id')->nullable();
+            $table->unsignedBigInteger('rfq_id')->nullable();
+            $table->unsignedBigInteger('warehouse_id');
+            $table->unsignedBigInteger('supplier_id')->nullable();
             $table->integer('item');
             $table->integer('total_qty');
             $table->double('total_discount');

@@ -324,6 +324,7 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
 
     // RFQuotation
     Route::get('rf-quotation/supplier-wise', [RequestedQuotationController::class, 'supplierWise'])->name('rf-quotation.supplier-wise');
+    Route::post('rf-quotation/supplier-wise-purchase', [RequestedQuotationController::class, 'supplierWiseToPurchaseOrder'])->name('rf-quotation.supplier-wise-purchase');
     Route::get('rf-quotation/dashboard', [RequestedQuotationController::class, 'dashboard'])->name('rf-quotation.dashboard');
     Route::get('rf-quotation/report', [RequestedQuotationController::class, 'report'])->name('rf-quotation.report');
     Route::resource('rf-quotation', RequestedQuotationController::class);

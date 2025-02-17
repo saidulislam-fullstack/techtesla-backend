@@ -14,6 +14,7 @@ use App\Models\ProductVariant;
 use App\Models\RequestedQuotation;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Purchase;
 use App\Models\RequestedQuotationDetail;
 
 class RequestedQuotationController extends Controller
@@ -236,7 +237,8 @@ class RequestedQuotationController extends Controller
     public function supplierWise(Request $request)
     {
         $rfQs = RequestedQuotation::with([
-            'priceCollection.product:id,name,code,type,cost,price,is_variant',
+            'priceCollection.product:id,name,code,type,cost,price,is_variant,unit_id',
+            'priceCollection.product.unit:id,unit_name,unit_code,base_unit,operator,operation_value',
             'priceCollection.supplier:id,name,company_name,email,phone_number,address'
         ])
             ->whereHas('priceCollection', function ($query) {
@@ -244,6 +246,72 @@ class RequestedQuotationController extends Controller
             })->get();
 
         return view('backend.rf_quotation.supplier-wise', compact('rfQs'));
+    }
+
+    /**
+     * Supplier wise RFQ product to Purchase Order
+     */
+    public function supplierWiseToPurchaseOrder(Request $request)
+    {
+        $data = $request->validate([
+            'rfq_id' => 'required|integer|exists:requested_quotations,id',
+            'supplier_id' => 'required|integer|exists:suppliers,id',
+            'items' => 'required|array',
+            'items.rfq_item_id.*' => 'required|integer|exists:requested_quotation_details,id',
+            'items.product_id.*' => 'required|integer|exists:products,id',
+            'items.quantity.*' => 'required|numeric',
+            'items.unit_id.*' => 'required|integer|exists:units,id',
+            'items.unit_price.*' => 'required|numeric|min:1',
+            'total_item' => 'required|numeric|min:1',
+            'total_quantity' => 'required|numeric|min:1',
+            'grand_total' => 'required|numeric|min:1',
+        ]);
+
+        try {
+            DB::beginTransaction();
+            $purchase = Purchase::create([
+                'rfq_id' => $data['rfq_id'],
+                'reference_no' => 'pr-' . date("Ymd") . '-' . date("his"),
+                'user_id' => auth()->id(),
+                'warehouse_id' => 1,
+                'supplier_id' => $data['supplier_id'],
+                'currency_id' => 1,
+                'exchange_rate' => 1,
+                'item' => $data['total_item'],
+                'total_qty' => $data['total_quantity'],
+                'total_discount' => 0,
+                'total_tax' => 0,
+                'total_cost' => $data['grand_total'],
+                'order_tax_rate' => 0,
+                'order_tax' => 0,
+                'shipping_cost' => 0,
+                'grand_total' => $data['grand_total'],
+                'paid_amount' => 0,
+                'status' => 3,
+                'payment_status' => 1,
+            ]);
+
+            foreach ($data['items']['product_id'] as $key => $value) {
+                $purchase->items()->create([
+                    'product_id' => $value,
+                    'rfq_item_id' => $data['items']['rfq_item_id'][$key],
+                    'qty' => $data['items']['quantity'][$key],
+                    'purchase_unit_id' => $data['items']['unit_id'][$key],
+                    'net_unit_cost' => $data['items']['unit_price'][$key],
+                    'discount' => 0,
+                    'tax_rate' => 0,
+                    'recieved' => 0,
+                    'tax' => 0,
+                    'total' => $data['items']['unit_price'][$key] * $data['items']['quantity'][$key],
+                ]);
+            }
+
+            DB::commit();
+            return redirect()->route('purchases.index')->with('message', 'Purchase order created successfully.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Something went wrong. Please try again.' . $e->getMessage());
+        }
     }
 
     private function productWithVariant()
