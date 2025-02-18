@@ -331,7 +331,7 @@ class RequestedQuotationController extends Controller
         return Product::join('product_variants', 'products.id', 'product_variants.product_id')
             ->ActiveStandard()
             ->whereNotNull('is_variant')
-            ->select('products.id', 'products.name', 'product_variants.item_code', 'product.model')
+            ->select('products.id', 'products.name', 'product_variants.item_code', 'products.model')
             ->orderBy('position')
             ->get();
     }
