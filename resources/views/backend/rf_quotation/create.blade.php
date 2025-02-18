@@ -79,6 +79,7 @@
                                                         <th>{{ trans('file.Product') }}</th>
                                                         <th>{{ trans('file.Quantity') }}</th>
                                                         <th>{{ trans('file.Proposed Price') }}</th>
+                                                        <th>{{ trans('file.Note') }}</th>
                                                         <th>{{ trans('file.Action') }}</th>
                                                     </tr>
                                                 </thead>
@@ -92,7 +93,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>{{ trans('file.Note') }}</label>
-                                            <textarea rows="5" class="form-control" name="note"></textarea>
+                                            <textarea rows="5" class="form-control" name="remarks"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
@@ -198,6 +199,7 @@
                     '<td><input type="number" name="proposed_price[]" class="form-control" value="' +
                     proposedPrice +
                     '" required></td>' +
+                    '<td><input type="text" name="note[]" class="form-control"></td>' +
                     '<td><button class="btn btn-danger remove-row"><i class="fa fa-trash"></i></button></td>' +
                     '</tr>';
                 // Append the new row to the table

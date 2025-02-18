@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id')->comment('Product ID');
             $table->integer('quantity')->comment('Quantity of the product');
             $table->decimal('proposed_price', 10, 2)->nullable()->comment('Proposed price of the product');
+            $table->text('note')->nullable()->comment('Note');
             $table->timestamps();
             $table->foreign('requested_quotation_id')->references('id')->on('requested_quotations')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

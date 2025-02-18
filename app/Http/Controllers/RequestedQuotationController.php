@@ -66,12 +66,13 @@ class RequestedQuotationController extends Controller
             'product_code' => 'required|array',
             'quantity' => 'required|array',
             'proposed_price' => 'required|array',
-            'note' => 'nullable|string',
+            'remarks' => 'nullable|string',
             'delivery_info' => 'nullable|string',
             'product_id.*' => 'required|integer',
             'product_code.*' => 'required|string',
             'quantity.*' => 'required|integer',
             'proposed_price.*' => 'required|numeric',
+            'note.*' => 'nullable|string',
         ]);
 
         DB::transaction(function () use ($data, $request) {
@@ -79,7 +80,7 @@ class RequestedQuotationController extends Controller
                 'customer_id' => $data['customer_id'],
                 'date' => $data['date'],
                 'type' => $data['type'],
-                'note' => $data['note'],
+                'note' => $data['remarks'],
                 'delivery_info' => $data['delivery_info'],
             ]);
 
@@ -92,15 +93,17 @@ class RequestedQuotationController extends Controller
                 $product_id,
                 $product_code,
                 $quantity,
-                $proposed_price
+                $proposed_price,
+                $note
             ) {
                 return [
                     'product_id' => $product_id,
                     'product_code' => $product_code,
                     'quantity' => $quantity,
                     'proposed_price' => $proposed_price,
+                    'note' => $note,
                 ];
-            }, $data['product_id'], $data['product_code'], $data['quantity'], $data['proposed_price']));
+            }, $data['product_id'], $data['product_code'], $data['quantity'], $data['proposed_price'], $data['note']));
         });
 
         return redirect()->route('rf-quotation.index')->with('message', 'Requested quotation created successfully.');
@@ -143,13 +146,14 @@ class RequestedQuotationController extends Controller
             'product_code' => 'required|array',
             'quantity' => 'required|array',
             'proposed_price' => 'required|array',
-            'note' => 'nullable|string',
+            'remarks' => 'nullable|string',
             'delivery_info' => 'nullable|string',
             'id.*' => 'nullable|integer',
             'product_id.*' => 'required|integer',
             'product_code.*' => 'required|string',
             'quantity.*' => 'required|integer',
             'proposed_price.*' => 'required|numeric',
+            'note.*' => 'nullable|string',
         ]);
 
         DB::transaction(function () use ($data, $request, $rf_quotation) {
@@ -157,7 +161,7 @@ class RequestedQuotationController extends Controller
                 'customer_id' => $data['customer_id'],
                 'date' => $data['date'],
                 'type' => $data['type'],
-                'note' => $data['note'],
+                'note' => $data['remarks'],
                 'delivery_info' => $data['delivery_info'],
             ]);
 
@@ -189,6 +193,7 @@ class RequestedQuotationController extends Controller
                         'product_code' => $data['product_code'][$key],
                         'quantity' => $data['quantity'][$key],
                         'proposed_price' => $data['proposed_price'][$key],
+                        'note' => $data['note'][$key],
                     ]
                 );
                 if ($id) {

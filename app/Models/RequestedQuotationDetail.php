@@ -17,6 +17,7 @@ class RequestedQuotationDetail extends Model
         'product_code',
         'quantity',
         'proposed_price',
+        'note',
     ];
 
     public function requestedQuotation()
