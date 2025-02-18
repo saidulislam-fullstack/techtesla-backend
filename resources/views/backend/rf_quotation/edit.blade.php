@@ -12,7 +12,8 @@
                             <p class="italic">
                                 <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
                             </p>
-                            <form action="{{ route('rf-quotation.update', $item->id) }}" method="POST">
+                            <form action="{{ route('rf-quotation.update', $item->id) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -56,10 +57,18 @@
                                             <label>{{ trans('file.Attach Document') }}</label> <i class="dripicons-question"
                                                 data-toggle="tooltip"
                                                 title="Only jpg, jpeg, png, gif, pdf, csv, docx, xlsx and txt file is supported"></i>
-                                            <input type="file" name="document" class="form-control" />
-                                            @isset($item->document)
-                                                <a href="{{ asset($item->document) }}" target="_blank">View Document</a>
-                                            @endisset
+                                            <input type="file" name="document[]" class="form-control"
+                                                accept=".jpg,.jpeg,.png,.gif,.pdf,.csv,.docx,.xlsx,.txt" multiple />
+                                            @if ($item->documents->count() > 0)
+                                                <ul class="mt-2">
+                                                    @foreach ($item->documents as $document)
+                                                        <li class="">
+                                                            <a href="{{ asset('storage/' . $document->file_path) }}"
+                                                                target="_blank">View Document</a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-12 mt-2">

@@ -56,7 +56,8 @@
                                             <label>{{ trans('file.Attach Document') }}</label> <i class="dripicons-question"
                                                 data-toggle="tooltip"
                                                 title="Only jpg, jpeg, png, gif, pdf, csv, docx, xlsx and txt file is supported"></i>
-                                            <input type="file" name="document" class="form-control" />
+                                            <input type="file" name="document[]" class="form-control"
+                                                accept=".jpg,.jpeg,.png,.gif,.pdf,.csv,.docx,.xlsx,.txt" multiple />
                                         </div>
                                     </div>
                                     <div class="col-md-12 mt-2">

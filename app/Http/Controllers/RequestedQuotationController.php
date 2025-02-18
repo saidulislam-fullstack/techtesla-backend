@@ -60,7 +60,7 @@ class RequestedQuotationController extends Controller
         $data = $request->validate([
             'customer_id' => 'nullable|integer',
             'date' => 'required|date',
-            'document' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,csv,docx,xlsx|max:10240',
+            'document.*' => 'nullable|mimes:jpg,jpeg,png,gif,pdf,csv,docx,xlsx,txt|max:10240',
             'type' => 'required|in:regular_mro,project,techtesla_stock',
             'product_id' => 'required|array',
             'product_code' => 'required|array',
@@ -85,8 +85,10 @@ class RequestedQuotationController extends Controller
             ]);
 
             if ($request->hasFile('document')) {
-                $path = $request->file('document')->store('rf-quotation/document', 'public');
-                $rf_quotation->update(['document' => $path]);
+                foreach ($request->file('document') as $file) {
+                    $path = $file->store('rf-quotation/document', 'public');
+                    $rf_quotation->documents()->create(['file_path' => $path]);
+                }
             }
 
             $rf_quotation->items()->createMany(array_map(function (
@@ -123,7 +125,7 @@ class RequestedQuotationController extends Controller
      */
     public function edit(RequestedQuotation $rf_quotation)
     {
-        $item = $rf_quotation->load('items.product', 'customer');
+        $item = $rf_quotation->load('items.product', 'customer', 'documents');
         $warehouse_list = Warehouse::where('is_active', true)->get();
         $customer_list = Customer::where('is_active', true)->get();
         $product_list_with_variant = $this->productWithVariant();
@@ -139,7 +141,7 @@ class RequestedQuotationController extends Controller
         $data = $request->validate([
             'customer_id' => 'nullable|integer',
             'date' => 'required|date',
-            'document' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,csv,docx,xlsx|max:10240',
+            'document.*' => 'nullable|mimes:jpg,jpeg,png,gif,pdf,csv,docx,xlsx,txt|max:10240',
             'type' => 'required|in:regular_mro,project,techtesla_stock',
             'product_id' => 'required|array',
             'id' => 'nullable|array',
@@ -167,11 +169,16 @@ class RequestedQuotationController extends Controller
 
             if ($request->hasFile('document')) {
                 // remove old file
-                if ($rf_quotation->document) {
-                    unlink(storage_path('app/public/' . $rf_quotation->document));
+                if ($rf_quotation->documents()->exists()) {
+                    foreach ($rf_quotation->documents() as $document) {
+                        unlink(storage_path('app/public/' . $document->file_path));
+                        $document->delete();
+                    }
                 }
-                $path = $request->file('document')->store('rf-quotation/document', 'public');
-                $rf_quotation->update(['document' => $path]);
+                foreach ($request->file('document') as $file) {
+                    $path = $file->store('rf-quotation/document', 'public');
+                    $rf_quotation->documents()->create(['file_path' => $path]);
+                }
             }
 
             $existing_item_id = [];

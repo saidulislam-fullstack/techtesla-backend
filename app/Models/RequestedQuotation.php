@@ -20,7 +20,6 @@ class RequestedQuotation extends Model
         'status',
         'terms',
         'delivery_info',
-        'document',
         'note',
     ];
 
@@ -52,6 +51,11 @@ class RequestedQuotation extends Model
     public function priceCollection()
     {
         return $this->hasMany(PriceCollection::class, 'rfq_id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(RequestedQuotationAttachment::class);
     }
 
     public function getHasPriceCollectionSelectedAttribute()

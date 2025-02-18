@@ -21,7 +21,6 @@ return new class extends Migration
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending')->comment('Status of the RFQ');
             $table->text('terms')->nullable()->comment('Terms and conditions');
             $table->text('delivery_info')->nullable()->comment('Delivery information');
-            $table->string('document')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
 
