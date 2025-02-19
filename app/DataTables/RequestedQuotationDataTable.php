@@ -23,6 +23,20 @@ class RequestedQuotationDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            // Show Customer, Type, Date, Created BY
+            ->editColumn('customer', function ($query) {
+                return $query->customer?->name;
+            })
+            ->editColumn('type', function ($query) {
+                // Show Type of RFQ by ucfirst and space replace with underscore
+                return ucfirst(str_replace('_', ' ', $query->type));
+            })
+            ->editColumn('date', function ($query) {
+                return $query->date;
+            })
+            ->editColumn('addedBy', function ($query) {
+                return $query->addedBy?->name;
+            })
             ->addColumn('action', function ($query) {
                 $btn = '';
                 $btn .= '<div class="btn-group">';
@@ -56,7 +70,7 @@ class RequestedQuotationDataTable extends DataTable
      */
     public function query(RequestedQuotation $model): QueryBuilder
     {
-        return $model->newQuery()->with('priceCollection');
+        return $model->newQuery()->with('priceCollection', 'customer:id,name', 'addedBy:id,name');
     }
 
     /**
@@ -107,6 +121,10 @@ class RequestedQuotationDataTable extends DataTable
         return [
             Column::make('DT_RowIndex')->title('SL')->searchable(false)->orderable(false)->width(30)->addClass('text-center'),
             Column::make('rfq_no')->title('RFQ No'),
+            Column::make('customer')->title('Customer'),
+            Column::make('type')->title('Type'),
+            Column::make('date')->title('Date'),
+            Column::make('addedBy')->title('Created By'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

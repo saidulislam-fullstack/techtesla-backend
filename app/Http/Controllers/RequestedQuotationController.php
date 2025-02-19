@@ -58,7 +58,7 @@ class RequestedQuotationController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'customer_id' => 'nullable|integer',
+            'customer_id' => 'nullable|integer|exists:customers,id',
             'date' => 'required|date',
             'document.*' => 'nullable|mimes:jpg,jpeg,png,gif,pdf,csv,docx,xlsx,txt|max:10240',
             'type' => 'required|in:regular_mro,project,techtesla_stock',
@@ -76,7 +76,19 @@ class RequestedQuotationController extends Controller
         ]);
 
         DB::transaction(function () use ($data, $request) {
+            $customer = Customer::find($data['customer_id']);
+            // RFQ no will be RFQ-Customer's one letter - date(d-m-Y)-last RFQ no + 1  (EX. RFQWC140220251)
+            if ($customer) {
+                // Extract the first letter of each word in the customer's name and make it uppercase
+                $customerInitials = implode('', array_map(function ($word) {
+                    return strtoupper(substr($word, 0, 1));
+                }, explode(' ', $customer->name)));
+                $data['rfq_no'] = 'RFQ' . $customerInitials . date('dmY') . RequestedQuotation::max('id') + 1;
+            } else {
+                $data['rfq_no'] = 'RFQ' . date('dmY') . RequestedQuotation::max('id') + 1;
+            }
             $rf_quotation = RequestedQuotation::create([
+                'rfq_no' => $data['rfq_no'],
                 'customer_id' => $data['customer_id'],
                 'date' => $data['date'],
                 'type' => $data['type'],

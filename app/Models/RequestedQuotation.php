@@ -28,7 +28,6 @@ class RequestedQuotation extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            $model->rfq_no = 'RFQ-' . date('YmdHis');
             $model->added_by = auth()->id();
         });
     }
