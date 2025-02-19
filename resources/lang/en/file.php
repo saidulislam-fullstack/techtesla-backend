@@ -901,4 +901,5 @@ return [
 	"Sl" => "Sl",
 	"Sub Total" => "Sub Total",
 	"Grand Total" => "Grand Total",
+	"Supplier Price" => "Supplier Price",
 ];

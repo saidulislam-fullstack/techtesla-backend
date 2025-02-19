@@ -128,7 +128,11 @@ class RequestedQuotationController extends Controller
      */
     public function show(RequestedQuotation $rf_quotation)
     {
-        $item = $rf_quotation->load('items.product', 'customer');
+        $item = $rf_quotation->load(['items.product', 'customer', 'priceCollection' => function ($query) {
+            $query->where('is_selected', true)->with('supplier:id,name');
+        }]);
+
+        // dd($item->toArray());
         return view('backend.rf_quotation.show', compact('item'));
     }
 

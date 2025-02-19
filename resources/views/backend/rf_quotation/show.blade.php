@@ -54,6 +54,8 @@
                                         <th>{{ trans('file.Product') }}</th>
                                         <th>{{ trans('file.Quantity') }}</th>
                                         <th>{{ trans('file.Proposed Price') }}</th>
+                                        <th>{{ trans('file.Supplier') }}</th>
+                                        <th>{{ trans('file.Price') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -62,6 +64,16 @@
                                             <td>{{ $value->product?->name }}</td>
                                             <td>{{ $value->quantity }}</td>
                                             <td>{{ $value->proposed_price }}</td>
+                                            <td>
+                                                @php
+                                                    $selectedPrice = collect($item->priceCollection)->firstWhere(
+                                                        'rfq_item_id',
+                                                        $value->id,
+                                                    );
+                                                @endphp
+                                                {{ $selectedPrice?->supplier?->name ?? 'N/A' }}
+                                            </td>
+                                            <td>{{ $selectedPrice?->price ?? 'N/A' }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

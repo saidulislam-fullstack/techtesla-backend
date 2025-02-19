@@ -55,7 +55,7 @@
                                                         <th>{{ trans('file.Product') }}</th>
                                                         <th>{{ trans('file.Supplier') }}</th>
                                                         <th>{{ trans('file.Note') }}</th>
-                                                        <th>{{ trans('file.Market Price') }}</th>
+                                                        <th>{{ trans('file.Supplier Price') }}</th>
                                                         <th>{{ trans('file.Action') }}</th>
                                                     </tr>
                                                 </thead>
@@ -104,14 +104,17 @@
                 return;
             }
             // Filter the productCollection based on the search term
-            var result = productCollection.filter(product => product.name && product.name.match(regex));
+            var result = productCollection.filter(product =>
+                (product.name && product.name.match(regex)) ||
+                (product.model && product.model.match(regex))
+            );
             console.log(result);
             var html = '';
             result.slice(0, 10).forEach(function(product) {
                 html += '<li class="list-group-item product-item" data-id="' + product.id +
                     '" data-name="' + product.name + '" data-rfq-item-id="' + product.rfq_item_id +
                     '" data-rfq-id="' + product.rfq_id + '">' +
-                    product.name +
+                    product.name + '|' + product.model +
                     '</li>';
             });
             $('#productSearchResult').html(html);
@@ -179,6 +182,7 @@
                                 name: item.product.name,
                                 rfq_item_id: item.id,
                                 rfq_id: item.requested_quotation_id,
+                                model: item.product.model,
                             };
                         });
                         // insert productResultUl list of productCollection
@@ -188,7 +192,7 @@
                                 '" data-name="' + value.name + '" data-rfq-item-id="' + value
                                 .rfq_item_id +
                                 '" data-rfq-id="' + value.rfq_id + '">' +
-                                value.name +
+                                value.name + '|' + value.model +
                                 '</li>';
                         });
                         $('#productResultUl').html(html);
