@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Unit;
+use App\Models\Brand;
+use App\Models\Variant;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -52,22 +56,22 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo(Category::class);
     }
 
     public function brand()
     {
-        return $this->belongsTo('App\Models\Brand');
+        return $this->belongsTo(Brand::class);
     }
 
     public function unit()
     {
-        return $this->belongsTo('App\Models\Unit');
+        return $this->belongsTo(Unit::class);
     }
 
     public function variant()
     {
-        return $this->belongsToMany('App\Models\Variant', 'product_variants')->withPivot('id', 'item_code', 'additional_cost', 'additional_price');
+        return $this->belongsToMany(Variant::class, 'product_variants')->withPivot('id', 'item_code', 'additional_cost', 'additional_price');
     }
 
     public function scopeActiveStandard($query)
