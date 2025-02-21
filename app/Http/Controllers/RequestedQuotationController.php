@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\RequestedQuotationDataTable;
+use App\DataTables\RequestedQuotationReportDataTable;
 use App\Models\Tax;
 use App\Models\Unit;
 use App\Models\Product;
@@ -254,9 +255,9 @@ class RequestedQuotationController extends Controller
     /**
      * Get report data
      */
-    public function report(Request $request)
+    public function report(RequestedQuotationReportDataTable $dataTable)
     {
-        return view('backend.rf_quotation.report');
+        return $dataTable->render('backend.rf_quotation.report');
     }
 
     /**

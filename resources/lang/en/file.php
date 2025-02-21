@@ -902,4 +902,7 @@ return [
 	"Sub Total" => "Sub Total",
 	"Grand Total" => "Grand Total",
 	"Supplier Price" => "Supplier Price",
+	"RFQ Report" => "RFQ Report",
+	"Filter" => "Filter",
+	"Reset" => "Reset",
 ];
