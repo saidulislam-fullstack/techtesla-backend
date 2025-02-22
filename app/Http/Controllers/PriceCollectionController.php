@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Currency;
 use App\Models\PriceCollection;
 use App\Models\RequestedQuotation;
 use App\Models\Supplier;
@@ -21,12 +22,13 @@ class PriceCollectionController extends Controller
             ->where('status', 'pending')
             ->get();
         $suppliers = Supplier::where('is_active', true)->get();
+        $currencies = Currency::where('is_active', true)->get();
         $rfq_items = null;
         if ($request->rfq_id) {
             $rfq_items = RequestedQuotation::with('items.product')
                 ->find('id', $request->rfq_id);
         }
-        return view('backend.price_collection.create', compact('rfqs', 'suppliers', 'rfq_items'));
+        return view('backend.price_collection.create', compact('rfqs', 'suppliers', 'rfq_items', 'currencies'));
     }
 
     public function store(Request $request)
@@ -44,6 +46,19 @@ class PriceCollectionController extends Controller
             'supplier_id.*' => 'required|exists:suppliers,id',
             'market_price.*' => 'required|numeric',
             'note.*' => 'nullable|string',
+            'currency_id.*' => 'nullable|exists:currencies,id',
+            'currency_rate.*' => 'nullable|numeric',
+            'shipping_weight.*' => 'nullable|numeric',
+            'customs_unit_cost.*' => 'nullable|numeric',
+            'customs_total_cost.*' => 'nullable|numeric',
+            'profit_margin_percentage.*' => 'nullable|numeric',
+            'profit_margin_amount.*' => 'nullable|numeric',
+            'tax_amount.*' => 'nullable|numeric',
+            'vat_amount.*' => 'nullable|numeric',
+            'other_cost.*' => 'nullable|numeric',
+            'total_cost.*' => 'nullable|numeric',
+            'origin.*' => 'nullable|string',
+            'delivery_days.*' => 'nullable|numeric',
         ]);
 
         foreach ($request->rfq_id as $key => $rfq_id) {
@@ -54,6 +69,19 @@ class PriceCollectionController extends Controller
                 'supplier_id' => $request->supplier_id[$key],
                 'price' => $request->market_price[$key],
                 'note' => $request->note[$key],
+                'currency_id' => $request->currency_id[$key],
+                'currency_rate' => $request->currency_rate[$key],
+                'shipping_weight' => $request->shipping_weight[$key],
+                'customs_unit_cost' => $request->customs_unit_cost[$key],
+                'customs_total_cost' => $request->customs_total_cost[$key],
+                'profit_margin_percentage' => $request->profit_margin_percentage[$key],
+                'profit_margin_amount' => $request->profit_margin_amount[$key],
+                'tax_amount' => $request->tax_amount[$key],
+                'vat_amount' => $request->vat_amount[$key],
+                'other_cost' => $request->other_cost[$key],
+                'total_cost' => $request->total_cost[$key],
+                'origin' => $request->origin[$key],
+                'delivery_days' => $request->delivery_days[$key],
             ]);
         }
 

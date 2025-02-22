@@ -56,6 +56,19 @@
                                                         <th>{{ trans('file.Supplier') }}</th>
                                                         <th>{{ trans('file.Note') }}</th>
                                                         <th>{{ trans('file.Supplier Price') }}</th>
+                                                        <th>{{ trans('file.Currency') }}</th>
+                                                        <th>{{ trans('file.Currency Rate') }}</th>
+                                                        <th>{{ trans('file.Shipping Weight') }}</th>
+                                                        <th>{{ trans('file.Customs Unit Cost') }}</th>
+                                                        <th>{{ trans('file.Customs Total Cost') }}</th>
+                                                        <th>{{ trans('file.Profit Percentage') }}</th>
+                                                        <th>{{ trans('file.Profit Amount') }}</th>
+                                                        <th>{{ trans('file.Tax Amount') }}</th>
+                                                        <th>{{ trans('file.Vat Amount') }}</th>
+                                                        <th>{{ trans('file.Other Cost') }}</th>
+                                                        <th>{{ trans('file.Total Cost') }}</th>
+                                                        <th>{{ trans('file.Recommended Origin') }}</th>
+                                                        <th>{{ trans('file.Delivery Days') }}</th>
                                                         <th>{{ trans('file.Action') }}</th>
                                                     </tr>
                                                 </thead>
@@ -93,6 +106,7 @@
         var productCollection = [];
         var productSearch = $('#productSearch');
         var suppliers = @json($suppliers);
+        var currencies = @json($currencies);
 
         // search product
         productSearch.on('input', function() {
@@ -138,7 +152,22 @@
                 suppliers.map(supplier => '<option value="' + supplier.id + '">' + supplier.name + '</option>') +
                 '</select></td>' +
                 '<td><input type="text" name="note[]" class="form-control" /></td>' +
-                '<td><input type="number" name="market_price[]" value="0" onchange="totalPrice()" class="form-control market_price" min="0" /></td>' +
+                '<td><input type="number" name="market_price[]" value="0" onchange="calculate()" class="form-control market_price" min="0" /></td>' +
+                '<td><select name="currency_id[]" class="form-control selectpicker" onchange="calculate()"><option value="">Select Currency</option>' +
+                currencies.map(currency => '<option value="' + currency.id + '">' + currency.name + '</option>') +
+                '</select></td>' +
+                '<td><input type="number" name="currency_rate[]" value="1" class="form-control currency_rate" onkeyup="calculate()" step="0.01" /></td>' +
+                '<td><input type="number" name="shipping_weight[]" class="form-control shipping_weight" min="0" step="0.01" value="0" onkeyup="calculate()" /></td>' +
+                '<td><input type="number" name="customs_unit_cost[]" class="form-control customs_unit_cost" min="0" step="0.01" value="0" onkeyup="calculate()" /></td>' +
+                '<td><input type="number" name="customs_total_cost[]" class="form-control customs_total_cost" min="0" step="0.01" value="0" readonly /></td>' +
+                '<td><input type="number" name="profit_margin_percentage[]" class="form-control profit_margin" min="0" step="0.01" value="1" /></td>' +
+                '<td><input type="number" name="profit_margin_amount[]" class="form-control profit_amount" min="0" step="0.01" value="0" /></td>' +
+                '<td><input type="number" name="tax_amount[]" class="form-control tax_amount" min="0" step="0.01" value="0" onkeyup="calculate()" /></td>' +
+                '<td><input type="number" name="vat_amount[]" class="form-control vat_amount" min="0" step="0.01" value="0" onkeyup="calculate()" /></td>' +
+                '<td><input type="number" name="other_cost[]" class="form-control other_cost" min="0" step="0.01" value="0" readonly /></td>' +
+                '<td><input type="number" name="total_cost[]" class="form-control total_cost" min="0" step="0.01" value="0" readonly /></td>' +
+                '<td><input type="text" name="origin[]" class="form-control" /></td>' +
+                '<td><input type="number" name="delivery_days[]" class="form-control" min="0" step="1" value="0" /></td>' +
                 '<td><button class="btn btn-danger remove-row"><i class="fa fa-trash"></i></button></td>' +
                 '</tr>';
             // Append the new row to the table
@@ -147,7 +176,7 @@
             $('.selectpicker').selectpicker({
                 style: 'btn-link',
             });
-            totalPrice();
+            calculate();
         });
 
         // Remove product from the table
@@ -155,13 +184,39 @@
             $(this).closest('tr').remove();
         });
 
-        function totalPrice() {
-            var total = 0;
-            $('.market_price').each(function() {
-                total += parseFloat($(this).val());
+        function calculate() {
+            let total = 0;
+
+            // Loop through each row in the table
+            $('#myTable tbody tr').each(function() {
+                let row = $(this); // Current row
+
+                // Get values from the row and convert them to numbers
+                let marketPrice = parseFloat(row.find('.market_price').val()) || 0;
+                let profitAmount = parseFloat(row.find('.profit_amount').val()) || 0;
+                let taxAmount = parseFloat(row.find('.tax_amount').val()) || 0;
+                let vatAmount = parseFloat(row.find('.vat_amount').val()) || 0;
+                let shippingWeight = parseFloat(row.find('.shipping_weight').val()) || 0;
+                let customsUnitCost = parseFloat(row.find('.customs_unit_cost').val()) || 0;
+
+                // Calculate customs total cost
+                let customsTotalCost = shippingWeight * customsUnitCost;
+                row.find('.customs_total_cost').val(customsTotalCost.toFixed(2));
+
+                // Calculate other costs
+                let otherCost = profitAmount + taxAmount + vatAmount + customsTotalCost;
+                row.find('.other_cost').val(otherCost.toFixed(2));
+
+                // Calculate total cost per row
+                let totalCost = marketPrice + otherCost;
+                row.find('.total_cost').val(totalCost.toFixed(2));
+
+                // Accumulate total for all rows
+                total += marketPrice;
             });
 
-            $('#total').val(total);
+            // Set overall total value
+            $('#total').val(total.toFixed(2));
         }
 
         function getRfq(e) {
