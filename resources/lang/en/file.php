@@ -905,4 +905,5 @@ return [
 	"RFQ Report" => "RFQ Report",
 	"Filter" => "Filter",
 	"Reset" => "Reset",
+	"Price Collection" => "Price Collection",
 ];

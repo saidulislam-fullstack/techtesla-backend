@@ -233,6 +233,51 @@
         </li>
     @endif
 
+    @if ($index_permission_active)
+        <li>
+            <a href="#price-collection" aria-expanded="false" data-toggle="collapse">
+                <i class="dripicons-document"></i>
+                <span>{{ trans('file.Price Collection') }}</span>
+            </a>
+            <ul id="price-collection" class="collapse list-unstyled ">
+                @php
+                    $add_permission_active = $role_has_permissions_list->where('name', 'rf-quotes-dashboard')->first();
+                @endphp
+                @if ($add_permission_active)
+                    <li id="rf-quotation-dashboard-menu">
+                        <a href="#">{{ trans('file.Dashboard') }}</a>
+                    </li>
+                @endif
+                @php
+                    $add_permission_active = $role_has_permissions_list->where('name', 'price-collection-add')->first();
+                @endphp
+                @if ($add_permission_active)
+                    <li id="price-collection-create-menu">
+                        <a href="{{ route('price-collection.create') }}">{{ trans('file.Add Price Collection') }}</a>
+                    </li>
+                @endif
+                @php
+                    $add_permission_active = $role_has_permissions_list
+                        ->where('name', 'rf-quotes-supplier-wise')
+                        ->first();
+                @endphp
+                @if ($add_permission_active)
+                    <li id="rf-quotation-supplier-wise-menu">
+                        <a href="{{ route('rf-quotation.supplier-wise') }}">{{ trans('file.Supplier Wise RFQ') }}</a>
+                    </li>
+                @endif
+                @php
+                    $add_permission_active = $role_has_permissions_list->where('name', 'rf-quotes-dashboard')->first();
+                @endphp
+                @if ($add_permission_active)
+                    <li id="price-collection-report-menu">
+                        <a href="#">{{ trans('file.Report') }}</a>
+                    </li>
+                @endif
+            </ul>
+        </li>
+    @endif
+
     {{-- @php
         $index_permission_active = $role_has_permissions_list->where('name', 'transfers-index')->first();
     @endphp
