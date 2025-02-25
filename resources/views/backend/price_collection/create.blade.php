@@ -93,6 +93,68 @@
             </div>
         </div>
     </section>
+    <!-- Calculation Modal -->
+    <div class="modal fade" id="calculationModal" tabindex="-1" role="dialog" aria-labelledby="calculationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="calculationModalLabel">Additional Calculations</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="calculationForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="currencyModal">{{ trans('file.Currency') }}</label>
+                                    <select name="currencyModal" id="currencyModal" class="form-control selectpicker">
+                                        <option value="">{{ trans('file.Select Currency') }}</option>
+                                        @foreach ($currencies as $currency)
+                                            <option value="{{ $currency->id }}">{{ $currency->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="currencyRateModal">{{ trans('file.Currency Rate') }}</label>
+                                    <input type="number" id="currencyRateModal" class="form-control" step="0.01"
+                                        value="1">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="profitMarginModal">Profit Margin (%)</label>
+                                    <input type="number" id="profitMarginModal" class="form-control" min="0"
+                                        step="0.01">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="profitAmountModal">Profit Amount</label>
+                                    <input type="number" id="profitAmount" class="form-control" min="0"
+                                        step="0.01" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="modalFinalPrice">Final Price</label>
+                                    <input type="number" id="modalFinalPrice" class="form-control" readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveCalculation">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @push('scripts')
     <script type="text/javascript">
@@ -168,7 +230,9 @@
                 '<td><input type="number" name="total_cost[]" class="form-control total_cost" min="0" step="0.01" value="0" readonly /></td>' +
                 '<td><input type="text" name="origin[]" class="form-control" /></td>' +
                 '<td><input type="number" name="delivery_days[]" class="form-control" min="0" step="1" value="0" /></td>' +
-                '<td><button class="btn btn-danger remove-row"><i class="fa fa-trash"></i></button></td>' +
+
+                '<td><button class="btn btn-warning calculate-row" data-toggle="modal" data-target="#calculationModal"><i class="fa fa-calculator"></i></button>' +
+                '<button class="btn btn-danger remove-row"><i class="fa fa-trash"></i></button></td>' +
                 '</tr>';
             // Append the new row to the table
             $('#myTable tbody').append(row);
@@ -178,6 +242,32 @@
             });
             calculate();
         });
+
+        $(document).on('click', '.calculate-row', function() {
+            let row = $(this).closest('tr');
+            let totalCost = row.find('.total_cost').val();
+            let profitMargin = row.find('.profit_margin').val();
+
+            $('#modalTotalCost').val(totalCost);
+            $('#modalProfitMargin').val(profitMargin);
+
+            $('#modalProfitMargin').on('input', function() {
+                let newProfitMargin = $(this).val();
+                let finalPrice = (parseFloat(totalCost) * (1 + newProfitMargin / 100)).toFixed(2);
+                $('#modalFinalPrice').val(finalPrice);
+            });
+
+            $('#saveCalculation').off('click').on('click', function() {
+                let updatedProfitMargin = $('#modalProfitMargin').val();
+                let updatedFinalPrice = $('#modalFinalPrice').val();
+
+                row.find('.profit_margin').val(updatedProfitMargin);
+                row.find('.total_cost').val(updatedFinalPrice);
+
+                $('#calculationModal').modal('hide');
+            });
+        });
+
 
         // Remove product from the table
         $(document).on('click', '.remove-row', function() {
