@@ -98,7 +98,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="currencyModal">{{ trans('file.Currency') }}</label>
-                                    <select name="currencyModal" id="currencyModal" class="form-control selectpicker">
+                                    <select id="currencyModal" class="form-control selectpicker">
                                         <option value="">{{ trans('file.Select Currency') }}</option>
                                         @foreach ($currencies as $currency)
                                             <option value="{{ $currency->id }}">{{ $currency->name }}</option>
@@ -109,62 +109,63 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="currencyRateModal">{{ trans('file.Currency Rate') }}</label>
-                                    <input type="number" id="currencyRateModal" class="form-control" step="0.01"
-                                        value="1">
+                                    <input type="number" id="currencyRateModal" class="form-control changeModal"
+                                        step="0.01" value="1">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="shippingWeightModal">{{ trans('file.Shipping Weight') }}</label>
-                                    <input type="number" id="shippingWeightModal" class="form-control">
+                                    <input type="number" id="shippingWeightModal" class="form-control changeModal">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="customsUnitCostModal">{{ trans('file.Customs Unit Cost') }}</label>
-                                    <input type="number" id="customsUnitCostModal" class="form-control">
+                                    <input type="number" id="customsUnitCostModal" class="form-control changeModal">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="profitPercentageModal">{{ trans('file.Profit Percentage') }}(%)</label>
-                                    <input type="number" id="profitPercentageModal" class="form-control">
+                                    <input type="number" id="profitPercentageModal" class="form-control changeModal">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="profitAmountModal">{{ trans('file.Profit Amount') }}</label>
-                                    <input type="number" id="profitAmountModal" class="form-control">
+                                    <input type="number" id="profitAmountModal" class="form-control changeModal"
+                                        readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="taxAmountModal">{{ trans('file.Tax Amount') }}</label>
-                                    <input type="number" id="taxAmountModal" class="form-control">
+                                    <input type="number" id="taxAmountModal" class="form-control changeModal">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="vatAmountModal">{{ trans('file.Vat Amount') }}</label>
-                                    <input type="number" id="vatAmountModal" class="form-control">
+                                    <input type="number" id="vatAmountModal" class="form-control changeModal">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="otherCostModal">{{ trans('file.Other Cost') }}</label>
-                                    <input type="number" id="otherCostModal" class="form-control">
+                                    <input type="number" id="otherCostModal" class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="totalCostModal">{{ trans('file.Total Cost') }}</label>
-                                    <input type="number" id="totalCostModal" class="form-control">
+                                    <input type="number" id="totalCostModal" class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="Recommended OriginModal">{{ trans('file.Recommended Origin') }}</label>
-                                    <input type="text" id="Recommended OriginModal" class="form-control">
+                                    <label for="recommendedOriginModal">{{ trans('file.Recommended Origin') }}</label>
+                                    <input type="text" id="recommendedOriginModal" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -243,14 +244,14 @@
                 '<input type="hidden" name="shipping_weight[]" class="form-control shipping_weight" min="0" step="0.01" value="0" />' +
                 '<input type="hidden" name="customs_unit_cost[]" class="form-control customs_unit_cost" min="0" step="0.01" value="0" />' +
                 '<input type="hidden" name="customs_total_cost[]" class="form-control customs_total_cost" min="0" step="0.01" value="0" />' +
-                '<input type="hidden" name="profit_margin_percentage[]" class="form-control profit_margin" min="0" step="0.01" value="1" />' +
+                '<input type="hidden" name="profit_margin_percentage[]" class="form-control profit_margin" min="0" step="0.01" value="0" />' +
                 '<input type="hidden" name="profit_margin_amount[]" class="form-control profit_amount" min="0" step="0.01" value="0" />' +
                 '<input type="hidden" name="tax_amount[]" class="form-control tax_amount" min="0" step="0.01" value="0" />' +
                 '<input type="hidden" name="vat_amount[]" class="form-control vat_amount" min="0" step="0.01" value="0" />' +
                 '<input type="hidden" name="other_cost[]" class="form-control other_cost" min="0" step="0.01" value="0" />' +
                 '<input type="hidden" name="total_cost[]" class="form-control total_cost" min="0" step="0.01" value="0" />' +
-                '<input type="hidden" name="origin[]" class="form-control" value="" />' +
-                '<input type="hidden" name="delivery_days[]" class="form-control" min="0" step="1" value="0" />' +
+                '<input type="hidden" name="origin[]" class="form-control origin" value="" />' +
+                '<input type="hidden" name="delivery_days[]" class="form-control delivery_days" min="0" step="1" value="0" />' +
                 '</td>' +
 
                 '<td><select name="supplier_id[]" class="form-control selectpicker" required><option value="">Select Supplier</option>' +
@@ -271,6 +272,7 @@
         });
 
         $(document).on('click', '.calculate-row', function() {
+            resetModal();
             let row = $(this).closest('tr');
 
             let marketPrice = row.find('.market_price').val() || 0,
@@ -287,41 +289,52 @@
                 origin = row.find('.origin').val() || '',
                 deliveryDays = row.find('.delivery_days').val() || 0;
 
-            let marketPriceModal = $('#marketPriceModal').val(marketPrice),
-                currencyModal = $('#currencyModal').val(currencyId),
-                currencyRateModal = $('#currencyRateModal').val(currencyRate),
-                shippingWeightModal = $('#shippingWeightModal').val(shippingWeight),
-                customsUnitCostModal = $('#customsUnitCostModal').val(customsUnitCost),
-                profitPercentageModal = $('#profitPercentageModal').val(profitMargin),
-                profitAmountModal = $('#profitAmountModal').val(profitAmount),
-                taxAmountModal = $('#taxAmountModal').val(taxAmount),
-                vatAmountModal = $('#vatAmountModal').val(vatAmount),
-                otherCostModal = $('#otherCostModal').val(otherCost),
-                totalCostModal = $('#totalCostModal').val(totalCost),
-                RecommendedOriginModal = $('#Recommended OriginModal').val(origin),
-                deliveryDaysModal = $('#deliveryDaysModal').val(deliveryDays);
+            $('#marketPriceModal').val(marketPrice);
+            $('#currencyModal').val(currencyId).trigger('change');
+            $('#currencyRateModal').val(currencyRate);
+            $('#shippingWeightModal').val(shippingWeight);
+            $('#customsUnitCostModal').val(customsUnitCost);
+            $('#profitPercentageModal').val(profitMargin);
+            $('#profitAmountModal').val(profitAmount);
+            $('#taxAmountModal').val(taxAmount);
+            $('#vatAmountModal').val(vatAmount);
+            $('#otherCostModal').val(otherCost);
+            $('#totalCostModal').val(totalCost);
+            $('#recommendedOriginModal').val(origin);
+            $('#deliveryDaysModal').val(deliveryDays);
 
-            $('#profitPercentageModal').on('input', function() {
-                let profitPercentage = $(this).val();
+            $('.changeModal').on('input', function() {
+                let profitPercentage = $('#profitPercentageModal').val();
                 let profitAmount = (marketPrice * profitPercentage) / 100;
+                let shippingWeight = $('#shippingWeightModal').val() || 0;
+                let customsUnitCost = $('#customsUnitCostModal').val() || 0;
                 $('#profitAmountModal').val(profitAmount.toFixed(2));
+                let customsTotalCost = shippingWeight * customsUnitCost;
+                $('#customsTotalCostModal').val(customsTotalCost.toFixed(2));
+                let vatAmount = parseFloat($('#vatAmountModal').val()) || 0;
+                let taxAmount = parseFloat($('#taxAmountModal').val()) || 0;
+                let otherCost = profitAmount + vatAmount + taxAmount + customsTotalCost;
+                $('#otherCostModal').val(otherCost.toFixed(2));
+                let totalCost = parseFloat(marketPrice) + otherCost;
+                $('#totalCostModal').val(totalCost.toFixed(2));
             });
 
             $('#saveCalculation').off('click').on('click', function() {
-                let updatedMarketPrice = parseFloat(marketPriceModal.val());
-                let updatedCurrencyId = currencyModal.val();
-                let updatedCurrencyRate = parseFloat(currencyRateModal.val());
-                let updatedShippingWeight = parseFloat(shippingWeightModal.val());
-                let updatedCustomsUnitCost = parseFloat(customsUnitCostModal.val());
-                let updatedProfitAmount = parseFloat(profitAmountModal.val());
-                let updatedTaxAmount = parseFloat(taxAmountModal.val());
-                let updatedVatAmount = parseFloat(vatAmountModal.val());
-                let updatedOtherCost = parseFloat(otherCostModal.val());
-                let updatedTotalCost = parseFloat(totalCostModal.val());
-                let updatedOrigin = RecommendedOriginModal.val();
-                let updatedDeliveryDays = parseFloat(deliveryDaysModal.val());
+                row.find('.currency_id').val($('#currencyModal').val());
+                row.find('.currency_rate').val($('#currencyRateModal').val());
+                row.find('.shipping_weight').val($('#shippingWeightModal').val());
+                row.find('.customs_unit_cost').val($('#customsUnitCostModal').val());
+                row.find('.profit_margin').val($('#profitPercentageModal').val());
+                row.find('.profit_amount').val($('#profitAmountModal').val());
+                row.find('.tax_amount').val($('#taxAmountModal').val());
+                row.find('.vat_amount').val($('#vatAmountModal').val());
+                row.find('.other_cost').val($('#otherCostModal').val());
+                row.find('.total_cost').val($('#totalCostModal').val());
+                row.find('.origin').val($('#recommendedOriginModal').val());
+                row.find('.delivery_days').val($('#deliveryDaysModal').val());
 
                 $('#calculationModal').modal('hide');
+                calculate();
             });
         });
 
@@ -342,6 +355,7 @@
                 let marketPrice = parseFloat(row.find('.market_price').val()) || 0;
                 let profitPercentage = parseFloat(row.find('.profit_margin').val()) || 0;
                 let profitAmount = parseFloat((marketPrice * profitPercentage) / 100) || 0;
+                row.find('.profit_amount').val(profitAmount.toFixed(2));
                 let taxAmount = parseFloat(row.find('.tax_amount').val()) || 0;
                 let vatAmount = parseFloat(row.find('.vat_amount').val()) || 0;
                 let shippingWeight = parseFloat(row.find('.shipping_weight').val()) || 0;
@@ -353,6 +367,7 @@
 
                 // Calculate other costs
                 let otherCost = profitAmount + taxAmount + vatAmount + customsTotalCost;
+
                 row.find('.other_cost').val(otherCost.toFixed(2));
 
                 // Calculate total cost per row
@@ -365,6 +380,26 @@
 
             // Set overall total value
             $('#total').val(total.toFixed(2));
+        }
+
+        // Function to reset modal values
+        function resetModal() {
+            // Reset the values of all modal fields (to ensure no old values remain)
+            $('#currencyModal').val('').trigger('change');
+            $('#currencyRateModal').val('');
+            $('#shippingWeightModal').val('');
+            $('#customsUnitCostModal').val('');
+            $('#profitPercentageModal').val('');
+            $('#profitAmountModal').val('');
+            $('#taxAmountModal').val('');
+            $('#vatAmountModal').val('');
+            $('#otherCostModal').val('');
+            $('#totalCostModal').val('');
+            $('#recommendedOriginModal').val('');
+            $('#deliveryDaysModal').val('');
+
+            // Trigger change events for proper recalculation
+            $('#currencyModal').trigger('change');
         }
 
         function getRfq(e) {
