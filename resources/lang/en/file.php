@@ -917,4 +917,5 @@ return [
 	"Other Cost" => "Other Cost",
 	"Recommended Origin" => "Recommended Origin",
 	"Delivery Days" => "Delivery Days",
+	"Select Currency" => "Select Currency",
 ];
