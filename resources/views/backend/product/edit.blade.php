@@ -16,7 +16,7 @@
                             <form id="product-form">
                                 <input type="hidden" name="id" value="{{ $lims_product_data->id }}" />
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 d-none">
                                         <div class="form-group">
                                             <label>{{ trans('file.Product Type') }} *</strong> </label>
                                             <div class="input-group">
@@ -55,7 +55,7 @@
                                             <span class="validation-msg" id="code-error"></span>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 d-none">
                                         <div class="form-group">
                                             <label>{{ trans('file.Barcode Symbology') }} *</strong> </label>
                                             <div class="input-group">
@@ -193,9 +193,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="unit" class="col-md-12">
+                                    <div id="unit" class="col-md-4 mt-4">
                                         <div class="row ">
-                                            <div class="col-md-4">
+                                            <div class="col-md-12">
                                                 <label>{{ trans('file.Product Unit') }} *</strong> </label>
                                                 <div class="input-group">
                                                     <select required class="form-control selectpicker"
@@ -212,7 +212,7 @@
                                                         value="{{ $lims_product_data->unit_id }}">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4 d-none">
                                                 <label>{{ trans('file.Sale Unit') }}</strong> </label>
                                                 <div class="input-group">
                                                     <select class="form-control selectpicker" name="sale_unit_id"
@@ -222,7 +222,7 @@
                                                         value="{{ $lims_product_data->sale_unit_id }}">
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 mt-2">
+                                            <div class="col-md-4 mt-2 d-none">
                                                 <div class="form-group">
                                                     <label>{{ trans('file.Purchase Unit') }}</strong> </label>
                                                     <div class="input-group">
@@ -235,7 +235,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="cost" class="col-md-4">
+                                    <div id="cost" class="col-md-4 mt-4">
                                         <div class="form-group">
                                             <label>{{ trans('file.Product Cost') }} *</strong> </label>
                                             <input type="number" name="cost" value="{{ $lims_product_data->cost }}"
@@ -243,7 +243,7 @@
                                             <span class="validation-msg"></span>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 mt-4">
                                         <div class="form-group">
                                             <label>{{ trans('file.Product Price') }} *</strong> </label>
                                             <input type="number" name="price" value="{{ $lims_product_data->price }}"
@@ -449,7 +449,7 @@
                                             <textarea name="product_details" class="form-control" rows="5">{{ str_replace('@', '"', $lims_product_data->product_details) }}</textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-2" id="diffPrice-option">
+                                    <div class="col-md-12 mt-2 d-none" id="diffPrice-option">
                                         @if ($lims_product_data->is_diffPrice)
                                             <h5><input name="is_diffPrice" type="checkbox" id="is-diffPrice"
                                                     value="1" checked>&nbsp;
@@ -462,7 +462,7 @@
                                             </h5>
                                         @endif
                                     </div>
-                                    <div class="col-md-6" id="diffPrice-section">
+                                    <div class="col-md-6 d-none" id="diffPrice-section">
                                         <div class="table-responsive ml-2">
                                             <table id="diffPrice-table" class="table table-hover">
                                                 <thead>
@@ -498,7 +498,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-3" id="batch-option">
+                                    <div class="col-md-12 mt-3 d-none" id="batch-option">
                                         @if ($lims_product_data->is_batch)
                                             <h5><input name="is_batch" type="checkbox" id="is-batch" value="1"
                                                     checked>&nbsp;
@@ -509,7 +509,7 @@
                                                 {{ trans('file.This product has batch and expired date') }}</h5>
                                         @endif
                                     </div>
-                                    <div class="col-md-12 mt-3" id="imei-option">
+                                    <div class="col-md-12 mt-3 d-none" id="imei-option">
                                         @if ($lims_product_data->is_imei)
                                             <h5><input name="is_imei" type="checkbox" id="is-imei" value="1"
                                                     checked>&nbsp;
@@ -520,7 +520,7 @@
                                                 {{ trans('file.This product has IMEI or Serial numbers') }}</h5>
                                         @endif
                                     </div>
-                                    <div class="col-md-12 mt-3" id="variant-option">
+                                    <div class="col-md-12 mt-3 d-none" id="variant-option">
                                         @if ($lims_product_data->is_variant)
                                             <h5 class="d-none"><input name="is_variant" type="checkbox" id="is-variant"
                                                     value="1" checked>&nbsp;
@@ -531,7 +531,7 @@
                                             </h5>
                                         @endif
                                     </div>
-                                    <div class="col-md-12" id="variant-section">
+                                    <div class="col-md-12 d-none" id="variant-section">
                                         @if ($lims_product_data->variant_option)
                                             <div class="row" id="variant-input-section">
                                                 @foreach ($lims_product_data->variant_option as $key => $variant_option)
@@ -608,14 +608,14 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-3">
+                                    <div class="col-md-12 mt-3 d-none">
                                         <input type="hidden" name="promotion_hidden"
                                             value="{{ $lims_product_data->promotion }}">
                                         <h5><input name="promotion" type="checkbox" id="promotion" value="1">&nbsp;
                                             {{ trans('file.Add Promotional Price') }}</h5>
                                     </div>
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 d-none">
                                         <div class="row">
                                             <div class="col-md-4" id="promotion_price">
                                                 <label>{{ trans('file.Promotional Price') }}</label>
