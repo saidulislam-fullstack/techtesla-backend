@@ -13,4 +13,6 @@ yarn-error.log
 error_log
 /public/public/images
 /public/public/logo
+/public/storage/rf-quotation
+/storage/app/public/rf-quotation
 
