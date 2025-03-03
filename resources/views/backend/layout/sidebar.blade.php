@@ -54,11 +54,11 @@
                         <a href="{{ route('qty_adjustment.create') }}">{{ trans('file.Add Adjustment') }}</a>
                     </li>
                 @endif
-                @if ($stock_count_active)
-                    <li id="stock-count-menu">
+                {{-- @if ($stock_count_active)
+                    <li id="stock-count-menu d-none">
                         <a href="{{ route('stock-count.index') }}">{{ trans('file.Stock Count') }}</a>
                     </li>
-                @endif
+                @endif --}}
             </ul>
         </li>
     @endif
@@ -88,7 +88,7 @@
         </li>
     @endif
 
-    {{-- @php
+    @php
         $sale_index_permission_active = $role_has_permissions_list->where('name', 'sales-index')->first();
 
         $gift_card_permission_active = $role_has_permissions_list->where('name', 'gift_card')->first();
@@ -109,7 +109,7 @@
                 @if ($sale_add_permission_active)
                     <li id="sale-list-menu"><a href="{{ route('sales.index') }}">{{ trans('file.Sale List') }}</a>
                     </li>
-                    <li><a href="{{ route('sale.pos') }}">POS</a></li>
+                    {{--<li><a href="{{ route('sale.pos') }}">POS</a></li>--}}
                     <li id="sale-create-menu"><a href="{{ route('sales.create') }}">{{ trans('file.Add Sale') }}</a>
                     </li>
                     <li id="sale-import-menu"><a
@@ -117,7 +117,7 @@
                     </li>
                 @endif
 
-                @if ($gift_card_permission_active)
+                {{-- @if ($gift_card_permission_active)
                     <li id="gift-card-menu"><a
                             href="{{ route('gift_cards.index') }}">{{ trans('file.Gift Card List') }}</a>
                     </li>
@@ -125,7 +125,7 @@
                 @if ($coupon_permission_active)
                     <li id="coupon-menu"><a href="{{ route('coupons.index') }}">{{ trans('file.Coupon List') }}</a>
                     </li>
-                @endif
+                @endif --}}
                 <li id="courier-menu"><a href="{{ route('couriers.index') }}">{{ trans('file.Courier List') }}</a>
                 </li>
                 @if ($delivery_permission_active)
@@ -161,7 +161,7 @@
                 @endif
             </ul>
         </li>
-    @endif --}}
+    @endif
 
     @php
         $index_permission_active = $role_has_permissions_list->where('name', 'quotes-index')->first();
@@ -489,7 +489,7 @@
         </li>
     @endif
 
-    {{-- @php
+    @php
         $profit_loss_active = $role_has_permissions_list->where('name', 'profit-loss')->first();
 
         $best_seller_active = $role_has_permissions_list->where('name', 'best-seller')->first();
@@ -691,7 +691,7 @@
                 @endif
             </ul>
         </li>
-    @endif --}}
+    @endif
 
     {{-- @if (!config('database.connections.saleprosaas_landlord'))
         <li><a href="#addons" aria-expanded="false" data-toggle="collapse"> <i
