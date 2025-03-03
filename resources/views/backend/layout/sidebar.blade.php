@@ -206,21 +206,21 @@
                 @php
                     $add_permission_active = $role_has_permissions_list->where('name', 'price-collection-add')->first();
                 @endphp
-                @if ($add_permission_active)
+                {{-- @if ($add_permission_active)
                     <li id="price-collection-create-menu">
                         <a href="{{ route('price-collection.create') }}">{{ trans('file.Add Price Collection') }}</a>
                     </li>
-                @endif
+                @endif --}}
                 @php
                     $add_permission_active = $role_has_permissions_list
                         ->where('name', 'rf-quotes-supplier-wise')
                         ->first();
                 @endphp
-                @if ($add_permission_active)
+                {{-- @if ($add_permission_active)
                     <li id="rf-quotation-supplier-wise-menu">
                         <a href="{{ route('rf-quotation.supplier-wise') }}">{{ trans('file.Supplier Wise RFQ') }}</a>
                     </li>
-                @endif
+                @endif --}}
                 @php
                     $add_permission_active = $role_has_permissions_list->where('name', 'rf-quotes-dashboard')->first();
                 @endphp
@@ -545,11 +545,11 @@
                         {!! Form::close() !!}
                     </li>
                 @endif
-                @if ($best_seller_active)
+                {{-- @if ($best_seller_active)
                     <li id="best-seller-report-menu">
                         <a href="{{ url('report/best_seller') }}">{{ trans('file.Best Seller') }}</a>
                     </li>
-                @endif
+                @endif --}}
                 @if ($product_report_active)
                     <li id="product-report-menu">
                         {!! Form::open(['route' => 'report.product', 'method' => 'get', 'id' => 'product-report-form']) !!}
@@ -566,23 +566,23 @@
                             href="{{ url('report/daily_sale/' . date('Y') . '/' . date('m')) }}">{{ trans('file.Daily Sale') }}</a>
                     </li>
                 @endif
-                @if ($monthly_sale_active)
+                {{-- @if ($monthly_sale_active)
                     <li id="monthly-sale-report-menu">
                         <a href="{{ url('report/monthly_sale/' . date('Y')) }}">{{ trans('file.Monthly Sale') }}</a>
                     </li>
-                @endif
+                @endif --}}
                 @if ($daily_purchase_active)
                     <li id="daily-purchase-report-menu">
                         <a
                             href="{{ url('report/daily_purchase/' . date('Y') . '/' . date('m')) }}">{{ trans('file.Daily Purchase') }}</a>
                     </li>
                 @endif
-                @if ($monthly_purchase_active)
+                {{-- @if ($monthly_purchase_active)
                     <li id="monthly-purchase-report-menu">
                         <a
                             href="{{ url('report/monthly_purchase/' . date('Y')) }}">{{ trans('file.Monthly Purchase') }}</a>
                     </li>
-                @endif
+                @endif --}}
                 @if ($sale_report_active)
                     <li id="sale-report-menu">
                         {!! Form::open(['route' => 'report.sale', 'method' => 'post', 'id' => 'sale-report-form']) !!}
@@ -593,7 +593,7 @@
                         {!! Form::close() !!}
                     </li>
                 @endif
-                @if ($sale_report_chart_active)
+                {{-- @if ($sale_report_chart_active)
                     <li id="sale-report-chart-menu">
                         {!! Form::open(['route' => 'report.saleChart', 'method' => 'post', 'id' => 'sale-report-chart-form']) !!}
                         <input type="hidden" name="start_date" value="{{ date('Y-m') . '-' . '01' }}" />
@@ -603,7 +603,7 @@
                         <a id="sale-report-chart-link" href="">{{ trans('file.Sale Report Chart') }}</a>
                         {!! Form::close() !!}
                     </li>
-                @endif
+                @endif 
                 @if ($payment_report_active)
                     <li id="payment-report-menu">
                         {!! Form::open(['route' => 'report.paymentByDate', 'method' => 'post', 'id' => 'payment-report-form']) !!}
@@ -612,7 +612,7 @@
                         <a id="payment-report-link" href="">{{ trans('file.Payment Report') }}</a>
                         {!! Form::close() !!}
                     </li>
-                @endif
+                @endif --}}
                 @if ($purchase_report_active)
                     <li id="purchase-report-menu">
                         {!! Form::open(['route' => 'report.purchase', 'method' => 'post', 'id' => 'purchase-report-form']) !!}
@@ -628,7 +628,7 @@
                         <a id="customer-report-link" href="">{{ trans('file.Customer Report') }}</a>
                     </li>
                 @endif
-                @if ($customer_report_active)
+                {{-- @if ($customer_report_active)
                     <li id="customer-report-menu">
                         <a id="customer-group-report-link"
                             href="">{{ trans('file.Customer Group Report') }}</a>
@@ -642,13 +642,13 @@
                         <a id="due-report-link" href="">{{ trans('file.Customer Due Report') }}</a>
                         {!! Form::close() !!}
                     </li>
-                @endif
+                @endif --}}
                 @if ($supplier_report_active)
                     <li id="supplier-report-menu">
                         <a id="supplier-report-link" href="">{{ trans('file.Supplier Report') }}</a>
                     </li>
                 @endif
-                @if ($supplier_due_report_active)
+                {{-- @if ($supplier_due_report_active)
                     <li id="supplier-due-report-menu">
                         {!! Form::open(['route' => 'report.supplierDueByDate', 'method' => 'post', 'id' => 'supplier-due-report-form']) !!}
                         <input type="hidden" name="start_date" value="{{ date('Y-m-d', strtotime('-1 year')) }}" />
@@ -672,13 +672,13 @@
                     <li id="productExpiry-report-menu">
                         <a href="{{ route('report.productExpiry') }}">{{ trans('file.Product Expiry Report') }}</a>
                     </li>
-                @endif
+                @endif --}}
                 @if ($product_qty_alert_active)
                     <li id="qtyAlert-report-menu">
                         <a href="{{ route('report.qtyAlert') }}">{{ trans('file.Product Quantity Alert') }}</a>
                     </li>
                 @endif
-                @if ($dso_report_active)
+                {{-- @if ($dso_report_active)
                     <li id="daily-sale-objective-menu">
                         <a
                             href="{{ route('report.dailySaleObjective') }}">{{ trans('file.Daily Sale Objective Report') }}</a>
@@ -688,7 +688,7 @@
                     <li id="user-report-menu">
                         <a id="user-report-link" href="">{{ trans('file.User Report') }}</a>
                     </li>
-                @endif
+                @endif --}}
             </ul>
         </li>
     @endif
@@ -760,7 +760,7 @@
 
                 $custom_field_permission_active = $role_has_permissions_list->where('name', 'custom_field')->first();
             @endphp
-            @if ($role->id <= 2)
+            {{-- @if ($role->id <= 2)
                 <li id="role-menu"><a href="{{ route('role.index') }}">{{ trans('file.Role Permission') }}</a>
                 </li>
                 @if ($custom_field_permission_active)
@@ -787,12 +787,12 @@
                 <li id="notification-menu">
                     <a href="" id="send-notification">{{ trans('file.Send Notification') }}</a>
                 </li>
-            @endif
+            @endif --}}
             @if ($warehouse_permission_active)
                 <li id="warehouse-menu"><a href="{{ route('warehouse.index') }}">{{ trans('file.Warehouse') }}</a>
                 </li>
             @endif
-            <li id="table-menu"><a href="{{ route('tables.index') }}">{{ trans('file.Tables') }}</a></li>
+            {{-- <li id="table-menu"><a href="{{ route('tables.index') }}">{{ trans('file.Tables') }}</a></li> --}}
             @if ($customer_group_permission_active)
                 <li id="customer-group-menu"><a
                         href="{{ route('customer_group.index') }}">{{ trans('file.Customer Group') }}</a>
@@ -815,18 +815,18 @@
             <li id="user-menu"><a
                     href="{{ route('user.profile', ['id' => Auth::id()]) }}">{{ trans('file.User Profile') }}</a>
             </li>
-            @if ($create_sms_permission_active)
+            {{-- @if ($create_sms_permission_active)
                 <li id="create-sms-menu"><a
                         href="{{ route('setting.createSms') }}">{{ trans('file.Create SMS') }}</a></li>
             @endif
             @if ($backup_database_permission_active)
                 <li><a href="{{ route('setting.backup') }}">{{ trans('file.Backup Database') }}</a></li>
-            @endif
+            @endif --}}
             @if ($general_setting_permission_active)
                 <li id="general-setting-menu"><a
                         href="{{ route('setting.general') }}">{{ trans('file.General Setting') }}</a></li>
             @endif
-            @if ($mail_setting_permission_active)
+            {{-- @if ($mail_setting_permission_active)
                 <li id="mail-setting-menu"><a
                         href="{{ route('setting.mail') }}">{{ trans('file.Mail Setting') }}</a></li>
             @endif
@@ -846,7 +846,7 @@
             @if ($hrm_setting_permission_active)
                 <li id="hrm-setting-menu"><a href="{{ route('setting.hrm') }}">
                         {{ trans('file.HRM Setting') }}</a></li>
-            @endif
+            @endif --}}
         </ul>
     </li>
     {{-- @if (Auth::user()->role_id != 5)
