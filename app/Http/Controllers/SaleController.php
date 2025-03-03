@@ -2272,6 +2272,8 @@ class SaleController extends Controller
         elseif ($balance == 0)
             $lims_sale_data->payment_status = 4;
 
+        $data['paid_by_id'] = isset($data['paid_by_id']) ? $data['paid_by_id'] : 1;
+
         if($data['paid_by_id'] == 1)
             $paying_method = 'Cash';
         elseif ($data['paid_by_id'] == 2)
