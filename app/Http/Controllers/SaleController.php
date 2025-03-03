@@ -2249,7 +2249,7 @@ class SaleController extends Controller
                                 ['belongs_to', 'product'],
                                 ['is_invoice', true]
                             ])->pluck('name');
-        if($lims_pos_setting_data->invoice_option == 'A4') {
+        if($lims_pos_setting_data && $lims_pos_setting_data->invoice_option == 'A4') {
             return view('backend.sale.a4_invoice', compact('lims_sale_data', 'currency_code', 'lims_product_sale_data', 'lims_biller_data', 'lims_warehouse_data', 'lims_customer_data', 'lims_payment_data', 'numberInWords', 'paid_by_info', 'sale_custom_fields', 'customer_custom_fields', 'product_custom_fields', 'qrText'));
         }
         else{
