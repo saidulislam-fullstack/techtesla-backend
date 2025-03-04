@@ -225,8 +225,16 @@
                     $add_permission_active = $role_has_permissions_list->where('name', 'rf-quotes-dashboard')->first();
                 @endphp
                 @if ($add_permission_active)
-                    <li id="rf-quotation-report-menu">
+                    {{-- <li id="rf-quotation-report-menu">
                         <a href="{{ route('rf-quotation.report') }}">{{ trans('file.Report') }}</a>
+                    </li> --}}
+                    <li id="rfq-report-menu">
+                        {!! Form::open(['route' => 'rfq.report.product', 'method' => 'post', 'id' => 'rfq-report-form']) !!}
+                        <input type="hidden" name="start_date" value="{{ date('Y-m') . '-' . '01' }}" />
+                        <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+                        <input type="hidden" name="warehouse_id" value="0" />
+                        <a id="rfq-report-link" href="">{{ trans('file.Report') }}</a>
+                        {!! Form::close() !!}
                     </li>
                 @endif
             </ul>
@@ -620,6 +628,16 @@
                         <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
                         <input type="hidden" name="warehouse_id" value="0" />
                         <a id="purchase-report-link" href="">{{ trans('file.Purchase Report') }}</a>
+                        {!! Form::close() !!}
+                    </li>
+                @endif
+                @if ($purchase_report_active)
+                    <li id="rfq-report-menu">
+                        {!! Form::open(['route' => 'rfq.report.product', 'method' => 'post', 'id' => 'rfq-report-form']) !!}
+                        <input type="hidden" name="start_date" value="{{ date('Y-m') . '-' . '01' }}" />
+                        <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
+                        <input type="hidden" name="warehouse_id" value="0" />
+                        <a id="rfq-report-link" href="">{{ trans('file.RFQ Product Report') }}</a>
                         {!! Form::close() !!}
                     </li>
                 @endif

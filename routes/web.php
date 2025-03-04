@@ -427,6 +427,7 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
             Route::post('profit_loss', 'profitLoss')->name('report.profitLoss');
             Route::get('product_report', 'productReport')->name('report.product');
             Route::post('product_report_data', 'productReportData');
+            Route::post('rfq_product_report', 'rfqProductReport')->name('rfq.report.product');
             Route::post('purchase', 'purchaseReport')->name('report.purchase');
             Route::post('sale_report', 'saleReport')->name('report.sale');
             Route::post('sale-report-chart', 'saleReportChart')->name('report.saleChart');

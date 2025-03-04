@@ -33,6 +33,7 @@ use Auth;
 use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\RequestedQuotationDetail;
 
 class ReportController extends Controller
 {
@@ -1551,6 +1552,21 @@ class ReportController extends Controller
         );
 
         echo json_encode($json_data);
+    }
+
+    public function rfqProductReport(Request $request)
+    {
+        $data = $request->all();
+        $start_date = $data['start_date'];
+        $end_date = $data['end_date'];
+        $warehouse_id = $data['warehouse_id'];
+        
+        $lims_warehouse_list = Warehouse::where('is_active', true)->get();
+
+        $rfq_items = RequestedQuotationDetail::with('product.brand','requestedQuotation')->whereDate('created_at','>=', $start_date)
+        ->whereDate('created_at','<=', $end_date)->get();
+
+        return view('backend.report.rfq_product_report',compact('start_date', 'end_date', 'lims_warehouse_list', 'warehouse_id', 'rfq_items'));
     }
 
     public function purchaseReport(Request $request)

@@ -1386,6 +1386,11 @@
             $("#purchase-report-form").submit();
         });
 
+        $("a#rfq-report-link").click(function(e) {
+            e.preventDefault();
+            $("#rfq-report-form").submit();
+        });
+
         $("a#sale-report-link").click(function(e) {
             e.preventDefault();
             $("#sale-report-form").submit();
