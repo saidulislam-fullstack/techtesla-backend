@@ -269,7 +269,7 @@
                         ->where('name', 'rf-quotes-supplier-wise')
                         ->first();
                 @endphp
-                @if ($add_permission_active)
+                @if (true)
                     <li id="rf-quotation-supplier-wise-menu">
                         <a href="{{ route('rf-quotation.supplier-wise') }}">{{ trans('file.Supplier Wise RFQ') }}</a>
                     </li>
