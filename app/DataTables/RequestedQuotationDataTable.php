@@ -25,7 +25,7 @@ class RequestedQuotationDataTable extends DataTable
         return (new EloquentDataTable($query))
             // Show Customer, Type, Date, Created BY
             ->editColumn('customer', function ($query) {
-                return $query->customer?->name;
+                return $query->customer?->name ?? 'N/A';
             })
             ->editColumn('type', function ($query) {
                 // Show Type of RFQ by ucfirst and space replace with underscore
@@ -70,7 +70,7 @@ class RequestedQuotationDataTable extends DataTable
      */
     public function query(RequestedQuotation $model): QueryBuilder
     {
-        return $model->newQuery()->with('priceCollection', 'customer:id,name', 'addedBy:id,name');
+        return $model->newQuery()->with('priceCollection', 'customer:id,name', 'addedBy:id,name')->orderBy('id', 'desc');
     }
 
     /**
