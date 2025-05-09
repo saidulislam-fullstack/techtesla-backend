@@ -190,13 +190,15 @@ class HomeController extends Controller
         config()->set('database.connections.mysql.strict', true);
         DB::reconnect();
         //fetching data for auto updates
-        if (Auth::user()->role_id <= 2 && isset($_COOKIE['login_now']) && $_COOKIE['login_now']) {
-            $autoUpdateData = $this->general();
-            $alertBugEnable =  $autoUpdateData['alertBugEnable'];
-            $alertVersionUpgradeEnable = $autoUpdateData['alertVersionUpgradeEnable'];
-        } else {
-            $autoUpdateData = $alertBugEnable = $alertVersionUpgradeEnable = '';
-        }
+        // if (Auth::user()->role_id <= 2 && isset($_COOKIE['login_now']) && $_COOKIE['login_now']) {
+        //     $autoUpdateData = $this->general();
+        //     $alertBugEnable =  $autoUpdateData['alertBugEnable'];
+        //     $alertVersionUpgradeEnable = $autoUpdateData['alertVersionUpgradeEnable'];
+        // } else {
+        //     $autoUpdateData = $alertBugEnable = $alertVersionUpgradeEnable = '';
+        // }
+        $alertBugEnable = false;
+        $alertVersionUpgradeEnable = false;
         return view('backend.index', compact('revenue', 'purchase', 'expense', 'return', 'purchase_return', 'profit', 'payment_recieved', 'payment_sent', 'month', 'yearly_sale_amount', 'yearly_purchase_amount', 'alertBugEnable', 'alertVersionUpgradeEnable'));
     }
 
