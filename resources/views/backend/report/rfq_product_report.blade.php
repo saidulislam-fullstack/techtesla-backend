@@ -1,7 +1,9 @@
 @extends('backend.layout.main') @section('content')
 
 @if($rfq_items->count() == 0)
-<div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{'No Data exist between this date range!'}}</div>
+<div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert"
+        aria-label="Close"><span aria-hidden="true">&times;</span></button>{{'No Data exist between this date range!'}}
+</div>
 @endif
 
 <section class="forms">
@@ -12,12 +14,13 @@
             </div>
             {!! Form::open(['route' => 'rfq.report.product', 'method' => 'post']) !!}
             <div class="row mb-3">
-                <div class="col-md-6 offset-md-2 mt-3">
-                    <div class="form-group row">
+                <div class="col-md-6 mt-3">
+                    <div class="form-group row ml-0 pl-2">
                         <label class="d-tc mt-2"><strong>{{trans('file.Choose Your Date')}}</strong> &nbsp;</label>
                         <div class="d-tc">
                             <div class="input-group">
-                                <input type="text" class="daterangepicker-field form-control" value="{{$start_date}} To {{$end_date}}" required />
+                                <input type="text" class="daterangepicker-field form-control"
+                                    value="{{$start_date}} To {{$end_date}}" required />
                                 <input type="hidden" name="start_date" value="{{$start_date}}" />
                                 <input type="hidden" name="end_date" value="{{$end_date}}" />
                             </div>
@@ -29,7 +32,8 @@
                         <label class="d-tc mt-2"><strong>{{trans('file.Choose Warehouse')}}</strong> &nbsp;</label>
                         <div class="d-tc">
                             <input type="hidden" name="warehouse_id_hidden" value="{{$warehouse_id}}" />
-                            <select id="warehouse_id" name="warehouse_id" class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" >
+                            <select id="warehouse_id" name="warehouse_id" class="selectpicker form-control"
+                                data-live-search="true" data-live-search-style="begins">
                                 <option value="0">{{trans('file.All Warehouse')}}</option>
                                 @foreach($lims_warehouse_list as $warehouse)
                                 <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
@@ -38,8 +42,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 mt-3">
-                    <div class="form-group">
+                <div class="col-md-6 mt-3 text-right">
+                    <div class="form-group pr-2">
                         <button class="btn btn-primary" type="submit">{{trans('file.submit')}}</button>
                     </div>
                 </div>
