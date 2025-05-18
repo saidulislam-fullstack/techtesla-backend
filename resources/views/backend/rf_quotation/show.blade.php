@@ -44,13 +44,15 @@
                 <p style="margin-bottom: 5px;">
                     <strong>RFQ Date:</strong> {{ \Carbon\Carbon::parse($item->date)->format('m/d/Y') }} <br>
                     <strong>RFQ Code:</strong> {{ $item->rfq_no }} <br>
-                    <strong>Sales Order No.</strong>
+                    <strong>Type: </strong> {{ $item->type == 'regular_mro' ? 'Regular MRO' : ($item->type == 'project'
+                    ? 'Project' : 'TechTesla Stock') }} <br>
+                    <strong>Note:</strong> {{ $item->note ?? 'N/A' }} <br>
                 </p>
             </div>
             <div style="width: 50%;">
                 <p style="margin-bottom: 5px;">
                     <strong>Status:</strong> {{ ucfirst($item->status ?? 'Pending') }}</br>
-                    <strong>Created By:</strong> {{ $item->created_by ?? 'N/A' }}</br>
+                    <strong>Created By:</strong> {{ $item->addedBy?->name ?? 'N/A' }}</br>
                     <strong>Expected Date:</strong> {{ \Carbon\Carbon::parse($item->expected_date ??
                     $item->date)->format('m/d/Y') }}</br>
                     <strong>Urgency:</strong> {{ ucfirst($item->urgency ?? 'Medium') }}
