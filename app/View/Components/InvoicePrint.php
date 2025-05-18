@@ -13,10 +13,12 @@ use Illuminate\View\Component;
 class InvoicePrint extends Component
 {
     public $title;
+    public $filename;
 
-    public function __construct($title = 'Invoice')
+    public function __construct($title = 'Invoice', $filename = 'invoice')
     {
         $this->title = $title;
+        $this->filename = $filename;
     }
 
     public function render()

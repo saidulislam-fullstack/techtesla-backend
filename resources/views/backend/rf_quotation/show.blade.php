@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-<x-invoice-print title="Request for Quotation #{{ $item->rfq_no }}">
+<x-invoice-print title="Request for Quotation #{{ $item->rfq_no }}" filename="RFQ_{{ $item->rfq_no }}">
     <!-- RFQ Details -->
     <div style="border: 1px solid #000; padding: 5px; margin-top: 5px; display: flex; color: #000; border-radius: 5px;">
         <div style="width: 50%;">
@@ -67,18 +67,5 @@
 @endsection
 
 @push('scripts')
-<script>
-    function printQuotation() {
-        const printContent = document.getElementById('quotationSection').innerHTML;
-        const originalContent = document.body.innerHTML;
-        document.body.innerHTML = printContent;
 
-        setTimeout(() => {
-            window.print();
-            document.body.innerHTML = originalContent;
-            location.reload();
-        }, 500); // Wait 500ms to ensure images load
-    }
-
-</script>
 @endpush

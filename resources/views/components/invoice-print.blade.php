@@ -56,13 +56,19 @@
     function printQuotation() {
         const printContent = document.getElementById('quotationSection').innerHTML;
         const originalContent = document.body.innerHTML;
+        const originalTitle = document.title;
+        
+        // Set dynamic filename using document.title
+        document.title = "{{ $filename }}";
+
         document.body.innerHTML = printContent;
 
         setTimeout(() => {
             window.print();
             document.body.innerHTML = originalContent;
+            document.title = originalTitle;
             location.reload();
-        }, 500); // Wait for images/fonts
+        }, 500);
     }
 </script>
 @endpush
