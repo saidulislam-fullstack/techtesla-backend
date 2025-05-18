@@ -1,123 +1,157 @@
 @extends('backend.layout.main')
+
 @push('styles')
-    <style>
-        @media print {
-            #printBtn {
-                display: none;
-            }
+<style>
+    @media print {
+        #printBtn {
+            display: none;
         }
-    </style>
+
+        body {
+            background-color: #fff;
+        }
+    }
+</style>
 @endpush
+
 @section('content')
-    <section id="quotationSection">
-        <div class="container-fluid">
-            <div class="card">
-                <div class="card-header mt-2">
-                    <h3 class="text-center">{{ trans('file.Requested Quotation Show') }}</h3>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="rfq_no">{{ trans('file.RFQ No') }}:</label>
-                                {{ $item->rfq_no }}
-                            </div>
-                            <div class="form-group">
-                                <label for="rfq_date">{{ trans('file.Date') }}:</label>
-                                {{ \Carbon\Carbon::parse($item->date)->format('d-m-Y') }}
-                            </div>
-                            <div class="form-group">
-                                <label for="type">{{ trans('file.Type') }}:</label>
-                                {{ ucwords(implode(' ', explode('_', $item->type))) }}
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="customer_name">{{ trans('file.Customer Name') }}:</label>
-                                {{ $item->customer?->name }}
-                            </div>
-                            <div class="form-group">
-                                <label for="customer_address">{{ trans('file.Customer Address') }}:</label>
-                                {{ $item->customer?->address }}
-                            </div>
-                            <div class="form-group">
-                                <label for="customer_phone_number">{{ trans('file.Customer Contact') }}:</label>
-                                {{ $item->customer?->phone_number }}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="table table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>{{ trans('file.Product') }}</th>
-                                        <th>{{ trans('file.Quantity') }}</th>
-                                        <th>{{ trans('file.Proposed Price') }}</th>
-                                        <th>{{ trans('file.Supplier') }}</th>
-                                        <th>{{ trans('file.Price') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($item->items as $value)
-                                        <tr>
-                                            <td>{{ $value->product?->name }}</td>
-                                            <td>{{ $value->quantity }}</td>
-                                            <td>{{ $value->proposed_price }}</td>
-                                            <td>
-                                                @php
-                                                    $selectedPrice = collect($item->priceCollection)->firstWhere(
-                                                        'rfq_item_id',
-                                                        $value->id,
-                                                    );
-                                                @endphp
-                                                {{ $selectedPrice?->supplier?->name ?? 'N/A' }}
-                                            </td>
-                                            <td>{{ $selectedPrice?->price ?? 'N/A' }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="note">{{ trans('file.Note') }}</label>
-                                <textarea class="form-control" id="note" name="note" rows="3" readonly>{{ $item->note }}</textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="delivery_info">{{ trans('file.Delivery Address') }}</label>
-                                <textarea class="form-control" id="delivery_info" name="delivery_info" rows="3" readonly>{{ $item->delivery_info }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Print Button -->
-            <div class="text-center mt-3">
-                <button type="button" class="btn btn-primary no-print" id="printBtn"
-                    onclick="printQuotation()">Print</button>
+<section id="quotationSection">
+    <div class="container-fluid">
+        <!-- Header -->
+        @php
+        $warehouse = App\Models\Warehouse::first();
+        @endphp
+        <div style="text-align: center; padding: 20px; color:#000;">
+            <img id="logo" style="position: absolute; left: 20px;" src="{{ url('logo', $general_setting->site_logo) }}"
+                alt="Logo" height="50">
+            <h3 style="font-size: 28px;"><strong>{{ $general_setting->site_title }}</strong></h3>
+            <p>Address: {{ $warehouse->name .', '. $warehouse->address }}<br>
+                Phone: {{$warehouse->phone}}, Email: {{$warehouse->email}}</p>
+            <div style="display: flex; justify-content: center; margin-top: 10px;">
+                <h6 style="border: 1px dashed black; width: 38%; padding: 5px 0px; font-size: 18px;">
+                    <strong>Request for
+                        quotation #{{
+                        $item->rfq_no
+                        }}</strong>
+                </h6>
             </div>
         </div>
-    </section>
+
+        <!-- RFQ Details -->
+        <div
+            style="border: 1px solid #000; padding: 5px; margin-top: 5px; display: flex; color: #000; border-radius: 5px;">
+            <div style="width: 50%;">
+                <p style="margin-bottom: 5px;">
+                    <strong>RFQ Date:</strong> {{ \Carbon\Carbon::parse($item->date)->format('m/d/Y') }} <br>
+                    <strong>RFQ Code:</strong> {{ $item->rfq_no }} <br>
+                    <strong>Sales Order No.</strong>
+                </p>
+            </div>
+            <div style="width: 50%;">
+                <p style="margin-bottom: 5px;">
+                    <strong>Status:</strong> {{ ucfirst($item->status ?? 'Pending') }}</br>
+                    <strong>Created By:</strong> {{ $item->created_by ?? 'N/A' }}</br>
+                    <strong>Expected Date:</strong> {{ \Carbon\Carbon::parse($item->expected_date ??
+                    $item->date)->format('m/d/Y') }}</br>
+                    <strong>Urgency:</strong> {{ ucfirst($item->urgency ?? 'Medium') }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Supplier Table -->
+        <h6 style="margin-top: 1rem; color: #000;"><strong>Supplier</strong></h6>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; color: #000;">
+            <thead>
+                <tr style="background-color: #d3d3d3;">
+                    <th style="border: 1px solid #000; padding: 10px 5px;">SL</th>
+                    <th style="border: 1px solid #000; padding: 10px 5px;">Supplier Code</th>
+                    <th style="border: 1px solid #000; padding: 10px 5px;">Supplier Name</th>
+                    <th style="border: 1px solid #000; padding: 10px 5px;">Supplier Mobile</th>
+                    <th style="border: 1px solid #000; padding: 10px 5px;">Supplier Email</th>
+                    <th style="border: 1px solid #000; padding: 10px 5px;">Supplier Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($item->suppliers ?? [] as $index => $supplier)
+                <tr>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $index + 1 }}</td>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $supplier->code ?? 'N/A' }}</td>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $supplier->name ?? 'N/A' }}</td>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $supplier->mobile ?? 'N/A' }}</td>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $supplier->email ?? 'N/A' }}</td>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $supplier->address ?? 'N/A' }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <!-- Item Table -->
+        <h6 style="margin-top: 1rem; color: #000;"><strong>Item</strong></h6>
+        <table style="width: 100%; border-collapse: collapse; border: 1px solid #000; color: #000;">
+            <thead>
+                <tr style="background-color: #d3d3d3;">
+                    <th style="border: 1px solid #000; padding: 10px 5px;">SL</th>
+                    <th style="border: 1px solid #000; padding: 10px 5px;">Item Code</th>
+                    <th style="border: 1px solid #000; padding: 10px 5px;">Item Name</th>
+                    <th style="border: 1px solid #000; padding: 10px 5px;">Item Desc</th>
+                    <th style="border: 1px solid #000; padding: 10px 5px;">UoM</th>
+                    <th style="border: 1px solid #000; padding: 10px 5px;">Qty</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $totalQty = 0; @endphp
+                @foreach ($item->items as $index => $value)
+                <tr>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $index + 1 }}</td>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $value->product?->code }}</td>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $value->product?->name }}</td>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $value->product?->description ?? 'N/A' }}</td>
+                    <td style="border: 1px solid #000; padding: 5px;">{{ $value->uom ?? 'PCS' }}</td>
+                    <td style="border: 1px solid #000; padding: 5px; text-align: right;">{{
+                        number_format($value->quantity, 3) }}</td>
+                </tr>
+                @php $totalQty += $value->quantity; @endphp
+                @endforeach
+                <tr>
+                    <td colspan="5" style="border: 1px solid #000; padding: 5px; text-align: right;"><strong>Total
+                            Qty:</strong></td>
+                    <td style="border: 1px solid #000; padding: 5px; text-align: right;"><strong>{{
+                            number_format($totalQty, 3) }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Signature -->
+        <div style="margin-top: 100px; display: flex; justify-content: space-between; color: #000;">
+            <div>
+                <p>______________________<br>Receiver's Signature<br>Name: <br>Designation:<br>Mobile: </p>
+            </div>
+            <div>
+                <p>______________________<br>Authorized Signature<br>Name: <br>Designation: <br>Mobile: </p>
+            </div>
+        </div>
+
+        <!-- Print Button -->
+        <div class="text-center mt-4">
+            <button type="button" class="btn btn-primary" id="printBtn" onclick="printQuotation()">Print</button>
+        </div>
+    </div>
+</section>
 @endsection
+
 @push('scripts')
-    <script>
-        $("ul#quotation").siblings('a').attr('aria-expanded', 'true');
-        $("ul#quotation").addClass("show");
-        $("ul#quotation #rf-quotation-list-menu").addClass("active");
+<script>
+    function printQuotation() {
+        const printContent = document.getElementById('quotationSection').innerHTML;
+        const originalContent = document.body.innerHTML;
+        document.body.innerHTML = printContent;
 
-        function printQuotation() {
-            let printContent = document.getElementById('quotationSection').innerHTML;
-            let originalContent = document.body.innerHTML;
-
-            document.body.innerHTML = printContent;
+        setTimeout(() => {
             window.print();
             document.body.innerHTML = originalContent;
-            location.reload(); // Reload page to restore event listeners
-        }
-    </script>
+            location.reload();
+        }, 500); // Wait 500ms to ensure images load
+    }
+
+</script>
 @endpush
