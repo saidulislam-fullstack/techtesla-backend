@@ -630,6 +630,29 @@ class PurchaseController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $role = Role::find(Auth::user()->role_id);
+        if ($role->hasPermissionTo('purchases-edit')) {
+            $lims_supplier_list = Supplier::where('is_active', true)->get();
+            $lims_warehouse_list = Warehouse::where('is_active', true)->get();
+            $lims_tax_list = Tax::where('is_active', true)->get();
+            $lims_product_list_without_variant = $this->productWithoutVariant();
+            $lims_product_list_with_variant = $this->productWithVariant();
+            $purchase = Purchase::with('warehouse', 'supplier')->find($id);
+            $lims_product_purchase_data = ProductPurchase::where('purchase_id', $id)->get();
+            if ($purchase->exchange_rate)
+                $currency_exchange_rate = $purchase->exchange_rate;
+            else
+                $currency_exchange_rate = 1;
+            $custom_fields = CustomField::where('belongs_to', 'purchase')->get();
+
+            // dd($lims_warehouse_list, $lims_supplier_list, $lims_product_list_without_variant, $lims_product_list_with_variant, $lims_tax_list, $purchase_data, $lims_product_purchase_data, $currency_exchange_rate, $custom_fields);
+            return view('backend.purchase.show', compact('lims_warehouse_list', 'lims_supplier_list', 'lims_product_list_without_variant', 'lims_product_list_with_variant', 'lims_tax_list', 'purchase', 'lims_product_purchase_data', 'currency_exchange_rate', 'custom_fields'));
+        } else
+            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+    }
+
     public function purchaseByCsv()
     {
         $role = Role::find(Auth::user()->role_id);
