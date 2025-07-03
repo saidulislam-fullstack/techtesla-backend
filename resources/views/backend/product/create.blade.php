@@ -186,19 +186,19 @@
                                         {{--
                                     </div> --}}
                                     </div>
-                                    <div id="cost" class="col-md-4">
+                                    <div id="cost" class="col-md-4 d-none">
                                         <div class="form-group">
                                             <label>{{ trans('file.Product Cost') }} *</strong> </label>
                                             <input type="number" name="cost" required class="form-control"
-                                                step="any">
+                                                step="any" value="0">
                                             <span class="validation-msg"></span>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div id="price" class="col-md-4 d-none">
                                         <div class="form-group">
                                             <label>{{ trans('file.Product Price') }} *</strong> </label>
                                             <input type="number" name="price" required class="form-control"
-                                                step="any">
+                                                step="any" value="0">
                                             <span class="validation-msg"></span>
                                         </div>
                                         <div class="form-group">
@@ -233,7 +233,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 d-none">
                                         <div class="form-group">
                                             <label>{{ trans('file.Tax Method') }}</strong> </label> <i
                                                 class="dripicons-question" data-toggle="tooltip"
@@ -326,7 +326,7 @@
                                     @endforeach
                                     <div class="col-md-4">
                                         <div class="form-group mt-3">
-                                            <input type="checkbox" name="is_initial_stock" value="1">&nbsp;
+                                            <input type="checkbox" name="is_initial_stock" id="initial_stock" value="1">&nbsp;
                                             <label>{{ trans('file.Initial Stock') }}</label>
                                             <p class="italic">
                                                 {{ trans('file.This feature will not work for product with
@@ -1533,5 +1533,17 @@
                 this.removeAllFiles(true);
             }
         });
+
+        $(document).ready(function() {
+            $('#initial_stock').on('change', function() {
+                if ($(this).is(':checked')) {
+                    $('#cost').removeClass('d-none');
+                    $('#price').removeClass('d-none');
+                } else {
+                    $('#cost').addClass('d-none');
+                    $('#price').addClass('d-none');
+                }
+            });
+        })
     </script>
 @endpush
