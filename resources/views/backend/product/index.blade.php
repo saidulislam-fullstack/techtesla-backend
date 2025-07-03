@@ -38,7 +38,8 @@
                     <th class="not-exported"></th>
                     <th>{{trans('file.Image')}}</th>
                     <th>{{trans('file.name')}}</th>
-                    <th>{{trans('file.Code')}}</th>
+                    <th>{{"Model"}}</th>
+                    <th>{{"Origin"}}</th>
                     <th>{{trans('file.Brand')}}</th>
                     <th>{{trans('file.category')}}</th>
                     <th>{{trans('file.Quantity')}}</th>
@@ -187,7 +188,7 @@
         return false;
     }
 
-    var columns = [{"data": "key"},{"data": "image"},{"data": "name"},{"data": "code"},{"data": "brand"},{"data": "category"},{"data": "qty"},{"data": "unit"},{"data": "price"},{"data": "cost"},{"data": "stock_worth"}];
+    var columns = [{"data": "key"},{"data": "image"},{"data": "name"},{"data": "model"},{"data": "origin"},{"data": "brand"},{"data": "category"},{"data": "qty"},{"data": "unit"},{"data": "price"},{"data": "cost"},{"data": "stock_worth"}];
     var field_name = <?php echo json_encode($field_name) ?>;
     for(i = 0; i < field_name.length; i++) {
         columns.push({"data": field_name[i]});
