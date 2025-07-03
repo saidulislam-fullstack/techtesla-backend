@@ -321,7 +321,7 @@ class PurchaseController extends Controller
 
     public function productWithoutVariant()
     {
-        return Product::ActiveStandard()->select('id', 'name', 'code')
+        return Product::ActiveStandard()->select('id', 'name', 'code', 'model', 'origin')
             ->whereNull('is_variant')->get();
     }
 
@@ -349,7 +349,7 @@ class PurchaseController extends Controller
         $product_code = explode("|", $request['data']);
         $product_code[0] = rtrim($product_code[0], " ");
         $lims_product_data = Product::where([
-            ['code', $product_code[0]],
+            ['model', $product_code[0]],
             ['is_active', true]
         ])
             ->whereNull('is_variant')

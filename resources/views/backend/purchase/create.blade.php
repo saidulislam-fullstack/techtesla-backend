@@ -188,7 +188,7 @@
                                                 <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>
                                                 <input type="text" name="product_code_name"
                                                     id="lims_productcodeSearch"
-                                                    placeholder="Please type product code and select..."
+                                                    placeholder="Please type product model, code and select..."
                                                     class="form-control" />
                                             </div>
                                         </div>
@@ -489,7 +489,7 @@
         var lims_product_code = [
             @foreach ($lims_product_list_without_variant as $product)
                 @php
-                    $productArray[] = htmlspecialchars($product->code) . '|' . preg_replace('/[\n\r]/', '<br>', htmlspecialchars($product->name));
+                    $productArray[] = htmlspecialchars($product->model) . '|' . preg_replace('/[\n\r]/', '<br>', htmlspecialchars($product->name));
                 @endphp
             @endforeach
             @foreach ($lims_product_list_with_variant as $product)
