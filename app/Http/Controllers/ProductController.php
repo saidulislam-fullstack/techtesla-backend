@@ -1295,7 +1295,7 @@ class ProductController extends Controller
         if ($lims_product_data->is_variant)
             $product[] = $lims_product_data->item_code;
         else
-            $product[] = $lims_product_data->code;
+            $product[] = $lims_product_data->model;
 
         $product[] = $lims_product_data->price + $additional_price;
         $product[] = DNS1D::getBarcodePNG($lims_product_data->code, $lims_product_data->barcode_symbology);

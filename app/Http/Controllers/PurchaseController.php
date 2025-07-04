@@ -372,10 +372,11 @@ class PurchaseController extends Controller
             $lims_product_data->cost += $lims_product_data->additional_cost;
         }
         $product[] = $lims_product_data->name;
-        if ($lims_product_data->is_variant)
-            $product[] = $lims_product_data->item_code;
-        else
-            $product[] = $lims_product_data->code;
+        // if ($lims_product_data->is_variant)
+        //     $product[] = $lims_product_data->item_code;
+        // else
+        //     $product[] = $lims_product_data->code;
+        $product[] = $lims_product_data->model;
         $product[] = $lims_product_data->cost;
 
         if ($lims_product_data->tax_id) {
@@ -552,6 +553,7 @@ class PurchaseController extends Controller
                 }
             }
             //add quantity to product table
+            $lims_product_data->cost = (($net_unit_cost[$i] * $quantity) + ($lims_product_data->cost * $lims_product_data->qty)) / ($lims_product_data->qty + $quantity);  
             $lims_product_data->qty = $lims_product_data->qty + $quantity;
             $lims_product_data->save();
             //add quantity to warehouse
@@ -875,7 +877,7 @@ class PurchaseController extends Controller
             $imei_number = $new_imei_number = $data['imei_number'];
             $product_purchase = [];
 
-            foreach ($lims_product_purchase_data as $product_purchase_data) {
+            foreach ($lims_product_purchase_data as $key => $product_purchase_data) {
 
                 $old_recieved_value = $product_purchase_data->recieved;
                 $lims_purchase_unit_data = Unit::find($product_purchase_data->purchase_unit_id);
@@ -1002,8 +1004,9 @@ class PurchaseController extends Controller
                         ])->first();
                     }
                 }
-
+                $lims_product_data->cost = (($net_unit_cost[$key] * $new_recieved_value) + ($lims_product_data->cost * $lims_product_data->qty)) / ($lims_product_data->qty + $new_recieved_value);
                 $lims_product_data->qty += $new_recieved_value;
+
                 if ($lims_product_warehouse_data) {
                     $lims_product_warehouse_data->qty += $new_recieved_value;
                     $lims_product_warehouse_data->save();

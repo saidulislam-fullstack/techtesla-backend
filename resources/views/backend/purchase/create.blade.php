@@ -201,7 +201,7 @@
                                                     <thead>
                                                         <tr>
                                                             <th>{{ trans('file.name') }}</th>
-                                                            <th>{{ trans('file.Code') }}</th>
+                                                            <th>Model</th>
                                                             <th>{{ trans('file.Quantity') }}</th>
                                                             <th class="recieved-product-qty d-none">
                                                                 {{ trans('file.Recieved') }}</th>
