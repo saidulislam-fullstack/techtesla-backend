@@ -202,11 +202,12 @@
                                                         <tr>
                                                             <th>{{ trans('file.name') }}</th>
                                                             <th>Model</th>
+                                                            <th>Origin</th>
+                                                            <th>Brand</th>
                                                             <th>{{ trans('file.Quantity') }}</th>
-                                                            <th class="recieved-product-qty d-none">
-                                                                {{ trans('file.Recieved') }}</th>
-                                                            <th>{{ trans('file.Batch No') }}</th>
-                                                            <th>{{ trans('file.Expired Date') }}</th>
+                                                            <th class="recieved-product-qty d-none">{{ trans('file.Recieved') }}</th>
+                                                            {{-- <th>{{ trans('file.Batch No') }}</th>
+                                                            <th>{{ trans('file.Expired Date') }}</th> --}}
                                                             <th>{{ trans('file.Net Unit Cost') }}</th>
                                                             <th>{{ trans('file.Discount') }}</th>
                                                             <th>{{ trans('file.Tax') }}</th>
@@ -218,10 +219,10 @@
                                                     </tbody>
                                                     <tfoot class="tfoot active">
                                                         <th colspan="2">{{ trans('file.Total') }}</th>
+                                                        <th></th>
+                                                        <th></th>
                                                         <th id="total-qty">0</th>
                                                         <th class="recieved-product-qty d-none"></th>
-                                                        <th></th>
-                                                        <th></th>
                                                         <th></th>
                                                         <th id="total-discount">
                                                             {{ number_format(0, $general_setting->decimal, '.', '') }}</th>
@@ -675,6 +676,7 @@
                     data: data
                 },
                 success: function(data) {
+                    console.log(data);
                     var flag = 1;
                     $(".product-code").each(function(i) {
                         if ($(this).val() == data[1]) {
@@ -700,6 +702,8 @@
                         cols += '<td>' + data[0] +
                             '<button type="button" class="edit-product btn btn-link" data-toggle="modal" data-target="#editModal"> <i class="dripicons-document-edit"></i></button></td>';
                         cols += '<td>' + data[1] + '</td>';
+                        cols += '<td>'+data[12]+'</td>';
+                        cols += '<td>'+data[13]+'</td>';
                         cols +=
                             '<td><input type="number" class="form-control qty" name="qty[]" value="1" step="any" required/></td>';
                         if ($('select[name="status"]').val() == 1)
@@ -711,17 +715,17 @@
                         else
                             cols +=
                             '<td class="recieved-product-qty d-none"><input type="number" class="form-control recieved" name="recieved[]" value="0" step="any"/></td>';
-                        if (data[10]) {
-                            cols +=
-                                '<td><input type="text" class="form-control batch-no" name="batch_no[]" required/></td>';
-                            cols +=
-                                '<td><input type="text" class="form-control expired-date" name="expired_date[]" required/></td>';
-                        } else {
-                            cols +=
-                                '<td><input type="text" class="form-control batch-no" name="batch_no[]" disabled/></td>';
-                            cols +=
-                                '<td><input type="text" class="form-control expired-date" name="expired_date[]" disabled/></td>';
-                        }
+                        // if (data[10]) {
+                        //     cols +=
+                        //         '<td><input type="text" class="form-control batch-no" name="batch_no[]" required/></td>';
+                        //     cols +=
+                        //         '<td><input type="text" class="form-control expired-date" name="expired_date[]" required/></td>';
+                        // } else {
+                        //     cols +=
+                        //         '<td><input type="text" class="form-control batch-no" name="batch_no[]" disabled/></td>';
+                        //     cols +=
+                        //         '<td><input type="text" class="form-control expired-date" name="expired_date[]" disabled/></td>';
+                        // }
 
                         cols += '<td class="net_unit_cost"></td>';
                         cols +=
