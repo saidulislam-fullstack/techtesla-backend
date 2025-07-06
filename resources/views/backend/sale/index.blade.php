@@ -585,6 +585,12 @@
         window.open(url, '_blank');
     });
 
+    $(document).on("click", ".delivery-chalan", function(){
+        var sale = $(this).parent().parent().parent().parent().parent().data('sale');
+        var url = '/sales/delivery-chalan/' + sale[13];
+        window.open(url, '_blank');
+    });
+
     $(document).on("click", "#print-btn", function() {
         var divContents = document.getElementById("sale-details").innerHTML;
         var a = window.open('');

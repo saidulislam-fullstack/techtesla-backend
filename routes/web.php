@@ -288,6 +288,7 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
         Route::get('sales/today-sale', 'todaySale');
         Route::get('sales/today-profit/{warehouse_id}', 'todayProfit');
         Route::get('sales/check-discount', 'checkDiscount');
+        Route::get('sales/delivery-chalan/{id}', 'deliveryChalan')->name('sale.deliveryChalan');
         Route::get('sales/vat-chalan/{id}', 'vatChalan')->name('sale.vatChalan');
     });
 
