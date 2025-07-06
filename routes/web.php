@@ -351,6 +351,7 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
             Route::get('purchase_by_csv', 'purchaseByCsv');
             Route::post('deletebyselection', 'deleteBySelection');
             Route::get('show/{id}', 'show')->name('purchases.show');
+            Route::get('order/pdf/{id}', 'purchaseOrderPdf')->name('purchase.order.pdf');
         });
         Route::post('importpurchase', 'importPurchase')->name('purchase.import');
     });

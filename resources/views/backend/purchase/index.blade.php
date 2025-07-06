@@ -442,6 +442,12 @@
             window.open(url, '_blank');
         });
 
+        $(document).on("click", ".purchase-order", function() {
+            var purchase = $(this).parent().parent().parent().parent().parent().data('purchase');
+            var url = '/purchases/order/pdf/' + purchase[3];
+            window.open(url, '_blank');
+        });
+
         $("#print-btn").on("click", function() {
             var divContents = document.getElementById("purchase-details").innerHTML;
             var a = window.open('');
