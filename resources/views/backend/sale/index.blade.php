@@ -579,6 +579,12 @@
         window.open(url, '_blank');
     });
 
+    $(document).on("click", ".vat-chalan", function(){
+        var sale = $(this).parent().parent().parent().parent().parent().data('sale');
+        var url = '/sales/vat-chalan/' + sale[13];
+        window.open(url, '_blank');
+    });
+
     $(document).on("click", "#print-btn", function() {
         var divContents = document.getElementById("sale-details").innerHTML;
         var a = window.open('');

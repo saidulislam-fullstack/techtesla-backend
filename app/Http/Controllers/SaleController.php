@@ -290,6 +290,9 @@ class SaleController extends Controller
                                 <li><a href="' . route('sale.invoice', $sale->id) . '" class="btn btn-link"><i class="fa fa-copy"></i> ' . trans('file.Generate Invoice') . '</a></li>
                                 <li>
                                     <button type="button" class="btn btn-link view"><i class="fa fa-eye"></i> ' . trans('file.View') . '</button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-link vat-chalan"><i class="fa fa-file"></i>Vat Chalan</button>
                                 </li>';
                 if (in_array("sales-edit", $request['all_permission'])) {
                     if ($sale->sale_status != 3)
@@ -1766,6 +1769,26 @@ class SaleController extends Controller
                 $currency_exchange_rate = 1;
             $custom_fields = CustomField::where('belongs_to', 'sale')->get();
             return view('backend.sale.show', compact('lims_customer_list', 'lims_warehouse_list', 'lims_biller_list', 'lims_tax_list', 'sale', 'lims_product_sale_data', 'currency_exchange_rate', 'custom_fields'));
+        } else
+            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
+    }
+
+    public function vatChalan($id)
+    {
+        $role = Role::find(Auth::user()->role_id);
+        if ($role->hasPermissionTo('sales-edit')) {
+            $lims_customer_list = Customer::where('is_active', true)->get();
+            $lims_warehouse_list = Warehouse::where('is_active', true)->get();
+            $lims_biller_list = Biller::where('is_active', true)->get();
+            $lims_tax_list = Tax::where('is_active', true)->get();
+            $sale = Sale::with('warehouse', 'customer')->find($id);
+            $lims_product_sale_data = Product_Sale::where('sale_id', $id)->get();
+            if ($sale->exchange_rate)
+                $currency_exchange_rate = $sale->exchange_rate;
+            else
+                $currency_exchange_rate = 1;
+            $custom_fields = CustomField::where('belongs_to', 'sale')->get();
+            return view('backend.sale.vat_chalan', compact('lims_customer_list', 'lims_warehouse_list', 'lims_biller_list', 'lims_tax_list', 'sale', 'lims_product_sale_data', 'currency_exchange_rate', 'custom_fields'));
         } else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
     }
