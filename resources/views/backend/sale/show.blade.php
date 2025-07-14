@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-<x-invoice-print title="Purchase #{{ $sale->reference_no }}" filename="RFQ_{{ $sale->reference_no }}">
+<x-invoice-print title="Purchase #{{ $sale->reference_no }}" filename="RFQ_{{ $sale->reference_no }}" :header="true" :footer="true">
     <!-- Sale Details -->
     <div style="border: 1px solid #000; padding: 5px; margin-top: 5px; display: flex; color: #000; border-radius: 5px;">
         <div style="width: 50%;">

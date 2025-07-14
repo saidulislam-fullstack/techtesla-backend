@@ -4,6 +4,8 @@
         @php
         $warehouse = App\Models\Warehouse::first();
         @endphp
+
+        @if($header)
         <div style="text-align: center; padding: 20px; color:#000;">
             <img id="logo" style="position: absolute; left: 20px;" src="{{ url('logo', $general_setting->site_logo) }}"
                 alt="Logo" height="50">
@@ -16,10 +18,12 @@
                 </h6>
             </div>
         </div>
+        @endif
 
         <!-- Dynamic Content -->
         {{ $slot }}
 
+        @if($footer)
         <!-- Signature -->
         <div style="margin-top: 100px; display: flex; justify-content: space-between; color: #000;">
             <div>
@@ -29,6 +33,7 @@
                 <p>______________________<br>Authorized Signature<br>Name: <br>Designation: <br>Mobile: </p>
             </div>
         </div>
+        @endif
 
         <!-- Print Button -->
         <div class="text-center mt-4">
