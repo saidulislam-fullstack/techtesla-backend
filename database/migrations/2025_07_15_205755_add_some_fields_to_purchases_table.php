@@ -15,9 +15,9 @@ return new class extends Migration
             $table->string('terms_of_payment')->nullable()->after('payment_status');
             $table->string('dispatched_through')->nullable()->after('terms_of_payment');
             $table->string('destination')->nullable()->after('dispatched_through');
-            $table->text('terms_of_delivery')->nullable()->after('destination');
-            $table->string('terms_of_price')->nullable()->after('terms_of_delivery');
-            $table->string('packing_and_forwarding')->nullable()->after('terms_of_price');
+            $table->string('p_and_f')->nullable()->after('destination');
+            $table->string('price_basis')->nullable()->after('p_and_f');
+            $table->string('packing_and_forwarding')->nullable()->after('price_basis');
             $table->string('freight_or_insurance')->nullable()->after('packing_and_forwarding');
             $table->string('other_charges')->nullable()->after('freight_or_insurance');
             $table->string('delivery')->nullable()->after('other_charges');
@@ -35,8 +35,8 @@ return new class extends Migration
                 'terms_of_payment',
                 'dispatched_through',
                 'destination',
-                'terms_of_delivery',
-                'terms_of_price',
+                'p_and_f',
+                'price_basis',
                 'packing_and_forwarding',
                 'freight_or_insurance',
                 'other_charges',
