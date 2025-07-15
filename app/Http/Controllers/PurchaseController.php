@@ -244,9 +244,13 @@ class PurchaseController extends Controller
                     if (in_array("purchase-payment-add", $request['all_permission']))
                         $nestedData['options'] .=
                             '<li>
-                    <button type="button" class="add-payment btn btn-link" data-id = "' . $purchase->id . '" data-toggle="modal" data-target="#add-payment"><i class="fa fa-plus"></i> ' . trans('file.Add Payment') . '</button>
-                    </li>';
+                                <button type="button" class="add-payment btn btn-link" data-id = "' . $purchase->id . '" data-toggle="modal" data-target="#add-payment"><i class="fa fa-plus"></i> ' . trans('file.Add Payment') . '</button>
+                            </li>';
                 }
+                 $nestedData['options'] .=
+                            '<li>
+                                <button type="button" class="edit-others-data btn btn-link" data-id = "' . $purchase->id . '" data-toggle="modal" data-target="#edit-others-data"><i class="dripicons-document-edit"></i> Others Data</button>
+                            </li>';
                 if (in_array("purchases-delete", $request['all_permission']))
                     $nestedData['options'] .= \Form::open(["route" => ["purchases.destroy", $purchase->id], "method" => "DELETE"]) . '
                             <li>
@@ -1151,6 +1155,42 @@ class PurchaseController extends Controller
             PaymentWithCheque::create($data);
         }
         return redirect('purchases')->with('message', 'Payment created successfully');
+    }
+
+    public function getOthersData($id)
+    {
+        $lims_purchase_data = Purchase::find($id);
+        $data['terms_of_payment'] = $lims_purchase_data->terms_of_payment;
+        $data['dispatched_through'] = $lims_purchase_data->dispatched_through;
+        $data['destination'] = $lims_purchase_data->destination;
+        $data['p_and_f'] = $lims_purchase_data->p_and_f;
+        $data['price_basis'] = $lims_purchase_data->price_basis;
+        $data['packing_and_forwarding'] = $lims_purchase_data->packing_and_forwarding;
+        $data['freight_or_insurance'] = $lims_purchase_data->freight_or_insurance;
+        $data['other_charges'] = $lims_purchase_data->other_charges;
+        $data['delivery'] = $lims_purchase_data->delivery;
+        $data['penalty'] = $lims_purchase_data->penalty;
+
+        return response()->json($data);
+    }
+
+    public function updateOthersData(Request $request)
+    {
+        $data = $request->all();
+        $lims_purchase_data = Purchase::find($data['purchase_id']);
+        $lims_purchase_data->terms_of_payment = $data['terms_of_payment'];
+        $lims_purchase_data->dispatched_through = $data['dispatched_through'];
+        $lims_purchase_data->destination = $data['destination'];
+        $lims_purchase_data->p_and_f = $data['p_and_f'];
+        $lims_purchase_data->price_basis = $data['price_basis'];
+        $lims_purchase_data->packing_and_forwarding = $data['packing_and_forwarding'];
+        $lims_purchase_data->freight_or_insurance = $data['freight_or_insurance'];
+        $lims_purchase_data->other_charges = $data['other_charges'];
+        $lims_purchase_data->delivery = $data['delivery'];
+        $lims_purchase_data->penalty = $data['penalty'];
+        $lims_purchase_data->save();
+        
+        return redirect('purchases')->with('message', 'Others data updated successfully');
     }
 
     public function getPayment($id)

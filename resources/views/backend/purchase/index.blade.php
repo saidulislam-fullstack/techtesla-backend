@@ -263,6 +263,71 @@
     </div>
 </div>
 
+<div id="edit-others-data" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    class="modal fade text-left">
+    <div role="document" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="exampleModalLabel" class="modal-title">Edit Others Data</h5>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true"><i
+                            class="dripicons-cross"></i></span></button>
+            </div>
+            
+            <div class="modal-body">
+                {!! Form::open(['route' => 'purchase.update.others.data', 'method' => 'post', 'class' => 'others-data-form']) !!}
+                <div class="row my-4">
+                    <input type="hidden" name="balance">
+                    <div class="col-md-6 my-2">
+                        <label>Terms Of Payment *</label>
+                        <input type="text" name="terms_of_payment" class="form-control numkey" step="any" required>
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label>Dispatched Through</label>
+                        <input type="text" name="dispatched_through" class="form-control numkey" step="any">
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label>Destination</label>
+                        <input type="text" name="destination" class="form-control numkey" step="any">
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label>Packing & Forwarding</label>
+                        <input type="text" name="p_and_f" class="form-control numkey" step="any">
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label>Price Basis</label>
+                        <input type="text" name="price_basis" class="form-control numkey" step="any">
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label>Packing & Forwarding</label>
+                        <input type="text" name="packing_and_forwarding" class="form-control numkey" step="any">
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label>Freight Or Insurance</label>
+                        <input type="text" name="freight_or_insurance" class="form-control numkey" step="any">
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label>Other Charges</label>
+                        <input type="text" name="other_charges" class="form-control numkey" step="any">
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label>Delivery</label>
+                        <input type="text" name="delivery" class="form-control numkey" step="any">
+                    </div>
+                    <div class="col-md-6 my-2">
+                        <label>Penalty</label>
+                        <input type="text" name="penalty" class="form-control numkey" step="any">
+                    </div>
+                </div>
+
+                <input type="hidden" name="purchase_id">
+
+                <button type="submit" class="btn btn-primary">{{ trans('file.submit') }}</button>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="edit-payment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
     class="modal fade text-left">
     <div role="document" class="modal-dialog">
@@ -477,6 +542,24 @@
             $('input[name="balance"]').val(balance);
             $('input[name="paying_amount"]').val(balance);
             $('input[name="purchase_id"]').val(purchase_id);
+        });
+
+        $(document).on("click", "table.purchase-list tbody .edit-others-data", function(event) {
+            rowindex = $(this).closest('tr').index();
+            var purchase_id = $(this).data('id').toString();
+            $('input[name="purchase_id"]').val(purchase_id);
+            $.get('purchases/get-others-data/' + purchase_id, function(data) {
+                $('input[name="terms_of_payment"]').val(data.terms_of_payment);
+                $('input[name="dispatched_through"]').val(data.dispatched_through);
+                $('input[name="destination"]').val(data.destination);
+                $('input[name="p_and_f"]').val(data.p_and_f);
+                $('input[name="price_basis"]').val(data.price_basis);
+                $('input[name="packing_and_forwarding"]').val(data.packing_and_forwarding);
+                $('input[name="freight_or_insurance"]').val(data.freight_or_insurance);
+                $('input[name="other_charges"]').val(data.other_charges);
+                $('input[name="delivery"]').val(data.delivery);
+                $('input[name="penalty"]').val(data.penalty);
+            });
         });
 
         $(document).on("click", "table.purchase-list tbody .get-payment", function(event) {
@@ -966,6 +1049,17 @@
             }
 
             $('#edit-payment select[name="edit_paid_by_id"]').prop('disabled', false);
+        });
+
+        $(document).on('submit', '.others-data-form', function(e) {
+            if ($('input[name="terms_of_payment"]').val() == '' || $('input[name="dispatched_through"]').val() == '' ||
+                $('input[name="destination"]').val() == '' || $('input[name="p_and_f"]').val() == '' ||
+                $('input[name="price_basis"]').val() == '' || $('input[name="packing_and_forwarding"]').val() == '' ||
+                $('input[name="freight_or_insurance"]').val() == '' || $('input[name="other_charges"]').val() == '' ||
+                $('input[name="delivery"]').val() == '' || $('input[name="penalty"]').val() == '') {
+                alert('Please fill all the fields!');
+                e.preventDefault();
+            }
         });
 
         if (all_permission.indexOf("purchases-delete") == -1)
