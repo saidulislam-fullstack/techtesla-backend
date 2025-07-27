@@ -313,9 +313,9 @@ class ProductController extends Controller
             ],
             'name' => [
                 'max:255',
-                Rule::unique('products')->where(function ($query) {
-                    return $query->where('is_active', 1);
-                }),
+                // Rule::unique('products')->where(function ($query) {
+                //     return $query->where('is_active', 1);
+                // }),
             ]
         ]);
         $data = $request->except('image', 'file');
