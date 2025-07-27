@@ -201,7 +201,6 @@
                 <tr>
                     <th>SI No.</th>
                     <th>Description of Goods</th>
-                    <th>HSN/SAC</th>
                     <th>Due on</th>
                     <th>Quantity</th>
                     <th>Rate</th>
@@ -210,73 +209,77 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($lims_product_purchase_data as $index => $product_purchase)
+                <?php
+                    $product_data = DB::table('products')->find($product_purchase->product_id);
+                    if($product_purchase->variant_id) {
+                        $product_variant_data = \App\Models\ProductVariant::FindExactProduct($product_data->id, $product_purchase->variant_id)->select('item_code')->first();
+                        if($product_variant_data)
+                            $product_data->code = $product_variant_data->item_code;
+                    }
+
+                    $tax = DB::table('taxes')->where('rate', $product_purchase->tax_rate)->first();
+
+                    $units = DB::table('units')->where('base_unit', $product_data->unit_id)->orWhere('id', $product_data->unit_id)->get();
+
+                    $unit_name = array();
+                    $unit_operator = array();
+                    $unit_operation_value = array();
+
+                    foreach($units as $unit) {
+                        if($product_purchase->purchase_unit_id == $unit->id) {
+                            array_unshift($unit_name, $unit->unit_name);
+                            array_unshift($unit_operator, $unit->operator);
+                            array_unshift($unit_operation_value, $unit->operation_value);
+                        }
+                        else {
+                            $unit_name[]  = $unit->unit_name;
+                            $unit_operator[] = $unit->operator;
+                            $unit_operation_value[] = $unit->operation_value;
+                        }
+                    }
+                    if($product_data->tax_method == 1){
+                        $product_cost = ($product_purchase->net_unit_cost + ($product_purchase->discount / $product_purchase->qty)) / $unit_operation_value[0];
+                    }
+                    else{
+                        $product_cost = (($product_purchase->total + ($product_purchase->discount / $product_purchase->qty)) / $product_purchase->qty) / $unit_operation_value[0];
+                    }
+
+
+                    $temp_unit_name = $unit_name = implode(",",$unit_name) . ',';
+                    
+                    $temp_unit_operator = $unit_operator = implode(",",$unit_operator) .',';
+
+                    $temp_unit_operation_value = $unit_operation_value =  implode(",",$unit_operation_value) . ',';
+
+                    $product_batch_data = \App\Models\ProductBatch::select('batch_no', 'expired_date')->find($product_purchase->product_batch_id);
+
+                    $formatter = new \NumberFormatter('en', \NumberFormatter::SPELLOUT);
+                    $amount = number_format((float)$purchase->total_cost, $general_setting->decimal, '.', '');
+                    $amountInWords = $formatter->format($amount);
+                ?>
                 <tr>
-                    <td>1</td>
+                    <td>{{ $index + 1 }}</td>
                     <td class="description">
-                        <span class="bold">Level Sensor-11203057</span><br>
-                        Baumer Make Level Sensor For Point Level Detection Housing: AISI 316L (1.4404), Electrical
-                        Connection: M12-A, 4-Pin, Process Connection: G 1/2 A Hygienic Output Type: PNP Ordering Key:
-                        LBFH-21. 010. A03020.1.0003.0 <br>Article No.: 11203057<br>Origin: Germany
+                        <span class="bold">{{$product_data->name}}</span><br>
+                        {!! $product_data->product_details ?? '--' !!}
                     </td>
-                    <td>90328990</td>
-                    <td>27-Apr-2024</td>
-                    <td>1 Nos</td>
-                    <td class="rate">14,553.00</td>
-                    <td>Nos</td>
-                    <td class="amount">14,553.00</td>
+                    <td>{{ $product_purchase->created_at }}</td>
+                    <td>{{ $product_purchase->qty }}</td>
+                    <td class="rate">{{ number_format((float)$product_purchase->net_unit_cost,
+                        $general_setting->decimal, '.', '') }}</td>
+                    <td>{{$temp_unit_name}}</td>
+                    <td class="amount">{{ number_format((float)$product_purchase->total, $general_setting->decimal, '.',
+                        '') }}</td>
                 </tr>
+                @endforeach
                 <tr>
-                    <td>2</td>
-                    <td class="description">
-                        <span class="bold">Hygienic Adapter</span><br>
-                        Baumer Make Hygienic Adapter ZPH3-3213<br>Article No: 11190720<br>Origin: Germany
-                    </td>
-                    <td>73072900</td>
-                    <td>27-Apr-2024</td>
-                    <td>1 Nos</td>
-                    <td class="rate">7,659.00</td>
-                    <td>Nos</td>
-                    <td class="amount">7,659.00</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td class="description">
-                        <span class="bold">Cable with Open-Ended Wire-CAM12.A4-11230460</span><br>
-                        Baumer Make Cable With Open-Ended Wire.<br>Model: CAM12.A4-11230460<br>M12, Female, A-Coded;
-                        4-Poles;<br>TPE-S, 500 Cm, Free Cable End
-                    </td>
-                    <td>85365000</td>
-                    <td>27-Apr-2024</td>
-                    <td>1 Nos</td>
-                    <td class="rate">3,007.00</td>
-                    <td>Nos</td>
-                    <td class="amount">3,007.00</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td class="description"><span class="bold">Material Certificate: Lot Certificate</span></td>
-                    <td>9033</td>
-                    <td>27-Apr-2024</td>
-                    <td>1 Nos</td>
-                    <td class="rate">3,850.00</td>
-                    <td>Nos</td>
-                    <td class="amount">3,850.00</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td class="description"><span class="bold">Surface Finish Certificate: Lot Certificate</span></td>
-                    <td>9033</td>
-                    <td></td>
-                    <td>1 Nos</td>
-                    <td class="rate">3,850.00</td>
-                    <td>Nos</td>
-                    <td class="amount">3,850.00</td>
-                </tr>
-                <tr>
-                    <td colspan="4" class="text-right bold">Total</td>
-                    <td class="bold">5 Nos</td>
+                    <td colspan="3" class="text-right bold">Total</td>
+                    <td class="bold">{{$purchase->total_qty}}</td>
                     <td colspan="2"></td>
-                    <td class="amount bold">₹ 32,919.00</td>
+                    <td class="amount bold">{{ number_format((float)$purchase->total_cost, $general_setting->decimal,
+                        '.',
+                        '')}}</td>
                 </tr>
             </tbody>
         </table>
@@ -285,7 +288,7 @@
             <tr>
                 <td class="w-70">
                     <span class="bold">Amount Chargeable (in words):</span><br>
-                    INR Thirty Two Thousand Nine Hundred Nineteen Only
+                    {{ ucfirst($amountInWords) }} Only
                 </td>
                 <td class="w-30 text-right">
                     E. & O.E
