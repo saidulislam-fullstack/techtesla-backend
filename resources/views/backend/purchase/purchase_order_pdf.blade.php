@@ -264,7 +264,7 @@
                         <span class="bold">{{$product_data->name}}</span><br>
                         {!! $product_data->product_details ?? '--' !!}
                     </td>
-                    <td>{{ $product_purchase->created_at }}</td>
+                    <td>{{ $product_purchase->created_at->format('d/m/Y') }}</td>
                     <td>{{ $product_purchase->qty }}</td>
                     <td class="rate">{{ number_format((float)$product_purchase->net_unit_cost,
                         $general_setting->decimal, '.', '') }}</td>
