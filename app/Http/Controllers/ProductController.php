@@ -81,8 +81,10 @@ class ProductController extends Controller
         else
             $limit = $totalData;
         $start = $request->input('start');
-        $order = 'products.' . $columns[$request->input('order.0.column')];
-        $dir = $request->input('order.0.dir');
+        // $order = 'products.' . $columns[$request->input('order.0.column')];
+        // $dir = $request->input('order.0.dir');
+        $order = 'products.id';
+        $dir = 'desc';
         //fetching custom fields data
         $custom_fields = CustomField::where([
             ['belongs_to', 'product'],
