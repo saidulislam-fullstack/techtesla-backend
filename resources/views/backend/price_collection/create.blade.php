@@ -20,11 +20,13 @@
                                             <label for="rfq_id">{{ trans('file.RFQ') }}</label><span class="required">
                                                 *</span>
                                             <select name="rfq_id" id="rfq_id" class="form-control selectpicker"
-                                                onchange="getRfq(this)" required>
+                                                    data-live-search="true"
+                                                    onchange="getRfq(this)" required>
                                                 <option value="">{{ trans('file.Select RFQ') }}</option>
                                                 @foreach ($rfqs as $item)
                                                     <option value="{{ $item->id }}" @selected(request()->rfq_id == $item->id)>
-                                                        {{ $item->rfq_no }}</option>
+                                                        {{ $item->rfq_no }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
