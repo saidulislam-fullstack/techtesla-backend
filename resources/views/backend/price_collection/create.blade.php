@@ -99,8 +99,8 @@
                             <input type="hidden" id="marketPriceModal" value="0">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="currencyModal">{{ trans('file.Currency') }}</label>
-                                    <select id="currencyModal" class="form-control selectpicker">
+                                    <label for="#currencyModal">{{ trans('file.Currency') }}</label>
+                                    <select id="currencyModal" class="form-control" data-live-search="true">
                                         <option value="">{{ trans('file.Select Currency') }}</option>
                                         @foreach ($currencies as $currency)
                                             <option value="{{ $currency->id }}">{{ $currency->name }}</option>
@@ -189,6 +189,7 @@
 @endsection
 @push('scripts')
     <script type="text/javascript">
+
         $("ul#quotation").siblings('a').attr('aria-expanded', 'true');
         $("ul#quotation").addClass("show");
         $("ul#quotation #price-collection-create-menu").addClass("active");
@@ -261,8 +262,8 @@
                 '</select></td>' +
                 '<td><input type="text" name="note[]" class="form-control" /></td>' +
                 '<td><input type="number" name="market_price[]" value="0" onchange="calculate()" class="form-control market_price" min="0" /></td>' +
-                '<td><button class="btn btn-warning calculate-row" data-toggle="modal" data-target="#calculationModal"><i class="fa fa-calculator"></i></button>' +
-                '<button class="btn btn-danger remove-row"><i class="fa fa-trash"></i></button></td>' +
+                '<td><button type="button" class="btn btn-warning calculate-row" data-toggle="modal" data-target="#calculationModal"><i class="fa fa-calculator"></i></button>' +
+                '<button type="button" class="btn btn-danger remove-row"><i class="fa fa-trash"></i></button></td>' +
                 '</tr>';
             // Append the new row to the table
             $('#myTable tbody').append(row);
@@ -321,7 +322,7 @@
                 $('#totalCostModal').val(totalCost.toFixed(2));
             });
 
-            $('#saveCalculation').off('click').on('click', function() {
+            $('#saveCalculation').on('click', function() {
                 row.find('.currency_id').val($('#currencyModal').val());
                 row.find('.currency_rate').val($('#currencyRateModal').val());
                 row.find('.shipping_weight').val($('#shippingWeightModal').val());
