@@ -164,7 +164,7 @@
     @endif
 
     @php
-        $index_permission_active = $role_has_permissions_list->where('name', 'quotes-index')->first();
+        $index_permission_active = $role_has_permissions_list->where('name', 'rf-quotes-index')->first();
     @endphp
     @if ($index_permission_active)
         <li>
@@ -778,7 +778,8 @@
 
                 $custom_field_permission_active = $role_has_permissions_list->where('name', 'custom_field')->first();
             @endphp
-            {{-- @if ($role->id <= 2)
+            
+            @if (auth()->user()->role_id <= 1)
                 <li id="role-menu"><a href="{{ route('role.index') }}">{{ trans('file.Role Permission') }}</a>
                 </li>
                 @if ($custom_field_permission_active)
@@ -787,7 +788,7 @@
                     </li>
                 @endif
             @endif
-            @if ($discount_plan_permission_active)
+            {{-- @if ($discount_plan_permission_active)
                 <li id="discount-plan-list-menu"><a
                         href="{{ route('discount-plans.index') }}">{{ trans('file.Discount Plan') }}</a>
                 </li>
