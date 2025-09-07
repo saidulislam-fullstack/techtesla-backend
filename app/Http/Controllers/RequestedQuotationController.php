@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\RequestedQuotationDataTable;
-use App\DataTables\RequestedQuotationReportDataTable;
 use App\Models\Tax;
 use App\Models\Unit;
 use App\Models\Product;
 use App\Models\Customer;
+use App\Models\Purchase;
 use App\Models\Warehouse;
 use App\Models\ProductBatch;
 use Illuminate\Http\Request;
 use App\Models\ProductVariant;
+use App\Helpers\PermissionHelper;
 use App\Models\RequestedQuotation;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
-use App\Models\Purchase;
+use Illuminate\Support\Facades\Auth;
 use App\Models\RequestedQuotationDetail;
+use App\DataTables\RequestedQuotationDataTable;
+use App\DataTables\RequestedQuotationReportDataTable;
 
 class RequestedQuotationController extends Controller
 {
@@ -26,10 +29,22 @@ class RequestedQuotationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:rf-quotes-index')->only('index', 'show');
-        $this->middleware('permission:rf-quotes-add')->only('create', 'store');
-        $this->middleware('permission:rf-quotes-edit')->only('edit', 'update');
-        $this->middleware('permission:rf-quotes-delete')->only('destroy');
+        // $this->middleware('permission:rf-quotes-index')->only('index', 'show');
+        // $this->middleware('permission:rf-quotes-add')->only('create', 'store');
+        // $this->middleware('permission:rf-quotes-edit')->only('edit', 'update');
+        // $this->middleware('permission:rf-quotes-delete')->only('destroy');
+
+        $this->middleware(function ($request, $next) {
+            return PermissionHelper::checkControllerPermission([
+                'index'   => 'rf-quotes-index',
+                'show'    => 'rf-quotes-index',
+                'create'  => 'rf-quotes-add',
+                'store'   => 'rf-quotes-add',
+                'edit'    => 'rf-quotes-edit',
+                'update'  => 'rf-quotes-edit',
+                'destroy' => 'rf-quotes-delete',
+            ], $request, $next);
+        });
     }
 
     /**
