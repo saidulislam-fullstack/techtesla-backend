@@ -102,9 +102,9 @@
 
 @push('scripts')
 <script type="text/javascript">
-    $("ul#report").siblings('a').attr('aria-expanded','true');
-    $("ul#report").addClass("show");
-    $("ul#report #rfq-report-menu").addClass("active");
+    $("ul#quotation").siblings('a').attr('aria-expanded','true');
+    $("ul#quotation").addClass("show");
+    $("ul#quotation #rfqota-report-menu").addClass("active");
 
     $('#warehouse_id').val($('input[name="warehouse_id_hidden"]').val());
     $('.selectpicker').selectpicker('refresh');

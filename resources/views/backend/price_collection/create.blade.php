@@ -190,9 +190,9 @@
 @push('scripts')
     <script type="text/javascript">
 
-        $("ul#quotation").siblings('a').attr('aria-expanded', 'true');
-        $("ul#quotation").addClass("show");
-        $("ul#quotation #price-collection-create-menu").addClass("active");
+        $("ul#price-collection").siblings('a').attr('aria-expanded', 'true');
+        $("ul#price-collection").addClass("show");
+        $("ul#price-collection #price-collection-create-menu").addClass("active");
         $('.selectpicker').selectpicker({
             style: 'btn-link',
         });

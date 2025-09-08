@@ -106,9 +106,9 @@
 @push('scripts')
     <script>
         $('.selectpicker').selectpicker();
-        $("ul#quotation").siblings('a').attr('aria-expanded', 'true');
-        $("ul#quotation").addClass("show");
-        $("ul#quotation #rf-quotation-supplier-wise-menu").addClass("active");
+        $("ul#price-collection").siblings('a').attr('aria-expanded', 'true');
+        $("ul#price-collection").addClass("show");
+        $("ul#price-collection #rf-quotation-supplier-wise-menu").addClass("active");
         const rFQs = @json($rfQs);
 
         function selectRFQ(e) {
