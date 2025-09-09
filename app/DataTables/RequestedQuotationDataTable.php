@@ -70,7 +70,9 @@ class RequestedQuotationDataTable extends DataTable
      */
     public function query(RequestedQuotation $model): QueryBuilder
     {
-        return $model->newQuery()->with('priceCollection', 'customer:id,name', 'addedBy:id,name')->orderBy('id', 'desc');
+        return $model->newQuery()->with('priceCollection', 'customer:id,name', 'addedBy:id,name')->when(auth()->user()->role_id == 6, function ($query) {
+            return $query->where('added_by', auth()->user()->id);
+        })->orderBy('id', 'desc');
     }
 
     /**
