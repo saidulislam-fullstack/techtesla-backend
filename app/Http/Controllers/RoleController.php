@@ -377,6 +377,38 @@ class RoleController extends Controller
         } else
             $role->revokePermissionTo('rf-quotes-delete');
 
+        if ($request->has('price-collection-index')) {
+            $permission = Permission::firstOrCreate(['name' => 'price-collection-index']);
+            if (!$role->hasPermissionTo('price-collection-index')) {
+                $role->givePermissionTo($permission);
+            }
+        } else
+            $role->revokePermissionTo('price-collection-index');
+
+        if ($request->has('price-collection-add')) {
+            $permission = Permission::firstOrCreate(['name' => 'price-collection-add']);
+            if (!$role->hasPermissionTo('price-collection-add')) {
+                $role->givePermissionTo($permission);
+            }
+        } else
+            $role->revokePermissionTo('price-collection-add');
+
+        if ($request->has('price-collection-edit')) {
+            $permission = Permission::firstOrCreate(['name' => 'price-collection-edit']);
+            if (!$role->hasPermissionTo('price-collection-edit')) {
+                $role->givePermissionTo($permission);
+            }
+        } else
+            $role->revokePermissionTo('price-collection-edit');
+
+        if ($request->has('price-collection-delete')) {
+            $permission = Permission::firstOrCreate(['name' => 'price-collection-delete']);
+            if (!$role->hasPermissionTo('price-collection-delete')) {
+                $role->givePermissionTo($permission);
+            }
+        } else
+            $role->revokePermissionTo('price-collection-delete');
+
         if ($request->has('transfers-index')) {
             $permission = Permission::firstOrCreate(['name' => 'transfers-index']);
             if (!$role->hasPermissionTo('transfers-index')) {
