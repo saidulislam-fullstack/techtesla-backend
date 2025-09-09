@@ -559,6 +559,70 @@
                                             </td>
                                         </tr>
 
+                                        <tr class="price-collection-row">
+                                            <td>Price Collection</td>
+                                            <td class="text-center">
+                                                <div class="icheckbox_square-blue checked" aria-checked="false"
+                                                    aria-disabled="false">
+                                                    <div class="checkbox">
+                                                        @if (in_array('price-collection-index', $all_permission))
+                                                            <input type="checkbox" value="1" id="price-collection-index"
+                                                                name="price-collection-index" checked>
+                                                        @else
+                                                            <input type="checkbox" value="1" id="price-collection-index"
+                                                                name="price-collection-index">
+                                                        @endif
+                                                        <label for="price-collection-index"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="icheckbox_square-blue checked" aria-checked="false"
+                                                    aria-disabled="false">
+                                                    <div class="checkbox">
+                                                        @if (in_array('price-collection-add', $all_permission))
+                                                            <input type="checkbox" value="1" id="price-collection-add"
+                                                                name="price-collection-add" checked>
+                                                        @else
+                                                            <input type="checkbox" value="1" id="price-collection-add"
+                                                                name="price-collection-add">
+                                                        @endif
+                                                        <label for="price-collection-add"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="icheckbox_square-blue checked" aria-checked="false"
+                                                    aria-disabled="false">
+                                                    <div class="checkbox">
+                                                        @if (in_array('price-collection-edit', $all_permission))
+                                                            <input type="checkbox" value="1" id="price-collection-edit"
+                                                                name="price-collection-edit" checked>
+                                                        @else
+                                                            <input type="checkbox" value="1" id="price-collection-edit"
+                                                                name="price-collection-edit">
+                                                        @endif
+                                                        <label for="price-collection-edit"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="icheckbox_square-blue" aria-checked="false"
+                                                    aria-disabled="false">
+                                                    <div class="checkbox">
+                                                        @if (in_array('price-collection-delete', $all_permission))
+                                                            <input type="checkbox" value="1" id="price-collection-delete"
+                                                                name="price-collection-delete" checked>
+                                                        @else
+                                                            <input type="checkbox" value="1" id="price-collection-delete"
+                                                                name="price-collection-delete">
+                                                        @endif
+                                                        <label for="price-collection-delete"></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
                                         <tr class="transfer-row">
                                             <td>{{ trans('file.Transfer') }}</td>
                                             <td class="text-center">
