@@ -3,17 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Currency;
-use App\Models\PriceCollection;
-use App\Models\RequestedQuotation;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use App\Models\PriceCollection;
+use App\Helpers\PermissionHelper;
+use App\Models\RequestedQuotation;
 
 class PriceCollectionController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:price-collection-add')->only(['create', 'store']);
+        // $this->middleware('permission:price-collection-add')->only(['create', 'store']);
+        $this->middleware(function ($request, $next) {
+            return PermissionHelper::checkControllerPermission([
+                'index'   => 'price-collection-index',
+                'show'    => 'price-collection-index',
+                'create'  => 'price-collection-add',
+                'store'   => 'price-collection-add',
+                'edit'    => 'price-collection-edit',
+                'update'  => 'price-collection-edit',
+                'destroy' => 'price-collection-delete',
+            ], $request, $next);
+        });
     }
 
     public function create(Request $request)
