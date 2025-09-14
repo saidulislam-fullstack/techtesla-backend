@@ -103,7 +103,7 @@
                                     <select id="currencyModal" class="form-control" data-live-search="true">
                                         <option value="">{{ trans('file.Select Currency') }}</option>
                                         @foreach ($currencies as $currency)
-                                            <option value="{{ $currency->id }}">{{ $currency->name }}</option>
+                                            <option value="{{ $currency->id }}" data-rate={{$currency->exchange_rate}}>{{ $currency->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -307,6 +307,7 @@
             $('#deliveryDaysModal').val(deliveryDays);
 
             $('.changeModal').on('input', function() {
+                let exchangeRate = $('#currencyRateModal').val() || 1;
                 let profitPercentage = $('#profitPercentageModal').val();
                 let profitAmount = (marketPrice * profitPercentage) / 100;
                 let shippingWeight = $('#shippingWeightModal').val() || 0;
@@ -318,7 +319,7 @@
                 let taxAmount = parseFloat($('#taxAmountModal').val()) || 0;
                 let otherCost = profitAmount + vatAmount + taxAmount + customsTotalCost;
                 $('#otherCostModal').val(otherCost.toFixed(2));
-                let totalCost = parseFloat(marketPrice) + otherCost;
+                let totalCost = (parseFloat(marketPrice) + otherCost) * parseFloat(exchangeRate);
                 $('#totalCostModal').val(totalCost.toFixed(2));
             });
 
@@ -448,5 +449,15 @@
                 productCollection = [];
             }
         }
+
+        // When currency option changes in modal
+        $(document).on('change', '#currencyModal', function () {
+            let rate = $(this).find(':selected').data('rate') || 1;
+            $('#currencyRateModal').val(rate);
+
+            // trigger recalculation using existing handler
+            $('.changeModal').trigger('input');
+        });
+
     </script>
 @endpush
