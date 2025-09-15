@@ -21,18 +21,21 @@
                                             <tr>
                                                 <th>{{ trans('file.Select') }}</th>
                                                 <th>{{ trans('file.Product') }}</th>
-                                                <th>{{ trans('file.Customer Proposed Price') }}</th>
                                                 <th>{{ trans('file.Supplier') }}</th>
+                                                <th>Delivery Days</th>
+                                                <th>{{ trans('file.Customer Proposed Price') }}</th>
                                                 <th>{{ trans('file.Market Price') }}</th>
+                                                <th>Others Cost</th>
+                                                <th>Total Cost</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($items as $product_id => $product_items)
-                                                <tr>
-                                                    <td colspan="5" class="text-center font-weight-bold">
-                                                        Product: {{ $product_items->first()->product?->name }}
-                                                    </td>
-                                                </tr>
+                                            <tr>
+                                                <td colspan="5" class="text-center font-weight-bold">
+                                                    Product: {{ $product_items->first()->product?->name }}
+                                                </td>
+                                            </tr>
                                                 @foreach ($product_items as $item)
                                                     <tr>
                                                         <td>
@@ -40,9 +43,12 @@
                                                                 @checked($item->is_selected) value="{{ $item->id }}">
                                                         </td>
                                                         <td>{{ $item->product?->name }}</td>
-                                                        <td>{{ $item->rfqItem?->proposed_price }}</td>
                                                         <td>{{ $item->supplier?->name }}</td>
+                                                        <td>{{ $item->delivery_days }} Days</td>
+                                                        <td>{{ $item->rfqItem?->proposed_price }}</td>
                                                         <td>{{ $item->price }}</td>
+                                                        <td>{{ $item->other_cost }}</td>
+                                                        <td>{{ $item->total_cost }}</td>
                                                     </tr>
                                                 @endforeach
                                             @endforeach
