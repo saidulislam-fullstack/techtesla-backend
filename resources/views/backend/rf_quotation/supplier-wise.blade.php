@@ -93,7 +93,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary d-none" id="submit-button">
-                                        {{ trans('file.Submit') }}
+                                        {{ trans('file.Submit') }} Purchase Order
                                     </button>
                                 </div>
                             </div>
