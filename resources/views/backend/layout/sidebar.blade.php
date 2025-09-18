@@ -263,6 +263,9 @@
                     <li id="price-collection-create-menu">
                         <a href="{{ route('price-collection.create') }}">{{ trans('file.Add Price Collection') }}</a>
                     </li>
+                    <li id="price-selection-menu">
+                        <a href="{{ route('price-collection.selection', -1) }}">Price Selection</a>
+                    </li>
                 @endif
                 @php
                     $add_permission_active = $role_has_permissions_list

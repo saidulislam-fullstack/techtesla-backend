@@ -101,18 +101,20 @@ class PriceCollectionController extends Controller
             ->with('message', 'Price Collection created successfully.');
     }
 
-    public function selection(RequestedQuotation $rfq)
+    public function selection($rfqId)
     {
+        $rfq = RequestedQuotation::find($rfqId);
         $items = PriceCollection::with([
             'rfqItem',
             'product',
             'supplier'
         ])
-            ->where('rfq_id', $rfq->id)
+            ->where('rfq_id', $rfqId)
             ->get()
             ->groupBy('product_id');
 
-        return view('backend.price_collection.selection', compact('items', 'rfq'));
+        $rfqList = RequestedQuotation::where('status', 'pending')->get();
+        return view('backend.price_collection.selection', compact('items', 'rfq', 'rfqList'));
     }
 
     public function selectionStore(Request $request, RequestedQuotation $rfq)
