@@ -283,7 +283,8 @@ class RequestedQuotationController extends Controller
         $rfQs = RequestedQuotation::with([
             'priceCollection.product:id,name,code,type,cost,price,is_variant,unit_id',
             'priceCollection.product.unit:id,unit_name,unit_code,base_unit,operator,operation_value',
-            'priceCollection.supplier:id,name,company_name,email,phone_number,address'
+            'priceCollection.supplier:id,name,company_name,email,phone_number,address',
+            'items'
         ])
             ->whereHas('priceCollection', function ($query) {
                 $query->where('is_selected', true);

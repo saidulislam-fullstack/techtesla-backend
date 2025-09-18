@@ -149,9 +149,10 @@
                 if (rFQ) {
                     let supplierItems = rFQ.price_collection
                         .filter(item => item.supplier_id == supplier_id && item.is_selected == 1);
-
+                    
                     if (supplierItems.length > 0) {
                         supplierItems.forEach(item => {
+                            var quantity = rFQ.items.find(i => i.product_id == item.product_id)?.quantity || 1;
                             let row = `
                                 <tr>
                                     <td>
@@ -164,10 +165,10 @@
                                         <input type="hidden" name="items[rfq_item_id][]" value="${item.rfq_item_id}">
                                     </td>
                                     <td>
-                                        <input type="number" class="form-control quantity" onkeyup="calculate()" name="items[quantity][]" value="1" min='1' required>
+                                        <input type="number" class="form-control quantity" onkeyup="calculate()" name="items[quantity][]" value="${quantity}" min='1' required>
                                     </td>
                                     <td>
-                                        <input type="number" class="form-control unit_price" onkeyup="calculate()" name="items[unit_price][]" value="${item.price}" required>
+                                        <input type="number" class="form-control unit_price" onkeyup="calculate()" name="items[unit_price][]" value="${item.total_cost}" required>
                                         </td>
                                     <td class="sub_total">0</td>
                                     <td>
