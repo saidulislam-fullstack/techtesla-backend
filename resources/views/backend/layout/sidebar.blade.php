@@ -70,7 +70,7 @@
                     class="dripicons-card"></i><span>{{ trans('file.Purchase') }}</span></a>
             <ul id="purchase" class="collapse list-unstyled ">
                 <li id="purchase-list-menu"><a href="{{ route('purchases.index') }}">{{ trans('file.Purchase List') }} (All)</a></li>
-                <li id="purchase-list-rfq"><a href="{{ route('purchases.index', ['status' => 'all', 'po_type' => 'rfq']) }}">{{ trans('file.Purchase List') }} (RFQ)</a></li>
+                <li id="purchase-list-rfq-menu"><a href="{{ route('purchases.index', ['status' => 'all', 'po_type' => 'rfq']) }}">{{ trans('file.Purchase List') }} (RFQ)</a></li>
                 @php
                     $add_permission_active = $role_has_permissions_list->where('name', 'purchases-add')->first();
                 @endphp

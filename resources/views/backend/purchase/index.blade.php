@@ -412,7 +412,11 @@
 
         $("ul#purchase").siblings('a').attr('aria-expanded', 'true');
         $("ul#purchase").addClass("show");
+        @if(request()->get('po_type') == 'rfq')
+        $("ul#purchase #purchase-list-rfq-menu").addClass("active");
+        @else
         $("ul#purchase #purchase-list-menu").addClass("active");
+        @endif
 
         @if ($lims_pos_setting_data)
             var public_key = @json($lims_pos_setting_data->stripe_public_key);
