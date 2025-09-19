@@ -730,7 +730,8 @@
                     ending_date: ending_date,
                     warehouse_id: warehouse_id,
                     purchase_status: purchase_status,
-                    payment_status: payment_status
+                    payment_status: payment_status,
+                    po_type: "{{ request()->get('po_type', 'all') }}"
                 },
                 dataType: "json",
                 type: "post",

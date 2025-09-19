@@ -179,6 +179,9 @@ class PurchaseController extends Controller
         }
         $data = array();
         if (!empty($purchases)) {
+            $purchases = $purchases->when($request->input('po_type') == 'rfq', function($query){
+                return $query->whereNotNull('rfq_id');
+            });
             foreach ($purchases as $key => $purchase) {
                 $nestedData['id'] = $purchase->id;
                 $nestedData['key'] = $key;
