@@ -152,6 +152,17 @@ class RequestedQuotationController extends Controller
         return view('backend.rf_quotation.show', compact('item'));
     }
 
+    public function rfqStockCheck($rfqId)
+    {
+        $rf_quotation = RequestedQuotation::findOrFail($rfqId);
+        $item = $rf_quotation->load(['items.product', 'customer', 'priceCollection' => function ($query) {
+            $query->where('is_selected', true)->with('supplier:id,name');
+        }]);
+
+        // dd($item->toArray());
+        return view('backend.rf_quotation.comparison', compact('item'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

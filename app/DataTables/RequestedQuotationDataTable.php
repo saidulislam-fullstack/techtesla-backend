@@ -46,6 +46,7 @@ class RequestedQuotationDataTable extends DataTable
                         </button>';
                 $btn .= '<ul class="dropdown-menu dropdown-menu-right dropdown-default" user="menu">';
                 $btn .= '<li><a href="' . route('rf-quotation.show', $query->id) . '" class="btn btn-link" title="View"><i class="dripicons-preview"></i> ' . trans("file.View") . '</a></li>';
+                $btn .= '<li><a href="' . route('rfq-stock-check', $query->id) . '" class="btn btn-link" title="View"><i class="dripicons-swap"></i> Stock Comparison</a></li>';
                 if ($query->priceCollection->count() > 0) {
                     $btn .= '<li><a href="' . route('price-collection.selection', $query->id) . '" class="btn btn-link" title="Selection"><i class="fa fa-check"></i> ' . trans("file.Selection") . '</a></li>';
                 }

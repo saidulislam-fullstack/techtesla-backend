@@ -330,6 +330,7 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
     Route::get('rf-quotation/dashboard', [RequestedQuotationController::class, 'dashboard'])->name('rf-quotation.dashboard');
     Route::get('rf-quotation/report', [RequestedQuotationController::class, 'report'])->name('rf-quotation.report');
     Route::resource('rf-quotation', RequestedQuotationController::class);
+    Route::get('rfq-stock-check/{id}', [RequestedQuotationController::class, 'rfqStockCheck'])->name('rfq-stock-check');
 
     // Price Collection
     Route::controller(PriceCollectionController::class)->group(function () {
