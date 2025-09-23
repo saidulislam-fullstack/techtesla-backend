@@ -31,6 +31,13 @@ class RequestedQuotationDataTable extends DataTable
                 // Show Type of RFQ by ucfirst and space replace with underscore
                 return ucfirst(str_replace('_', ' ', $query->type));
             })
+            ->addColumn('has_purchase', function ($query) {
+                return $query->purchases->count() > 0 ? 'Yes' : 'No';
+            })
+            ->addColumn('has_sale', function ($query) {
+                if ($query->type == 'techtesla_stock') return '----';
+                return $query->sales->count() > 0 ? 'Yes' : 'No';
+            })
             ->editColumn('date', function ($query) {
                 return $query->date;
             })
@@ -100,9 +107,18 @@ class RequestedQuotationDataTable extends DataTable
                     $(thead).addClass("bg-smoke");
                 }',
                 'initComplete' => 'function(settings, json) {
-                     $(settings.nTable).removeClass("table-striped table-bordered ");
+                    $(settings.nTable).removeClass("table-striped table-bordered ");
                 }',
-                'lengthMenu' => [[10, 25, 50, 100, -1], [10, 25, 50, 100, 'All']],
+                'lengthMenu' => [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                "rowCallback" => "function(row, data, index) {
+                    if (data.type === 'Techtesla stock') {
+                        $(row).css('background-color', '#e5ebf6ff');
+                    } else if (data.type === 'Project') {
+                        $(row).css('background-color', '#dff5eeff');
+                    } else if (data.type === 'Regular mro') {
+                        $(row).css('background-color', '#f3ede1ff'); 
+                    }
+                }",
             ])
             ->buttons([
                 // Button::make('excel'),
@@ -126,6 +142,8 @@ class RequestedQuotationDataTable extends DataTable
             Column::make('rfq_no')->title('RFQ No'),
             Column::make('customer')->title('Customer'),
             Column::make('type')->title('Type'),
+            Column::make('has_purchase')->title('PO Generated'),
+            Column::make('has_sale')->title('SO Generated'),
             Column::make('date')->title('Date'),
             Column::make('addedBy')->title('Created By'),
             Column::computed('action')
