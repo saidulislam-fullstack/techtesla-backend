@@ -61,4 +61,14 @@ class RequestedQuotation extends Model
     {
         return $this->priceCollection()->where('is_selected', true)->exists();
     }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class, 'rfq_id');
+    }
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class, 'requested_quotation_id');
+    }
 }
