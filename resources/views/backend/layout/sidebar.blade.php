@@ -785,8 +785,7 @@
             @endphp
             
             @if (auth()->user()->role_id <= 1)
-                <li id="role-menu"><a href="{{ route('role.index') }}">{{ trans('file.Role Permission') }}</a>
-                </li>
+                {{-- <li id="role-menu"><a href="{{ route('role.index') }}">{{ trans('file.Role Permission') }}</a></li> --}}
                 @if ($custom_field_permission_active)
                     <li id="custom-field-list-menu"><a
                             href="{{ route('custom-fields.index') }}">{{ trans('file.Custom Field List') }}</a>
