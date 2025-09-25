@@ -106,9 +106,8 @@
                 <span>{{ trans('file.Sale') }}</span>
             </a>
             <ul id="sale" class="collapse list-unstyled ">
+                <li id="sale-list-menu"><a href="{{ route('sales.index') }}">{{ trans('file.Sale List') }}</a></li>
                 @if ($sale_add_permission_active)
-                    <li id="sale-list-menu"><a href="{{ route('sales.index') }}">{{ trans('file.Sale List') }}</a>
-                    </li>
                     {{--<li><a href="{{ route('sale.pos') }}">POS</a></li>--}}
                     <li id="sale-create-menu"><a href="{{ route('sales.create') }}">{{ trans('file.Add Sale') }}</a>
                     </li>
