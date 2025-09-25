@@ -125,11 +125,9 @@
                     <li id="coupon-menu"><a href="{{ route('coupons.index') }}">{{ trans('file.Coupon List') }}</a>
                     </li>
                 @endif --}}
-                <li id="courier-menu"><a href="{{ route('couriers.index') }}">{{ trans('file.Courier List') }}</a>
-                </li>
                 @if ($delivery_permission_active)
-                    <li id="delivery-menu"><a
-                            href="{{ route('delivery.index') }}">{{ trans('file.Delivery List') }}</a></li>
+                    <li id="courier-menu"><a href="{{ route('couriers.index') }}">{{ trans('file.Courier List') }}</a></li>
+                    <li id="delivery-menu"><a href="{{ route('delivery.index') }}">{{ trans('file.Delivery List') }}</a></li>
                 @endif
             </ul>
         </li>
