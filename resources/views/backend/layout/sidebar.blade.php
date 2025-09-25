@@ -203,6 +203,11 @@
                         <a href="{{ route('rf-quotation.create') }}">Add RFQ</a>
                     </li>
                 @endif
+                @if ($sale_add_permission_active)
+                    <li id="generate-so-menu">
+                        <a href="{{ route('generate-sale-order.create') }}">Generate SO</a>
+                    </li>
+                @endif
                 @php
                     $add_permission_active = $role_has_permissions_list->where('name', 'price-collection-add')->first();
                 @endphp
