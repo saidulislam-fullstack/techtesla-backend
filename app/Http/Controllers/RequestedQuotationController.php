@@ -152,13 +152,13 @@ class RequestedQuotationController extends Controller
         return view('backend.rf_quotation.show', compact('item'));
     }
 
-    public function priceQuotation(RequestedQuotation $rf_quotation)
+    public function priceQuotation($id)
     {
-        $item = $rf_quotation->load(['items.product', 'customer', 'priceCollection' => function ($query) {
+        $rf_quotation = RequestedQuotation::findOrFail($id);
+        $item = $rf_quotation->load(['items.product', 'customer', 'addedBy', 'priceCollection' => function ($query) {
             $query->where('is_selected', true)->with('supplier:id,name');
         }]);
 
-        // dd($item->toArray());
         return view('backend.rf_quotation.price-quotation', compact('item'));
     }
 

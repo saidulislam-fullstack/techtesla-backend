@@ -147,7 +147,7 @@
             conditions specified here under::
         </p>
         <div class="delivery-date">
-            <strong>Quotation Date:</strong> {{ now()->format('d.m.Y') }}
+            <strong>Quotation Date:</strong> {{ \Carbon\Carbon::parse($item->date)->format('m/d/Y') }}
         </div>
 
         <div class="quotation-box">
@@ -158,9 +158,9 @@
                         Corporate Office, Ali Mansion, 1207/1099, Sadarghat Road, Chittagong, Bangladesh.
                     </td>
                     <td colspan="2">
-                        <strong>Quotation No:</strong> TT/LSUQ/H4453<br>
+                        <strong>Quotation No:</strong> {{ $item->rfq_no }}<br>
                         <strong>Customer PR:</strong> N/A<br>
-                        <strong>Prepared By:</strong> MKI<br>
+                        <strong>Prepared By:</strong> {{ $item->addedBy?->name ?? 'N/A' }}<br>
                         <strong>Through:</strong> TTCL Chattogram<br>
                         <strong>Mobile:</strong> +88 0197003031<br>
                         <strong>Email:</strong> sohel@tecteslabd.com
@@ -177,39 +177,56 @@
                     <th style="width:15%;">UNIT PRICE</th>
                     <th style="width:15%;">TOTAL PRICE</th>
                 </tr>
+                @php
+                $totalQty = 0;
+                $totalPrice = 0;
+                @endphp
+                @foreach ($item->items as $index => $value)
                 <tr>
-                    <td>1</td>
+                    <td>{{ $index + 1 }}</td>
                     <td>
-                        CEME - Solenoid<br>
-                        8514VN1205A02 - Not available<br>
-                        8614VN1205DB (Alternative)<br>
-                        0.3–10bar G1/2<br>
-                        Delivery time: 15 days
+                        {{ $value->product?->name }}<br>
+                        Model: {{ $value->product?->model }}<br>
+                        Delivery time: {{ optional(collect($item->priceCollection)->where('rfq_item_id',
+                        $value->id))->first()->delivery_days ?? '-' }} Days<br>
                     </td>
                     <td>Pcs</td>
-                    <td>1</td>
-                    <td>12,800.00</td>
-                    <td>12,800.00</td>
+                    <td>{{ $value->quantity }}</td>
+                    <td>{{ optional(collect($item->priceCollection)->where('rfq_item_id',
+                        $value->id))->first()?->total_cost ?? '--' }}</td>
+                    <td>{{ (optional(collect($item->priceCollection)->where('rfq_item_id',
+                        $value->id))->first()?->total_cost * $value->quantity) ?? '--' }}</td>
                 </tr>
+                @php
+                $totalQty += $value->quantity;
+                $totalPrice += optional(collect($item->priceCollection)->where('rfq_item_id',
+                $value->id))->first()?->total_cost * $value->quantity
+                @endphp
+                @endforeach
             </table>
 
             <table class="amount-table">
                 <tr>
                     <th>TOTAL AMOUNT (BDT)</th>
-                    <td>12,800.00</td>
+                    <td>{{ $totalPrice }}</td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <th>10% VAT (BDT)</th>
                     <td>1,280.00</td>
-                </tr>
+                </tr> --}}
                 <tr>
                     <th>GRAND TOTAL (BDT)</th>
-                    <td><strong>14,080.00</strong></td>
+                    <td><strong>{{ $totalPrice }}</strong></td>
                 </tr>
             </table>
 
             <div style="clear:both;"></div>
-            <p><strong>In Words:</strong> Fourteen Thousand and Eighty Taka Only</p>
+            <p><strong>In Words:</strong>
+                @php
+                $f = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
+                echo ucfirst($f->format($totalPrice));
+                @endphp
+            </p>
 
             <p><strong>Payment Term:</strong> Upon finalizing the matter 100% advance payments required with purchase
                 order.<br>
