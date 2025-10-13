@@ -22,7 +22,8 @@ class Customer extends Model
         "points",
         "deposit",
         "expense",
-        "is_active"
+        "is_active",
+        "bin_number"
     ];
 
     public function customerGroup()

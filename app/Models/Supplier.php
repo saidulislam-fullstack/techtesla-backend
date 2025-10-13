@@ -19,7 +19,11 @@ class Supplier extends Model
         "state",
         "postal_code",
         "country",
-        "is_active"
+        "is_active",
+        'supplier_type',
+        'company_specialization',
+        'products_and_services',
+        'distributionship_or_agency',
 
     ];
 
