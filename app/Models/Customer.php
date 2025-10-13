@@ -39,4 +39,9 @@ class Customer extends Model
     {
         return $this->belongsToMany('App\Models\DiscountPlan', 'discount_plan_customers');
     }
+
+    public function contactPersons()
+    {
+        return $this->morphMany(ContactPerson::class, 'contactable');
+    }
 }
