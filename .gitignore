@@ -14,6 +14,6 @@ error_log
 /public/public/images
 /public/public/logo
 /public/public
-/public/storage/rf-quotation
-/storage/app/public/rf-quotation
+/public/storage
+/storage/app/public
 
