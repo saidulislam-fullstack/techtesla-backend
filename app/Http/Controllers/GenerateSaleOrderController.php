@@ -20,19 +20,21 @@ class GenerateSaleOrderController extends Controller
     public function create()
     {
         $rfqs = RequestedQuotation::with('customer', 'items.product')->with([
-            'priceCollection' => function ($query) {
-                $query->where('is_selected', 1);
-            },
+            // 'priceCollection' => function ($query) {
+            //     $query->where('is_selected', 1);
+            // },
+            'priceCollection',
             'priceCollection.product:id,name,code,type,cost,price,is_variant,unit_id',
             'priceCollection.product.unit:id,unit_name,unit_code,base_unit,operator,operation_value',
             'priceCollection.supplier:id,name,company_name,email,phone_number,address',
             'items.product',
             'customer'
         ])
-            // ->whereIn('type', ['regular_mro', 'project'])
-            ->whereHas('priceCollection', function ($query) {
-                return $query->where('is_selected', 1);
-            })->get();
+            ->whereIn('type', ['regular_mro', 'project'])
+            // ->whereHas('priceCollection', function ($query) {
+            //     return $query->where('is_selected', 1);
+            // })
+            ->get();
 
         return view('backend.rf_quotation.generate-sale-order', compact('rfqs'));
     }
