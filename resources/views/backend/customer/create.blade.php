@@ -33,7 +33,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4 d-none">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>{{trans('file.name')}} *</strong> </label>
                                     <input type="text" id="name" name="customer_name" class="form-control">
