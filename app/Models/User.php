@@ -20,7 +20,8 @@ class User extends Authenticatable
         "biller_id",
         "warehouse_id",
         "is_active",
-        "is_deleted"
+        "is_deleted",
+        "user_id"
     ];
 
     protected $hidden = [
