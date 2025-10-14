@@ -8,6 +8,7 @@
         "products-index",
         "purchases-index",
         "sales-index",
+        "sales-add",
         "rf-quotes-index",
         "rf-quotes-add",
         "rf-quotes-edit",
