@@ -45,7 +45,7 @@
                                                 data-live-search="true" id="customer-id" title="Select customer...">
                                                 @foreach ($customer_list as $customer)
                                                     <option value="{{ $customer->id }}">
-                                                        {{ $customer->name . ' (' . $customer->phone_number . ')' }}
+                                                        {{ $customer->company_name . ' (' . $customer->phone_number . ')' }}
                                                     </option>
                                                 @endforeach
                                             </select>
