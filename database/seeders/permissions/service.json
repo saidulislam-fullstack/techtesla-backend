@@ -1,0 +1,23 @@
+{
+    "role": {
+        "name": "Service",
+        "description": "Service have limited access to the system.",
+        "is_active": 1
+    },
+    "permissions": [
+        "products-index",
+        "purchases-index",
+        "sales-index",
+        "rf-quotes-index",
+        "rf-quotes-add",
+        "rf-quotes-edit",
+        "rf-quotes-delete",
+        "rf-quotes-dashboard",
+        "rf-quotes-report",
+        "rf-quotes-supplier-wise",
+        "price-collection-index",
+        "price-collection-add",
+        "price-collection-edit",
+        "price-collection-delete"
+    ]
+}
