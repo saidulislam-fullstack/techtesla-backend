@@ -1039,7 +1039,7 @@ class PurchaseController extends Controller
                         ])->first();
                     }
                 }
-                $lims_product_data->cost = (($net_unit_cost[$key] * $new_recieved_value) + ($lims_product_data->cost * $lims_product_data->qty)) / ($lims_product_data->qty + $new_recieved_value);
+                $lims_product_data->cost = ($lims_product_data->qty + $new_recieved_value) ? (($net_unit_cost[$key] * $new_recieved_value) + ($lims_product_data->cost * $lims_product_data->qty)) / ($lims_product_data->qty + $new_recieved_value) : $lims_product_data->cost;
                 $lims_product_data->qty += $new_recieved_value;
 
                 if ($lims_product_warehouse_data) {
