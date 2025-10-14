@@ -80,9 +80,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group d-none">
                                         <label><strong>{{trans('file.Company Name')}}</strong></label>
                                         <input type="text" name="company_name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label><strong>User Id</strong></label>
+                                        <input type="text" name="user_id" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label><strong>{{trans('file.Role')}} *</strong></label>
