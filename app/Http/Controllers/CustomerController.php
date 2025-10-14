@@ -203,8 +203,8 @@ class CustomerController extends Controller
             'designation' => $customer_data['contact_person_designation'],
             'email' => $customer_data['contact_person_email'],
             'phone_number' => $customer_data['contact_person_phone_number'],
-            'visiting_card_front' => $request->hasFile('visiting_card_front') ? $request->file('visiting_card_front')->store('visiting_cards', 'public') : null,
-            'visiting_card_back' => $request->hasFile('visiting_card_back') ? $request->file('visiting_card_back')->store('visiting_cards', 'public') : null,
+            'visiting_card_front' => $request->hasFile('visiting_card_front') ? $request->file('visiting_card_front')->store('visiting-cards', 'public') : null,
+            'visiting_card_back' => $request->hasFile('visiting_card_back') ? $request->file('visiting_card_back')->store('visiting-cards', 'public') : null,
         ]);
 
         //inserting data for custom fields
