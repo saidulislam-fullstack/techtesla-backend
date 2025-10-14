@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         $role = Role::find(Auth::user()->role_id);
         if ($role->hasPermissionTo('users-add')) {
-            $lims_role_list = Roles::where('is_active', true)->get();
+            $lims_role_list = Roles::where('is_active', true)->whereNotIn('id', [2,3,4])->get();
             $lims_biller_list = Biller::where('is_active', true)->get();
             $lims_warehouse_list = Warehouse::where('is_active', true)->get();
             $lims_customer_group_list = CustomerGroup::where('is_active', true)->get();
