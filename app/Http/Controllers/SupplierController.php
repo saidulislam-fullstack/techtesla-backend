@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Supplier;
-use App\Models\Customer;
-use App\Models\CustomerGroup;
-use App\Models\Purchase;
-use App\Models\CashRegister;
+use Auth;
+use Mail;
 use App\Models\Account;
 use App\Models\Payment;
+use App\Models\Customer;
+use App\Models\Purchase;
+use App\Models\Supplier;
 use App\Models\MailSetting;
+use App\Mail\CustomerCreate;
+use App\Mail\SupplierCreate;
+use App\Models\CashRegister;
+use Illuminate\Http\Request;
+use App\Models\ContactPerson;
+use App\Models\CustomerGroup;
 use Illuminate\Validation\Rule;
-use Auth;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use App\Mail\SupplierCreate;
-use App\Mail\CustomerCreate;
-use Mail;
 
 class SupplierController extends Controller
 {
@@ -140,7 +141,20 @@ class SupplierController extends Controller
             $image->move('public/images/supplier', $imageName);
             $lims_supplier_data['image'] = $imageName;
         }
-        Supplier::create($lims_supplier_data);
+        $supplierData = Supplier::create($lims_supplier_data);
+
+        // Insterting data into the contact persons table
+        ContactPerson::create([
+            'contactable_type' => 'App\Models\Supplier',
+            'contactable_id' => $supplierData->id,
+            'name' => $lims_supplier_data['contact_person_name'],
+            'designation' => $lims_supplier_data['contact_person_designation'],
+            'email' => $lims_supplier_data['contact_person_email'],
+            'phone_number' => $lims_supplier_data['contact_person_phone_number'],
+            'visiting_card_front' => $request->hasFile('visiting_card_front') ? $request->file('visiting_card_front')->store('visiting-cards', 'public') : null,
+            'visiting_card_back' => $request->hasFile('visiting_card_back') ? $request->file('visiting_card_back')->store('visiting-cards', 'public') : null,
+        ]);
+
         $message = 'Supplier';
         if(isset($request->both)) {
             Customer::create($lims_supplier_data);
