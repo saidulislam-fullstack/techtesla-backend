@@ -57,14 +57,14 @@
                     <td>{{$key}}</td>
                     <td>{{$customer->customerGroup->name}}</td>
                     <td>
-                        {{$customer->name}}
+                        {{-- {{$customer->name}} --}}
                         @if($customer->company_name)
-                        <br>{{$customer->company_name}}
+                        {{$customer->company_name}}
                         @endif
-                        @if($customer->email)
+                        {{-- @if($customer->email)
                         <br>{{$customer->email}}
-                        @endif
-                        <br>{{$customer->phone_number}}
+                        @endif --}}
+                        {{-- <br>{{$customer->phone_number}} --}}
                         <br>{{$customer->address}}, {{$customer->city}}@if($customer->country) {{','.$customer->country}}@endif
                     </td>
                     <td>
