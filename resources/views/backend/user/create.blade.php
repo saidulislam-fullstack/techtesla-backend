@@ -126,7 +126,7 @@
                                         <label><strong>{{trans('file.Biller')}} *</strong></label>
                                         <select name="biller_id" required class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Biller...">
                                           @foreach($lims_biller_list as $biller)
-                                              <option value="{{$biller->id}}">{{$biller->name}}</option>
+                                              <option value="{{$biller->id}}" @if($biller->id == 1) selected @endif>{{$biller->name}}</option>
                                           @endforeach
                                         </select>
                                     </div>
@@ -134,7 +134,7 @@
                                         <label><strong>{{trans('file.Warehouse')}} *</strong></label>
                                         <select name="warehouse_id" required class="selectpicker form-control" data-live-search="true" data-live-search-style="begins" title="Select Warehouse...">
                                           @foreach($lims_warehouse_list as $warehouse)
-                                              <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+                                              <option value="{{$warehouse->id}}" @if($warehouse->id == 1) selected @endif>{{$warehouse->name}}</option>
                                           @endforeach
                                         </select>
                                     </div>
