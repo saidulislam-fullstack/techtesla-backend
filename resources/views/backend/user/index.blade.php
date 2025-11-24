@@ -19,8 +19,7 @@
 <section>
     @if(in_array("users-add", $all_permission))
     <div class="container-fluid">
-        <a href="{{route('user.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add
-            User')}}</a>
+        <a href="{{route('user.create')}}" class="btn btn-info"><i class="dripicons-plus"></i> {{trans('file.Add User')}}</a>
     </div>
     @endif
     <div class="table-responsive">
