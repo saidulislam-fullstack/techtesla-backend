@@ -196,16 +196,21 @@ class CustomerController extends Controller
         $lims_customer_data = Customer::create($customer_data);
 
         // Insterting data into the contact persons table
-        ContactPerson::create([
-            'contactable_type' => 'App\Models\Customer',
-            'contactable_id' => $lims_customer_data->id,
-            'name' => $customer_data['contact_person_name'],
-            'designation' => $customer_data['contact_person_designation'],
-            'email' => $customer_data['contact_person_email'],
-            'phone_number' => $customer_data['contact_person_phone_number'],
-            'visiting_card_front' => $request->hasFile('visiting_card_front') ? $request->file('visiting_card_front')->store('visiting-cards', 'public') : null,
-            'visiting_card_back' => $request->hasFile('visiting_card_back') ? $request->file('visiting_card_back')->store('visiting-cards', 'public') : null,
-        ]);
+        $contactPersons = $request->contact_persons;
+
+        foreach ($contactPersons as $person) {
+            ContactPerson::create([
+                'contactable_type' => 'App\Models\Customer',
+                'contactable_id' => $lims_customer_data->id,
+                'name' => $person['name'],
+                'email' => $person['email'],
+                'phone_number' => $person['phone'],
+                'designation' => $person['designation'],
+                'visiting_card_front' => $person['visiting_card_front'] ?? null,
+                'visiting_card_back' => $person['visiting_card_back'] ?? null,
+            ]);
+        }
+
 
         //inserting data for custom fields
         $custom_field_data = [];

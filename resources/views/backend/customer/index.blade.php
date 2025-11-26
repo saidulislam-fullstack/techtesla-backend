@@ -26,9 +26,15 @@
                     <th class="not-exported"></th>
                     <th>{{trans('file.Customer Group')}}</th>
                     <th>{{trans('file.Customer Details')}}</th>
-                    <th>{{trans('file.Discount Plan')}}</th>
-                    <th>{{trans('file.Reward Points')}}</th>
-                    <th>{{trans('file.Deposited Balance')}}</th>
+                    <th>
+                        {{-- {{trans('file.Discount Plan')}} --}}
+                        Email
+                    </th>
+                    <th>
+                        {{-- {{trans('file.Reward Points')}} --}}
+                        Phone
+                    </th>
+                    {{-- <th>{{trans('file.Deposited Balance')}}</th> --}}
                     <th>{{trans('file.Total Due')}}</th>
                     @foreach($custom_fields as $fieldName)
                     <th>{{$fieldName}}</th>
@@ -57,7 +63,7 @@
                     <td>{{$key}}</td>
                     <td>{{$customer->customerGroup->name}}</td>
                     <td>
-                        {{-- {{$customer->name}} --}}
+                        {{$customer->name}}
                         @if($customer->company_name)
                         {{$customer->company_name}}
                         @endif
@@ -67,7 +73,7 @@
                         {{-- <br>{{$customer->phone_number}} --}}
                         <br>{{$customer->address}}, {{$customer->city}}@if($customer->country) {{','.$customer->country}}@endif
                     </td>
-                    <td>
+                    {{-- <td>
                         @foreach($customer->discountPlans as $index => $discount_plan)
                             @if($index)
                                 {{', '.$discount_plan->name}}
@@ -75,9 +81,15 @@
                                 {{$discount_plan->name}}
                             @endif
                         @endforeach
+                    </td> --}}
+                    <td>
+                        {{$customer->email??'--'}}
                     </td>
-                    <td>{{$customer->points}}</td>
-                    <td>{{number_format($customer->deposit - $customer->expense, 2)}}</td>
+                    <td>
+                        {{-- {{$customer->points}} --}}
+                        {{$customer->phone_number??'--'}}
+                    </td>
+                    {{-- <td>{{number_format($customer->deposit - $customer->expense, 2)}}</td> --}}
                     <td>{{number_format($saleData->grand_total - $returned_amount - $saleData->paid_amount, 2)}}</td>
                     @foreach($custom_fields as $fieldName)
                     @php $field_name = str_replace(" ", "_", strtolower($fieldName)); @endphp
