@@ -292,10 +292,8 @@ class CustomerController extends Controller
         }
 
         $input['name'] = $input['customer_name'];
+        $input['bin_number'] = $input['bin_no'];
         $lims_customer_data->update($input);
-
-
-
 
 
 

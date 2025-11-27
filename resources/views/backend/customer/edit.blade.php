@@ -72,7 +72,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>BIN Number</label>
-                                    <input type="text" name="bin_no" class="form-control" value="{{$lims_customer_data->bin_no}}">
+                                    <input type="text" name="bin_no" class="form-control" value="{{$lims_customer_data->bin_number}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
