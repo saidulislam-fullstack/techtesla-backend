@@ -237,6 +237,91 @@ class SupplierController extends Controller
         }
 
         $lims_supplier_data->update($input);
+
+
+        /* --------------------------------------
+            CONTACT PERSON UPDATE LOGIC
+        --------------------------------------- */
+        $supplier = Supplier::findOrFail($id);
+        $oldIds = $supplier->contactPersons()->pluck('id')->toArray();
+        $submitted = $request->contact_persons ?? [];
+
+        $newIds = [];
+
+        foreach ($submitted as $person) {
+
+            // ---------- IF EXISTING CONTACT PERSON ----------
+            if (isset($person['id'])) {
+
+                $cp = ContactPerson::find($person['id']);
+                $newIds[] = $cp->id;
+
+                // Handle visiting card uploads
+                if (isset($person['visiting_card_front']) && $person['visiting_card_front'] instanceof \Illuminate\Http\UploadedFile) {
+                    $frontName = time() . '_front_' . $person['visiting_card_front']->getClientOriginalName();
+                    $person['visiting_card_front']->move(public_path('uploads/visiting_cards'), $frontName);
+                    $cp->visiting_card_front = $frontName;
+                }
+
+                if (isset($person['visiting_card_back']) && $person['visiting_card_back'] instanceof \Illuminate\Http\UploadedFile) {
+                    $backName = time() . '_back_' . $person['visiting_card_back']->getClientOriginalName();
+                    $person['visiting_card_back']->move(public_path('uploads/visiting_cards'), $backName);
+                    $cp->visiting_card_back = $backName;
+                }
+
+                // Update data
+                $cp->update([
+                    'name'        => $person['name'],
+                    'email'       => $person['email'],
+                    'phone'=> $person['phone'],
+                    'designation' => $person['designation']
+                ]);
+
+                $cp->save();
+            }
+
+            // ---------- NEW CONTACT PERSON ----------
+            else {
+
+                $frontName = null;
+                $backName = null;
+
+                if (isset($person['visiting_card_front']) && $person['visiting_card_front'] instanceof \Illuminate\Http\UploadedFile) {
+                    $frontName = time() . '_front_' . $person['visiting_card_front']->getClientOriginalName();
+                    $person['visiting_card_front']->move(public_path('uploads/visiting_cards'), $frontName);
+                }
+
+                if (isset($person['visiting_card_back']) && $person['visiting_card_back'] instanceof \Illuminate\Http\UploadedFile) {
+                    $backName = time() . '_back_' . $person['visiting_card_back']->getClientOriginalName();
+                    $person['visiting_card_back']->move(public_path('uploads/visiting_cards'), $backName);
+                }
+
+                $new = ContactPerson::create([
+                    'contactable_type'     => 'App\Models\Supplier',
+                    'contactable_id'       => $supplier->id,
+                    'name'                 => $person['name'],
+                    'email'                => $person['email'],
+                    'phone'                => $person['phone'],
+                    'designation'          => $person['designation'],
+                    'visiting_card_front'  => $frontName,
+                    'visiting_card_back'   => $backName,
+                ]);
+
+                $newIds[] = $new->id;
+            }
+        }
+
+        /* --------------------------------------
+            DELETE REMOVED CONTACT PERSONS
+        --------------------------------------- */
+        $toDelete = array_diff($oldIds, $newIds);
+
+        if (count($toDelete)) {
+            ContactPerson::whereIn('id', $toDelete)->delete();
+        }
+
+
+
         return redirect('supplier')->with('message','Data updated successfully');
     }
 
