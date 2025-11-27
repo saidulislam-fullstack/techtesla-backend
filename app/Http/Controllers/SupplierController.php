@@ -18,6 +18,7 @@ use App\Models\ContactPerson;
 use App\Models\CustomerGroup;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 
 class SupplierController extends Controller
@@ -145,18 +146,6 @@ class SupplierController extends Controller
         $supplierData = Supplier::create($lims_supplier_data);
 
         // Insterting data into the contact persons table
-        // ContactPerson::create([
-        //     'contactable_type' => 'App\Models\Supplier',
-        //     'contactable_id' => $supplierData->id,
-        //     'name' => $lims_supplier_data['contact_person_name'],
-        //     'designation' => $lims_supplier_data['contact_person_designation'],
-        //     'email' => $lims_supplier_data['contact_person_email'],
-        //     'phone_number' => $lims_supplier_data['contact_person_phone_number'],
-        //     'visiting_card_front' => $request->hasFile('visiting_card_front') ? $request->file('visiting_card_front')->store('visiting-cards', 'public') : null,
-        //     'visiting_card_back' => $request->hasFile('visiting_card_back') ? $request->file('visiting_card_back')->store('visiting-cards', 'public') : null,
-        // ]);
-
-        // Insterting data into the contact persons table
         $contactPersons = $request->contact_persons;
 
         foreach ($contactPersons as $person) {
@@ -167,8 +156,8 @@ class SupplierController extends Controller
                 'email' => $person['email'],
                 'phone' => $person['phone'],
                 'designation' => $person['designation'],
-                'visiting_card_front' => $person['visiting_card_front'] ?? null,
-                'visiting_card_back' => $person['visiting_card_back'] ?? null,
+                'visiting_card_front' => $person['visiting_card_front'] ? $person['visiting_card_front']->store('visiting-cards', 'public') : null,
+                'visiting_card_back' => $person['visiting_card_back'] ? $person['visiting_card_back']->store('visiting-cards', 'public') : null,
             ]);
         }
 
@@ -207,19 +196,19 @@ class SupplierController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'company_name' => [
-                'max:255',
-                    Rule::unique('suppliers')->ignore($id)->where(function ($query) {
-                    return $query->where('is_active', 1);
-                }),
-            ],
+            // 'company_name' => [
+            //     'max:255',
+            //         Rule::unique('suppliers')->ignore($id)->where(function ($query) {
+            //         return $query->where('is_active', 1);
+            //     }),
+            // ],
 
-            'email' => [
-                'max:255',
-                    Rule::unique('suppliers')->ignore($id)->where(function ($query) {
-                    return $query->where('is_active', 1);
-                }),
-            ],
+            // 'email' => [
+            //     'max:255',
+            //         Rule::unique('suppliers')->ignore($id)->where(function ($query) {
+            //         return $query->where('is_active', 1);
+            //     }),
+            // ],
             'image' => 'image|mimes:jpg,jpeg,png,gif|max:100000',
         ]);
 
@@ -251,61 +240,70 @@ class SupplierController extends Controller
 
         foreach ($submitted as $person) {
 
-            // ---------- IF EXISTING CONTACT PERSON ----------
+            /* --------------------------------------
+                IF EXISTING CONTACT PERSON
+            --------------------------------------- */
             if (isset($person['id'])) {
 
                 $cp = ContactPerson::find($person['id']);
                 $newIds[] = $cp->id;
 
-                // Handle visiting card uploads
+                // Upload front card
                 if (isset($person['visiting_card_front']) && $person['visiting_card_front'] instanceof \Illuminate\Http\UploadedFile) {
-                    $frontName = time() . '_front_' . $person['visiting_card_front']->getClientOriginalName();
-                    $person['visiting_card_front']->move(public_path('uploads/visiting_cards'), $frontName);
-                    $cp->visiting_card_front = $frontName;
+
+                    // delete old file
+                    if ($cp->visiting_card_front && Storage::disk('public')->exists($cp->visiting_card_front)) {
+                        Storage::disk('public')->delete($cp->visiting_card_front);
+                    }
+
+                    $cp->visiting_card_front = $person['visiting_card_front']->store('visiting-cards', 'public');
                 }
 
+                // Upload back card
                 if (isset($person['visiting_card_back']) && $person['visiting_card_back'] instanceof \Illuminate\Http\UploadedFile) {
-                    $backName = time() . '_back_' . $person['visiting_card_back']->getClientOriginalName();
-                    $person['visiting_card_back']->move(public_path('uploads/visiting_cards'), $backName);
-                    $cp->visiting_card_back = $backName;
+
+                    // delete old file
+                    if ($cp->visiting_card_back && Storage::disk('public')->exists($cp->visiting_card_back)) {
+                        Storage::disk('public')->delete($cp->visiting_card_back);
+                    }
+
+                    $cp->visiting_card_back = $person['visiting_card_back']->store('visiting-cards', 'public');
                 }
 
-                // Update data
+                // Update other fields
                 $cp->update([
                     'name'        => $person['name'],
                     'email'       => $person['email'],
-                    'phone'=> $person['phone'],
-                    'designation' => $person['designation']
+                    'phone'       => $person['phone'],
+                    'designation' => $person['designation'],
                 ]);
-
-                $cp->save();
             }
 
-            // ---------- NEW CONTACT PERSON ----------
+            /* --------------------------------------
+                NEW CONTACT PERSON
+            --------------------------------------- */
             else {
 
-                $frontName = null;
-                $backName = null;
+                $frontPath = null;
+                $backPath = null;
 
                 if (isset($person['visiting_card_front']) && $person['visiting_card_front'] instanceof \Illuminate\Http\UploadedFile) {
-                    $frontName = time() . '_front_' . $person['visiting_card_front']->getClientOriginalName();
-                    $person['visiting_card_front']->move(public_path('uploads/visiting_cards'), $frontName);
+                    $frontPath = $person['visiting_card_front']->store('visiting-cards', 'public');
                 }
 
                 if (isset($person['visiting_card_back']) && $person['visiting_card_back'] instanceof \Illuminate\Http\UploadedFile) {
-                    $backName = time() . '_back_' . $person['visiting_card_back']->getClientOriginalName();
-                    $person['visiting_card_back']->move(public_path('uploads/visiting_cards'), $backName);
+                    $backPath = $person['visiting_card_back']->store('visiting-cards', 'public');
                 }
 
                 $new = ContactPerson::create([
-                    'contactable_type'     => 'App\Models\Supplier',
-                    'contactable_id'       => $supplier->id,
-                    'name'                 => $person['name'],
-                    'email'                => $person['email'],
-                    'phone'                => $person['phone'],
-                    'designation'          => $person['designation'],
-                    'visiting_card_front'  => $frontName,
-                    'visiting_card_back'   => $backName,
+                    'contactable_type'    => 'App\Models\Supplier',
+                    'contactable_id'      => $supplier->id,
+                    'name'                => $person['name'],
+                    'email'               => $person['email'],
+                    'phone'               => $person['phone'],
+                    'designation'         => $person['designation'],
+                    'visiting_card_front' => $frontPath,
+                    'visiting_card_back'  => $backPath,
                 ]);
 
                 $newIds[] = $new->id;
@@ -318,10 +316,21 @@ class SupplierController extends Controller
         $toDelete = array_diff($oldIds, $newIds);
 
         if (count($toDelete)) {
+
+            $deleteItems = ContactPerson::whereIn('id', $toDelete)->get();
+
+            // delete files also
+            foreach ($deleteItems as $d) {
+                if ($d->visiting_card_front && Storage::disk('public')->exists($d->visiting_card_front)) {
+                    Storage::disk('public')->delete($d->visiting_card_front);
+                }
+                if ($d->visiting_card_back && Storage::disk('public')->exists($d->visiting_card_back)) {
+                    Storage::disk('public')->delete($d->visiting_card_back);
+                }
+            }
+
             ContactPerson::whereIn('id', $toDelete)->delete();
         }
-
-
 
         return redirect('supplier')->with('message','Data updated successfully');
     }

@@ -191,25 +191,25 @@
 
                                     <div class="col-md-4 mt-1">
                                         <div class="form-group">
-                                            <label>Visiting Card Front</label><br>
+                                            <label>Visiting Card Front</label>
+                                            <input type="file" name="contact_persons[{{$i}}][visiting_card_front]"
+                                            class="form-control mt-2"><br>
                                             @if($cp->visiting_card_front)
-                                            <img src="{{ asset('uploads/visiting_cards/'.$cp->visiting_card_front) }}"
+                                            <img src="{{ asset('storage/'.$cp->visiting_card_front) }}"
                                                 width="80">
                                             @endif
-                                            <input type="file" name="contact_persons[{{$i}}][visiting_card_front]"
-                                                class="form-control mt-2">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 mt-1">
                                         <div class="form-group">
-                                            <label>Visiting Card Back</label><br>
+                                            <label>Visiting Card Back</label>
+                                            <input type="file" name="contact_persons[{{$i}}][visiting_card_back]"
+                                            class="form-control mt-2"><br>
                                             @if($cp->visiting_card_back)
-                                            <img src="{{ asset('uploads/visiting_cards/'.$cp->visiting_card_back) }}"
+                                            <img src="{{ asset('storage/'.$cp->visiting_card_back) }}"
                                                 width="80">
                                             @endif
-                                            <input type="file" name="contact_persons[{{$i}}][visiting_card_back]"
-                                                class="form-control mt-2">
                                         </div>
                                     </div>
 
