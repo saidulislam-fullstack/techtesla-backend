@@ -60,7 +60,7 @@
                                 ->first();
                 ?>
                 <tr data-id="{{$customer->id}}">
-                    <td>{{$key}}</td>
+                    <td></td>
                     <td>{{$customer->customerGroup->name}}</td>
                     <td>
                         {{$customer->name}}
@@ -368,7 +368,7 @@
         'columnDefs': [
             {
                 "orderable": false,
-                'targets': [0, 7]
+                'targets': [0, -1]
             },
             {
                 'render': function(data, type, row, meta){
