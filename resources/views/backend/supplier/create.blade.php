@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>{{trans('file.name')}} </strong> </label>
+                                    <label>{{trans('file.name')}} / {{trans('file.Company Name')}} *</strong> </label>
                                     <input type="text" name="name" class="form-control">
                                 </div>
                             </div>
@@ -50,10 +50,10 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 d-none">
                                 <div class="form-group">
                                     <label>{{trans('file.Company Name')}} *</label>
-                                    <input type="text" name="company_name" required class="form-control">
+                                    <input type="text" name="company_name" class="form-control">
                                     @if($errors->has('company_name'))
                                     <span>
                                         <strong>{{ $errors->first('company_name') }}</strong>
@@ -148,85 +148,117 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
-                                <div class="row my-4">
-                                    <div class="col-md-12">
-                                        <h5>Contact Person Details:</h5>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row mb-4">
+                            <div class="col-md-12 d-flex justify-content-between align-items-center mt-5 mb-3">
+                                <h5>Contact Person Details:</h5>
+                                <button type="button" class="btn btn-sm btn-primary" id="addContactPerson">+ Add More</button>
+                            </div>
+                            <hr>
+
+                            <div id="contactPersonWrapper" class="col-12">
+
+                                <div class="contact-person-item row mb-4">
+
                                     <div class="col-md-4 mt-1">
                                         <div class="form-group">
                                             <label>Name *</label>
-                                            <input type="text" name="contact_person_name" class="form-control" required>
-                                            @if($errors->has('contact_person_name'))
-                                            <span>
-                                                <strong>{{ $errors->first('contact_person_name') }}</strong>
-                                            </span>
-                                            @endif
+                                            <input type="text" name="contact_persons[0][name]" class="form-control" required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-4 mt-1">
                                         <div class="form-group">
                                             <label>Email *</label>
-                                            <input type="text" name="contact_person_email" class="form-control"
-                                                required>
-                                            @if($errors->has('contact_person_email'))
-                                            <span>
-                                                <strong>{{ $errors->first('contact_person_email') }}</strong>
-                                            </span>
-                                            @endif
+                                            <input type="email" name="contact_persons[0][email]" class="form-control" required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-4 mt-1">
                                         <div class="form-group">
                                             <label>Phone Number *</label>
-                                            <input type="text" name="contact_person_phone_number" class="form-control"
-                                                required>
-                                            @if($errors->has('contact_person_phone_number'))
-                                            <span>
-                                                <strong>{{ $errors->first('contact_person_phone_number') }}</strong>
-                                            </span>
-                                            @endif
+                                            <input type="text" name="contact_persons[0][phone]" class="form-control" required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-4 mt-1">
                                         <div class="form-group">
                                             <label>Designation *</label>
-                                            <input type="text" name="contact_person_designation" class="form-control"
-                                                required>
-                                            @if($errors->has('contact_person_designation'))
-                                            <span>
-                                                <strong>{{ $errors->first('contact_person_designation') }}</strong>
-                                            </span>
-                                            @endif
+                                            <input type="text" name="contact_persons[0][designation]" class="form-control" required>
                                         </div>
                                     </div>
+
                                     <div class="col-md-4 mt-1">
                                         <div class="form-group">
-                                            <label>Visiting Card Front </label>
-                                            <input type="file" name="visiting_card_front" class="form-control">
-                                            @if($errors->has('visiting_card_front'))
-                                            <span>
-                                                <strong>{{ $errors->first('visiting_card_front') }}</strong>
-                                            </span>
-                                            @endif
+                                            <label>Visiting Card Front</label>
+                                            <input type="file" name="contact_persons[0][visiting_card_front]" class="form-control">
                                         </div>
                                     </div>
+
                                     <div class="col-md-4 mt-1">
                                         <div class="form-group">
-                                            <label>Visiting Card Back </label>
-                                            <input type="file" name="visiting_card_back" class="form-control">
-                                            @if($errors->has('visiting_card_back'))
-                                            <span>
-                                                <strong>{{ $errors->first('visiting_card_back') }}</strong>
-                                            </span>
-                                            @endif
+                                            <label>Visiting Card Back</label>
+                                            <input type="file" name="contact_persons[0][visiting_card_back]" class="form-control">
                                         </div>
+                                    </div>
+
+                                    <div class="col-md-12 mt-2">
+                                        <button type="button" class="btn btn-danger btn-sm removeContactBtn d-none">Remove</button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Template for cloning -->
+                            <template id="contactPersonTemplate">
+                                <div class="contact-person-item row mb-4">
+
+                                    <div class="col-md-4 mt-1">
+                                        <div class="form-group">
+                                            <label>Name *</label>
+                                            <input type="text" name="contact_persons[INDEX][name]" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mt-1">
+                                        <div class="form-group">
+                                            <label>Email *</label>
+                                            <input type="email" name="contact_persons[INDEX][email]" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mt-1">
+                                        <div class="form-group">
+                                            <label>Phone Number *</label>
+                                            <input type="text" name="contact_persons[INDEX][phone]" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mt-1">
+                                        <div class="form-group">
+                                            <label>Designation *</label>
+                                            <input type="text" name="contact_persons[INDEX][designation]" class="form-control" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mt-1">
+                                        <div class="form-group">
+                                            <label>Visiting Card Front</label>
+                                            <input type="file" name="contact_persons[INDEX][visiting_card_front]" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 mt-1">
+                                        <div class="form-group">
+                                            <label>Visiting Card Back</label>
+                                            <input type="file" name="contact_persons[INDEX][visiting_card_back]" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 mt-2">
+                                        <button type="button" class="btn btn-danger btn-sm removeContactBtn">Remove</button>
                                     </div>
                                 </div>
-                            </div>
+                            </template>
 
                             <div class="col-md-12">
                                 <div class="form-group mt-4">
@@ -259,6 +291,21 @@
         else{
             $('.customer-group-section').hide(300);
             $('select[name="customer_group_id"]').prop('required',false);
+        }
+    });
+
+    let index = 1;
+
+    document.getElementById('addContactPerson').addEventListener('click', function () {
+        let template = document.getElementById('contactPersonTemplate').innerHTML;
+        template = template.replace(/INDEX/g, index);
+        document.getElementById('contactPersonWrapper').insertAdjacentHTML('beforeend', template);
+        index++;
+    });
+
+    document.addEventListener('click', function (e) {
+        if (e.target.classList.contains('removeContactBtn')) {
+            e.target.closest('.contact-person-item').remove();
         }
     });
 </script>

@@ -144,16 +144,32 @@ class SupplierController extends Controller
         $supplierData = Supplier::create($lims_supplier_data);
 
         // Insterting data into the contact persons table
-        ContactPerson::create([
-            'contactable_type' => 'App\Models\Supplier',
-            'contactable_id' => $supplierData->id,
-            'name' => $lims_supplier_data['contact_person_name'],
-            'designation' => $lims_supplier_data['contact_person_designation'],
-            'email' => $lims_supplier_data['contact_person_email'],
-            'phone_number' => $lims_supplier_data['contact_person_phone_number'],
-            'visiting_card_front' => $request->hasFile('visiting_card_front') ? $request->file('visiting_card_front')->store('visiting-cards', 'public') : null,
-            'visiting_card_back' => $request->hasFile('visiting_card_back') ? $request->file('visiting_card_back')->store('visiting-cards', 'public') : null,
-        ]);
+        // ContactPerson::create([
+        //     'contactable_type' => 'App\Models\Supplier',
+        //     'contactable_id' => $supplierData->id,
+        //     'name' => $lims_supplier_data['contact_person_name'],
+        //     'designation' => $lims_supplier_data['contact_person_designation'],
+        //     'email' => $lims_supplier_data['contact_person_email'],
+        //     'phone_number' => $lims_supplier_data['contact_person_phone_number'],
+        //     'visiting_card_front' => $request->hasFile('visiting_card_front') ? $request->file('visiting_card_front')->store('visiting-cards', 'public') : null,
+        //     'visiting_card_back' => $request->hasFile('visiting_card_back') ? $request->file('visiting_card_back')->store('visiting-cards', 'public') : null,
+        // ]);
+
+        // Insterting data into the contact persons table
+        $contactPersons = $request->contact_persons;
+
+        foreach ($contactPersons as $person) {
+            ContactPerson::create([
+                'contactable_type' => 'App\Models\Supplier',
+                'contactable_id' => $supplierData->id,
+                'name' => $person['name'],
+                'email' => $person['email'],
+                'phone' => $person['phone'],
+                'designation' => $person['designation'],
+                'visiting_card_front' => $person['visiting_card_front'] ?? null,
+                'visiting_card_back' => $person['visiting_card_back'] ?? null,
+            ]);
+        }
 
         $message = 'Supplier';
         if(isset($request->both)) {
