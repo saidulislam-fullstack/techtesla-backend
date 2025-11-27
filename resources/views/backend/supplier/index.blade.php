@@ -50,7 +50,9 @@
                     @endif
                     <td>
                         {{$supplier->name}}
+                        @if($supplier->company_name)
                         <br>{{$supplier->company_name}}
+                        @endif
                         @if($supplier->vat_number)
                         <br>{{$supplier->vat_number}}
                         @endif
