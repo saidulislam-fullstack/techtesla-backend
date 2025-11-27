@@ -103,21 +103,21 @@ class SupplierController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'company_name' => [
-                'max:255',
-                    Rule::unique('suppliers')->where(function ($query) {
-                    return $query->where('is_active', 1);
-                }),
-            ],
-            'email' => [
-                'max:255',
-                    Rule::unique('suppliers')->where(function ($query) {
-                    return $query->where('is_active', 1);
-                }),
-            ],
-            'image' => 'image|mimes:jpg,jpeg,png,gif|max:100000',
-        ]);
+        // $this->validate($request, [
+        //     'company_name' => [
+        //         'max:255',
+        //             Rule::unique('suppliers')->where(function ($query) {
+        //             return $query->where('is_active', 1);
+        //         }),
+        //     ],
+        //     'email' => [
+        //         'max:255',
+        //             Rule::unique('suppliers')->where(function ($query) {
+        //             return $query->where('is_active', 1);
+        //         }),
+        //     ],
+        //     'image' => 'image|mimes:jpg,jpeg,png,gif|max:100000',
+        // ]);
 
         //validation for customer if create both user and supplier
         if(isset($request->both)) {
@@ -136,11 +136,12 @@ class SupplierController extends Controller
         $image = $request->image;
         if ($image) {
             $ext = pathinfo($image->getClientOriginalName(), PATHINFO_EXTENSION);
-            $imageName = preg_replace('/[^a-zA-Z0-9]/', '', $request['company_name']);
+            $imageName = preg_replace('/[^a-zA-Z0-9]/', '', $request['name']);
             $imageName = $imageName . '.' . $ext;
             $image->move('public/images/supplier', $imageName);
             $lims_supplier_data['image'] = $imageName;
         }
+
         $supplierData = Supplier::create($lims_supplier_data);
 
         // Insterting data into the contact persons table
