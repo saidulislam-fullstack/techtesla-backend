@@ -56,7 +56,7 @@
     }
 
     .main-table th {
-        background-color: #e0e0e0;
+        background-color: #fff;
     }
 
     .main-table td {
@@ -127,37 +127,47 @@
         <table style="width:100%;" class="border-table">
             <tr>
                 <td class="w-50" style="border-right: 1px solid black; padding-right: 10px;">
-                    <span class="bold">Invoice To</span><br>
-                    <span class="bold">TecTesla Techologies Ltd</span><br>
+                    <div
+                        style="border-bottom: 1px solid black; margin: 5px 0; width: 100%; border-right: 1px dashed black;">
+                        <span class="">Invoice To</span><br>
+                        <span class="bold">TecTesla Techologies Ltd</span><br>
 
-                    60/2, Garfa Main Road, Jadavpur, Kolkata-700075, West Bengal, India <br>
-                    IEC No: 0211025674 / TAN No: CALD09401A GSTIN/UIN: 19AAIFD2879A1ZF <br>
-                    State Name : West Bengal, Code : 19 <br>
-                    E-Mail : accounts@dellstaroverseas.com <br>
-                    <hr>
-                    <span class="bold">TecTesla Techologies Ltd (Courier Address)</span><br>
-                    {{ $purchase->warehouse?->name ?? 'N/A' }}<br>
-                    {{ $purchase->warehouse?->address ?? 'N/A' }}<br>
-                    Mobile: {{ $purchase->warehouse?->phone ?? 'N/A' }}<br>
-                    E-Mail: {{ $purchase->warehouse?->email ?? 'N/A' }}<br>
-                    <hr>
-                    <span class="bold">{{ $purchase->supplier?->name ?? 'N/A' }}</span><br>
-                    {{ $purchase->supplier?->address ?? 'N/A' }}<br>
-                    Mobile: {{ $purchase->supplier?->phone_number ?? 'N/A' }}<br>
-                    E-Mail: {{ $purchase->supplier?->email ?? 'N/A' }}<br>
-                    State Name : {{ $purchase->supplier?->country ?? 'N/A' }}
+                        60/2, Garfa Main Road, Jadavpur, Kolkata-700075, West Bengal, India <br>
+                        IEC No: 0211025674 / TAN No: CALD09401A GSTIN/UIN: 19AAIFD2879A1ZF <br>
+                        State Name : West Bengal, Code : 19 <br>
+                        E-Mail : accounts@dellstaroverseas.com <br>
+                    </div>
+                    <div
+                        style="border-bottom: 1px solid black; margin: 5px 0; width: 100%; border-right: 1px dashed black;">
+                        <div style="border-bottom: 1px dashed black;">Consignee (Ship to)</div>
+                        <span class="bold">TecTesla Techologies Ltd (Courier Address)</span><br>
+                        {{ $purchase->warehouse?->name ?? 'N/A' }}<br>
+                        {{ $purchase->warehouse?->address ?? 'N/A' }}<br>
+                        Mobile: {{ $purchase->warehouse?->phone ?? 'N/A' }}<br>
+                        E-Mail: {{ $purchase->warehouse?->email ?? 'N/A' }}<br>
+                    </div>
+                    <div
+                        style="border-bottom: 1px solid black; margin: 0px 0; width: 100%; border-right: 1px dashed black;">
+                        <div style="border-bottom: 1px dashed black;">Supplier (Bill from)</div>
+                        <span class="bold">{{ $purchase->supplier?->name ?? 'N/A' }}</span><br>
+                        {{ $purchase->supplier?->address ?? 'N/A' }}<br>
+                        Mobile: {{ $purchase->supplier?->phone_number ?? 'N/A' }}<br>
+                        E-Mail: {{ $purchase->supplier?->email ?? 'N/A' }}<br>
+                        State Name : {{ $purchase->supplier?->country ?? 'N/A' }}
+                    </div>
                 </td>
                 <td class="w-50" style="vertical-align: top;">
                     <table style="width:100%; table-spacing: 0;">
                         <tr>
                             <td style="border: 1px solid black; padding: 5px;">
                                 <span class="">Voucher No.</span><br>
-                                <span class="bold">BIPL/TTL/LS/{{$purchase->id}}/{{
+                                <span class="bold" style="color: #00569a">BIPL/TTL/LS/{{$purchase->id}}/{{
                                     \Carbon\Carbon::parse($purchase->created_at)->format('d-m') }}</span>
                             </td>
                             <td style="border: 1px solid black; padding: 5px;">
                                 <span class="">Dated</span><br>
-                                <span class="bold">{{ \Carbon\Carbon::parse($purchase->created_at)->format('m/d/Y')
+                                <span class="bold" style="color: #00569a">{{
+                                    \Carbon\Carbon::parse($purchase->created_at)->format('m/d/Y')
                                     }}</span>
                             </td>
                         </tr>
@@ -179,14 +189,17 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="padding: 5px;">
-                                <span class="">Despatch Information</span><br>
-                                <span class="bold">{{ $purchase->dispatched_through ?? '--' }}</span>
-                                <span class="bold">Price Basis: {{ $purchase->price_basis ?? '--' }}</span><br>
-                                <span class="bold">P&F: {{ $purchase->p_and_f ?? '--' }}l</span><br>=
-                                <span class="bold">Freight: {{ $purchase->freight_or_insurance ?? '--' }}</span><br>
-                                <span class="bold">IGST: Extra @ 18%</span><br>
-                                <span class="bold">Documentation: {{ $purchase->document ?? '--' }}</span>
+                            <td colspan="2">
+                                <div style="border-bottom: 1px dashed black; padding: 5px;">
+                                    <span class="">Despatch Information</span><br>
+                                    <span class="bold">{{ $purchase->dispatched_through ?? '--' }}</span><br>
+                                    <span class="bold">Price Basis: {{ $purchase->price_basis ?? '--' }}</span><br>
+                                    <span class="bold">P&F: {{ $purchase->p_and_f ?? '--' }}l</span><br>
+                                    <span class="bold">Freight: {{ $purchase->freight_or_insurance ?? '--' }}</span><br>
+                                    <span class="bold">IGST: Extra @ 18%</span><br>
+                                    <span class="bold">Documentation: Factory Test / Calibration / Warranty
+                                        Certificate</span>
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -200,12 +213,12 @@
             <thead>
                 <tr>
                     <th>SI No.</th>
-                    <th>Description of Goods</th>
-                    <th>Due on</th>
-                    <th>Quantity</th>
-                    <th>Rate</th>
-                    <th>per</th>
-                    <th>Amount</th>
+                    <th class="text-center">Description of Goods</th>
+                    <th class="text-center">Due on</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Rate</th>
+                    <th class="text-center">per</th>
+                    <th class="text-center">Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -246,7 +259,7 @@
                     }
 
 
-                    $temp_unit_name = $unit_name = implode(",",$unit_name) . ',';
+                    $temp_unit_name = $unit_name = implode(",",$unit_name) . ' ';
                     
                     $temp_unit_operator = $unit_operator = implode(",",$unit_operator) .',';
 
@@ -260,12 +273,12 @@
                 ?>
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td class="description">
+                    <td class="description" style="width: 20%;">
                         <span class="bold">{{$product_data->name}}</span><br>
                         {!! $product_data->product_details ?? '--' !!}
                     </td>
-                    <td>{{ $product_purchase->created_at->format('d/m/Y') }}</td>
-                    <td>{{ $product_purchase->qty }}</td>
+                    <td>{{ $product_purchase->created_at->format('d-M-Y') }}</td>
+                    <td>{{ $product_purchase->qty }} {{$temp_unit_name}}</td>
                     <td class="rate">{{ number_format((float)$product_purchase->net_unit_cost,
                         $general_setting->decimal, '.', '') }}</td>
                     <td>{{$temp_unit_name}}</td>
@@ -284,29 +297,38 @@
             </tbody>
         </table>
 
-        <table style="width:100%; margin-top:10px;" class="no-border-table">
-            <tr>
-                <td class="w-70">
-                    <span class="bold">Amount Chargeable (in words):</span><br>
-                    {{ ucfirst($amountInWords) }} Only
+        <table style="width:100%; margin-top:10px;" class="">
+            <tr style="border: 1px solid black;">
+                <td class="w-70 p-1">
+                    <span class="">Amount Chargeable (in words):</span><br>
+                    <span class="bold">{{ ucfirst($amountInWords) }} Only</span>
                 </td>
-                <td class="w-30 text-right">
+                <td class="w-30 text-right p-1">
                     E. & O.E
+                </td>
+            </tr>
+            <tr style="border: 1px solid black; height: 50vh;">
+                <td></td>
+                <td class="text-right p-1" style="padding-top: 150px; vertical-align: bottom;">
+                    <span class="bold">for TecTesla Techologies Ltd</span><br><br>
+                    <span>Authorised Signatory</span>
                 </td>
             </tr>
         </table>
 
-        <table style="width:100%; margin-top:20px;" class="no-border-table signature-section">
+        {{-- <table style="width:100%; margin-top:20px;" class="no-border-table signature-section">
             <tr>
-                <td><span class="bold">Company's PAN : AAIFD2879A</span></td>
-                <td class="text-right"><span class="bold">for Dellstar Overseas</span></td>
+                <td>
+
+                </td>
+                <td class="text-right"><span class="bold">for TecTesla Techologies Ltd</span></td>
             </tr>
             <tr>
                 <td colspan="2" style="padding-top: 40px;" class="text-right bold">Authorised Signatory</td>
             </tr>
-        </table>
+        </table> --}}
 
-        <p class="text-center" style="margin-top:20px;">This is a Computer Generated Document</p>
+        {{-- <p class="text-center" style="margin-top:20px;">This is a Computer Generated Document</p> --}}
     </div>
 
     <div class="po-page">

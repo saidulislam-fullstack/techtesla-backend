@@ -483,8 +483,8 @@ class PurchaseController extends Controller
         $product_code = $data['product_code'];
         $qty = $data['qty'];
         $recieved = $data['recieved'];
-        $batch_no = $data['batch_no'];
-        $expired_date = $data['expired_date'];
+        $batch_no = $data['batch_no'] ?? null;
+        $expired_date = $data['expired_date'] ?? null;
         $purchase_unit = $data['purchase_unit'];
         $net_unit_cost = $data['net_unit_cost'];
         $discount = $data['discount'];
@@ -505,7 +505,7 @@ class PurchaseController extends Controller
             $lims_product_data = Product::find($id);
             $price = $lims_product_data->price;
             //dealing with product barch
-            if ($batch_no[$i]) {
+            if (isset($batch_no[$i]) && $batch_no[$i]) {
                 $product_batch_data = ProductBatch::where([
                     ['product_id', $lims_product_data->id],
                     ['batch_no', $batch_no[$i]]
@@ -565,7 +565,7 @@ class PurchaseController extends Controller
                 }
             }
             //add quantity to product table
-            $lims_product_data->cost = (($net_unit_cost[$i] * $quantity) + ($lims_product_data->cost * $lims_product_data->qty)) / ($lims_product_data->qty + $quantity);  
+            $lims_product_data->cost = ($lims_product_data->qty + $quantity) ? (($net_unit_cost[$i] * $quantity) + ($lims_product_data->cost * $lims_product_data->qty)) / ($lims_product_data->qty + $quantity) : 0;  
             $lims_product_data->qty = $lims_product_data->qty + $quantity;
             $lims_product_data->save();
             //add quantity to warehouse
