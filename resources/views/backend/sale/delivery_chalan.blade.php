@@ -73,7 +73,7 @@
 
     .info-table td:first-child {
         font-weight: bold;
-        width: 130px;
+        width: 145px;
     }
 
     .items-table {
@@ -155,7 +155,7 @@
                     </tr>
                     <tr>
                         <td>PO Date</td>
-                        <td>: {{ $sale?->created_at?->format('d.m.Y') ?? '-' }}</td>
+                        <td>: {{ $sale?->created_at?->format('d/m/Y') ?? '-' }}</td>
                     </tr>
                 </table>
             </div>
