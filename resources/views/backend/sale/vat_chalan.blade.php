@@ -188,7 +188,7 @@
 @endpush
 
 @section('content')
-<x-invoice-print title="Purchase #{{ $sale->reference_no }}" filename="RFQ_{{ $sale->reference_no }}" :header="false"
+<x-invoice-print title="Purchase #{{ $sale->reference_no }}" filename="vat_chalan_{{ $sale->reference_no }}" :header="false"
     :footer="false">
     <div class="container">
         <div class="header">

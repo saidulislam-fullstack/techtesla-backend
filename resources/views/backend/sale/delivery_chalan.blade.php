@@ -119,8 +119,8 @@
 @endpush
 
 @section('content')
-<x-invoice-print title="Purchase #{{ $sale->reference_no }}" filename="RFQ_{{ $sale->reference_no }}" :header="false"
-    :footer="false">
+<x-invoice-print title="Purchase #{{ $sale->reference_no }}" filename="delivery_chalan_{{ $sale->reference_no }}"
+    :header="false" :footer="false">
     <div class="challan-container">
         <div class="image-head">
             <img src="{{ asset('logo/invoice-head.png') }}" alt="Invoice Head">
@@ -228,7 +228,8 @@
                 ?>
                 <tr>
                     <td>{{$index + 1}}</td>
-                    <td class="item-description">{{ $product_data->name ?? 'N/A' }}
+                    <td class="item-description"><strong>{{ $product_data->name ?? 'N/A' }}</strong>
+                        <br><strong>Model:</strong> {{ $product_data->model ?? 'N/A' }}
                         <br>{!! $product_data->product_details !!}
                     </td>
                     <td>PCS.</td>

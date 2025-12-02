@@ -119,7 +119,7 @@
 @endpush
 
 @section('content')
-<x-invoice-print title="Purchase #{{ $purchase->reference_no }}" filename="RFQ_{{ $purchase->reference_no }}"
+<x-invoice-print title="Purchase #{{ $purchase->reference_no }}" filename="purchase_order_{{ $purchase->reference_no }}"
     :header="false" :footer="false">
     <div class="po-page">
         <h1 class="po-header">PURCHASE ORDER</h1>
