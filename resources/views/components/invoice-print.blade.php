@@ -69,10 +69,10 @@
         document.body.innerHTML = printContent;
 
         setTimeout(() => {
-            // window.print();
-            // document.body.innerHTML = originalContent;
-            // document.title = originalTitle;
-            // location.reload();
+            window.print();
+            document.body.innerHTML = originalContent;
+            document.title = originalTitle;
+            location.reload();
         }, 500);
     }
 </script>
