@@ -85,10 +85,11 @@
     }
 
     .transport-info {
-        margin-top: 10px;
+        margin-top: 5px;
         padding-top: 5px;
-        border-top: 1px solid #000;
-        border-bottom: 1px solid #000;
+        margin-bottom: 20px;
+        /* border-top: 1px solid #000;
+        border-bottom: 1px solid #000; */
     }
 
     .main-table {
@@ -105,7 +106,7 @@
     }
 
     .main-table th {
-        font-weight: bold;
+        font-weight: normal;
         font-size: 10px;
     }
 
@@ -216,14 +217,20 @@
         </div>
 
         <div class="info-section" style="border-top: none; padding-top: 0;">
-            <div class="info-box" style="width: 55%;">
+            <div class="info-box" style="width: 65%;">
                 <p><span class="bengali">ক্রেতার নাম:</span> <span class="english">{{ $sale->customer?->name ?? 'N/A'
                         }}</span></p>
-                <p><span class="bengali">ক্রেতার বিআইএন (প্রযোজ্যক্ষেত্রে):</span> <span class="english">--</span></p>
-                <p><span class="bengali">ক্রেতার ঠিকানা:</span> <span class="english">--</span></p>
-                <p><span class="bengali">সরবরাহের গন্তব্যস্থল:</span> <span class="english">--</span></p>
+                <p><span class="bengali">ক্রেতার বিআইএন (প্রযোজ্যক্ষেত্রে):</span> <span class="english">{{
+                        $sale->customer?->bin_number ?? 'N/A'
+                        }}</span></p>
+                <p><span class="bengali">ক্রেতার ঠিকানা:</span> <span class="english">{{ $sale->customer?->address ??
+                        'N/A'
+                        }}</span></p>
+                <p><span class="bengali">সরবরাহের গন্তব্যস্থল:</span> <span class="english">{{ $sale->customer?->address
+                        ?? 'N/A'
+                        }}</span></p>
             </div>
-            <div class="info-box" style="width: 45%;">
+            <div class="info-box" style="width: 35%;">
                 <p><span class="bengali">চালানপত্র নম্বর:</span> <span class="english">CHL-{{ now()->format('y') - 1
                         }}-{{ now()->format('y') }}-{{ str_pad($sale->id, 7, '0', STR_PAD_LEFT) }}</span></p>
                 <p><span class="bengali">ইস্যুর তারিখ:</span> <span class="english">{{
@@ -343,15 +350,15 @@
             $quantityInWords = $formatter->format($amount);
 
             @endphp
-            <p class="english">TOTAL QTY: {{ ucfirst($quantity) }}</p>
-            <p class="english">TAKA {{ ucfirst($amountInWords) }} ONLY.</p>
+            <p class=" mt-3">TOTAL QTY: {{ ucfirst($quantity) }}</p>
+            <p class="">TAKA: {{ ucfirst($amountInWords) }} only.</p>
         </div>
 
         <div class="footer">
             <div class="signature-section">
                 <p><span class="bengali">প্রতিষ্ঠানের দায়িত্বপ্রাপ্ত ব্যক্তির</span></p>
-                <p><span class="bengali">নাম:</span> <span class="english">Md. Rashed Hossain</span></p>
-                <p><span class="bengali">পদবী:</span> <span class="english">Senior Executive - VAT</span></p>
+                <p><span class="bengali">নাম:</span> <span class="english">_ _ _ _ _ _ _ _ _ _ _ _</span></p>
+                <p><span class="bengali">পদবী:</span> <span class="english">_ _ _ _ _ _ _ _ _ _ _</span></p>
                 <p style="margin-top: 25px;"><span class="bengali">স্বাক্ষর:</span> _________________________</p>
                 <p class="final-note bengali">*"এই চালানটি কর চালানপত্র হিসাবে গণ্য হবে"</p>
             </div>

@@ -847,11 +847,11 @@ class SaleController extends Controller
             DB::rollBack();
             return response()->json(['error' => $e->getMessage()]);
         }*/
-        if ($lims_sale_data->sale_status == '1')
-            return redirect('sales/gen_invoice/' . $lims_sale_data->id)->with('message', $message);
-        elseif ($data['pos'])
-            return redirect('pos')->with('message', $message);
-        else
+        // if ($lims_sale_data->sale_status == '1')
+        //     return redirect('sales/gen_invoice/' . $lims_sale_data->id)->with('message', $message);
+        // elseif ($data['pos'])
+        //     return redirect('pos')->with('message', $message);
+        // else
             return redirect('sales')->with('message', $message);
     }
 
