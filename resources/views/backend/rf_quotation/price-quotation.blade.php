@@ -66,8 +66,8 @@
     }
 
     .quotation-box {
-        border: 1px solid #000;
-        padding: 10px;
+        /* border: 1px solid #000; */
+        /* padding: 10px; */
     }
 
     .quotation-box table {
@@ -78,16 +78,15 @@
     .quotation-box th,
     .quotation-box td {
         border: 1px solid #000;
-        padding: 5px;
+        padding: 0px 3px !important;
         text-align: left;
     }
 
-    .quotation-box th {
-        background: #f3f3f3;
+    .quotation-box .item-table th {
+        background: #d9d9d9;
     }
 
     .amount-table {
-        margin-top: 5px;
         width: 50%;
         float: right;
         border-collapse: collapse;
@@ -98,6 +97,7 @@
         border: 1px solid #000;
         padding: 5px;
         text-align: right;
+        border-top: none;
     }
 
     .footer {
@@ -107,7 +107,7 @@
     }
 
     .signature {
-        margin-top: 60px;
+        margin-top: 20px;
         text-align: left;
     }
 
@@ -118,8 +118,8 @@
 
     .bottom-bar {
         margin-top: 30px;
-        border-top: 3px solid red;
-        text-align: center;
+        border-bottom: 1px solid black;
+        text-align: right;
         font-weight: bold;
         color: red;
         padding-top: 5px;
@@ -127,8 +127,17 @@
 
     .office {
         text-align: center;
-        font-size: 11px;
+        font-size: 14px;
         margin-top: 8px;
+    }
+
+    .office h3 {
+        text-decoration: underline;
+    }
+
+    .term-conditions td {
+        border: none;
+        padding: 0 6px !important;
     }
 </style>
 @endpush
@@ -151,13 +160,15 @@
         </div>
 
         <div class="quotation-box">
+            <div style="border-top: 1px solid black; font-size: 14px;"><strong>Price Quotation for Electrical
+                    Spare</strong></div>
             <table>
                 <tr>
-                    <td colspan="4"><strong>Price Quotation for Electrical Spare</strong><br>
-                        <b>BSRM Group of Companies</b><br>
+                    <td colspan="4" style="vertical-align: top; border-left: none; width: 50%;">
+                        <h2>BSRM Group of Companies</h2>
                         Corporate Office, Ali Mansion, 1207/1099, Sadarghat Road, Chittagong, Bangladesh.
                     </td>
-                    <td colspan="2">
+                    <td colspan="2" style="border-right: none;">
                         <strong>Quotation No:</strong> {{ $item->rfq_no }}<br>
                         <strong>Customer PR:</strong> N/A<br>
                         <strong>Prepared By:</strong> {{ $item->addedBy?->name ?? 'N/A' }}<br>
@@ -168,14 +179,14 @@
                 </tr>
             </table>
 
-            <table style="margin-top:10px;">
+            <table class="item-table">
                 <tr>
-                    <th style="width:5%;">SL.</th>
-                    <th style="width:45%;">ITEM DESCRIPTION</th>
-                    <th style="width:10%;">UNIT</th>
-                    <th style="width:15%;">QUANTITY</th>
-                    <th style="width:15%;">UNIT PRICE</th>
-                    <th style="width:15%;">TOTAL PRICE</th>
+                    <th style="width:5%; border-top: none">SL.</th>
+                    <th style="width:45%; border-top: none">ITEM DESCRIPTION</th>
+                    <th style="width:10%; border-top: none">UNIT</th>
+                    <th style="width:15%; border-top: none">QUANTITY</th>
+                    <th style="width:15%; border-top: none">UNIT PRICE</th>
+                    <th style="width:15%; border-top: none">TOTAL PRICE</th>
                 </tr>
                 @php
                 $totalQty = 0;
@@ -207,16 +218,18 @@
 
             <table class="amount-table">
                 <tr>
-                    <th>TOTAL AMOUNT (BDT)</th>
-                    <td>{{ $totalPrice }}</td>
+                    <th style="border-right: none">TOTAL AMOUNT (BDT)</th>
+                    <th style="border-left: none; border-right: none;">=</th>
+                    <td style="border-left: none;">{{ $totalPrice }}</td>
                 </tr>
                 {{-- <tr>
                     <th>10% VAT (BDT)</th>
                     <td>1,280.00</td>
                 </tr> --}}
                 <tr>
-                    <th>GRAND TOTAL (BDT)</th>
-                    <td><strong>{{ $totalPrice }}</strong></td>
+                    <th style="border-right: none">GRAND TOTAL (BDT)</th>
+                    <th style="border-left: none; border-right: none;">=</th>
+                    <td style="border-left: none;"><strong>{{ $totalPrice }}</strong></td>
                 </tr>
             </table>
 
@@ -228,17 +241,55 @@
                 @endphp
             </p>
 
-            <p><strong>Payment Term:</strong> Upon finalizing the matter 100% advance payments required with purchase
-                order.<br>
-                <strong>Price Validity:</strong> 15 Days Only<br>
-                <strong>Warranty:</strong> 12 Months Standard Warranty for all products from the date of delivery for
-                manufacturing fault only.<br>
-                <strong>Suspension of Installation:</strong> Applicable<br>
-                <strong>Supervision Works:</strong> Included<br>
-                <strong>VAT:</strong> Included<br>
-                <strong>TAX:</strong> Included<br>
-                <strong>TAXAIT:</strong> Included<br><br>
+            <table class="term-conditions">
+                <tr>
+                    <td style="background: #e7e7e7; width: 20%"><strong>Payment Term</strong></td>
+                    <td>Upon finalizing the matter 100% advance payments required with purchase
+                        order.</td>
+                </tr>
+                <tr>
+                    <td style="background: #e7e7e7;"><strong>Price Validity</strong></td>
+                    <td>15 Days Only</td>
+                </tr>
+                <tr>
+                    <td style=""><strong>Warranty</strong></td>
+                    <td>One Year Limited Warranty for All Products from the date of delivery for Manufacturing Fault
+                        Only. Warranty is not applicable if
+                        damage and shortcomings derived from unusual external factors such as a Short Circuit, lightning
+                        strike or from Natural
+                        disasters, misuse, incorrect use or abnormal use.</td>
+                </tr>
+                <tr>
+                    <td style="background: #e7e7e7;"><strong>Suspension of Installation</strong></td>
+                    <td>Not Applicable</td>
+                </tr>
+                <tr>
+                    <td style="background: #e7e7e7;"><strong>Commissioning </strong></td>
+                    <td>Not Applicable</td>
+                </tr>
+                <tr>
+                    <td style="background: #e7e7e7;"><strong>Mechanical Works</strong></td>
+                    <td>Not Applicable</td>
+                </tr>
+                <tr>
+                    <td style="background: #e7e7e7;"><strong>Cable Laying </strong></td>
+                    <td>Not Applicable</td>
+                </tr>
+                <tr>
+                    <td style="background: #e7e7e7;"><strong>VAT</strong></td>
+                    <td>Included</td>
+                </tr>
+                <tr>
+                    <td style="background: #e7e7e7;"><strong>TAX</strong></td>
+                    <td>Included</td>
+                </tr>
+                <tr>
+                    <td style="background: #e7e7e7;"><strong>Transport </strong></td>
+                    <td>Included</td>
+                </tr>
+            </table>
 
+            <p><br>
                 We have selected the instrument according to the specifications given, however we kindly ask you to
                 thoroughly check the technical data as per your application. Installation service will be provided after
                 full payment.<br><br>
@@ -246,10 +297,9 @@
             </p>
 
             <div class="signature">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Signature_example.svg/200px-Signature_example.svg.png"
-                    width="100" alt="signature"><br>
-                <strong>Engr. Md. Mohsin Sohel – Managing Director</strong><br>
-                TecTesla Technologies Limited.
+                <img src="{{ asset('signature.png') }}" width="100" alt="signature"><br><br>
+                Engr. Md. Mohsin Sohel – Managing Director<br>
+                <strong>TecTesla Technologies Limited.</strong>
             </div>
         </div>
 
@@ -257,9 +307,11 @@
             www.tecteslabd.com
         </div>
         <div class="office">
-            Chattogram Office (Registered): Standard City Plaza (6th Floor), 533/536 Sheikh Mujib Road, Double Mooring,
-            Chattogram-4100, Bangladesh.<br>
-            Dhaka Office: House No:2/A (1st Floor), Road No:12, Nikunja-2, Khilkhet, Dhaka-1229, Bangladesh.<br>
+            <h3>Chattogram Office (Registered):</h3>
+            Standard City Plaza (6th Floor), 533/536 Sheikh Mujib Road, Double Mooring,
+            Chattogram-4100, Bangladesh.<br><br>
+            <h3>Dhaka Office:</h3>
+            House No:2/A (1st Floor), Road No:12, Nikunja-2, Khilkhet, Dhaka-1229, Bangladesh.<br>
             +8801970-003031, +8801969-003031, Email: info@tecteslabd.com
         </div>
     </div>
