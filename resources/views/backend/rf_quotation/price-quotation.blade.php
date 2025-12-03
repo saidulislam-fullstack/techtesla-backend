@@ -162,7 +162,7 @@
         <div class="quotation-box">
             <div style="border-top: 1px solid black; font-size: 14px;"><strong>Price Quotation for Electrical
                     Spare</strong></div>
-            <table>
+            <table style="border-top: 1px solid black; margin-top: 1px;">
                 <tr>
                     <td colspan="4" style="vertical-align: top; border-left: none; width: 50%;">
                         <h2>BSRM Group of Companies</h2>
