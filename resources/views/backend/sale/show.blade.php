@@ -255,13 +255,15 @@
                     <td>
                         {{ $product_data->name }}<br>
                         Model: {{ $product_data->model }}<br>
-                        {{ $product_data->description?? '' }}
+                        {!! $product_data->product_details?? '' !!}
                     </td>
                     <td>{{ $temp_unit_name }}</td>
-                    <td>{{$product_sale->qty}}</td>
-                    <td>{{ number_format((float)$product_sale->net_unit_price, $general_setting->decimal, '.', '') }}
+                    <td class="text-right">{{$product_sale->qty}}</td>
+                    <td class="text-right">{{ number_format((float)$product_sale->net_unit_price,
+                        $general_setting->decimal, '.', '') }}
                     </td>
-                    <td>{{ number_format((float)$product_sale->total, $general_setting->decimal, '.', '')}}</td>
+                    <td class="text-right">{{ number_format((float)$product_sale->total, $general_setting->decimal, '.',
+                        '')}}</td>
                 </tr>
                 @endforeach
             </table>
@@ -297,16 +299,14 @@
                 </strong>
             </p>
 
-            <div class="signature d-flex justify-content-between" style="margin-top: 50vh;">
-                <p><strong>______________________<br>Authorized Signature<br>Name: <br>Designation: <br>Mobile:
-                    </strong></p>
-                <p><strong>______________________<br>Receiver's Signature<br>Name: <br>Designation:<br>Mobile: </strong>
-                </p>
+            <div class="signature d-flex justify-content-between" style="margin-top: 20vh;">
+                <p><strong>______________________<br>Authorized Signature</strong></p>
+                <p><strong>______________________<br>Receiver's Signature</strong></p>
             </div>
 
         </div>
 
-        <div class="bottom-bar">
+        <div class="bottom-bar" style="margin-top: 10vh;">
             www.tecteslabd.com
         </div>
         <div class="office">
