@@ -2,12 +2,45 @@
 
 namespace App\Models;
 
+use App\Models\RequestedQuotation;
 use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
-    protected $fillable =[
-        "reference_no", "user_id", "cash_register_id", "table_id", "queue", "customer_id", "warehouse_id", "biller_id", "item", "total_qty", "total_discount", "total_tax", "total_price", "order_tax_rate", "order_tax", "order_discount_type", "order_discount_value", "order_discount", "coupon_id", "coupon_discount", "shipping_cost", "grand_total", "currency_id", "exchange_rate", "sale_status", "payment_status", "paid_amount", "document", "sale_note", "staff_note", "created_at", "woocommerce_order_id", 'requested_quotation_id'
+    protected $fillable = [
+        "reference_no",
+        "user_id",
+        "cash_register_id",
+        "table_id",
+        "queue",
+        "customer_id",
+        "warehouse_id",
+        "biller_id",
+        "item",
+        "total_qty",
+        "total_discount",
+        "total_tax",
+        "total_price",
+        "order_tax_rate",
+        "order_tax",
+        "order_discount_type",
+        "order_discount_value",
+        "order_discount",
+        "coupon_id",
+        "coupon_discount",
+        "shipping_cost",
+        "grand_total",
+        "currency_id",
+        "exchange_rate",
+        "sale_status",
+        "payment_status",
+        "paid_amount",
+        "document",
+        "sale_note",
+        "staff_note",
+        "created_at",
+        "woocommerce_order_id",
+        'requested_quotation_id'
     ];
 
     public function biller()
@@ -38,5 +71,10 @@ class Sale extends Model
     public function currency()
     {
         return $this->belongsTo('App\Models\Currency');
+    }
+
+    public function rfq()
+    {
+        return $this->belongsTo(RequestedQuotation::class, 'requested_quotation_id');
     }
 }

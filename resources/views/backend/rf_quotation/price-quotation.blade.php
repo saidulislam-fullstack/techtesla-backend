@@ -153,7 +153,7 @@
             <h1>QUOTATION</h1>
         </div>
         <p class="sub-header">We are pleased to submit a quotation for the following commodities described on the term &
-            conditions specified here under::
+            conditions specified here under:
         </p>
         <div class="delivery-date">
             <strong>Quotation Date:</strong> {{ \Carbon\Carbon::parse($item->date)->format('m/d/Y') }}
