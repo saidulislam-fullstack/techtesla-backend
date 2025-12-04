@@ -123,7 +123,7 @@ class GenerateSaleOrderController extends Controller
                 $product_sale['discount'] = 0;
                 $product_sale['tax_rate'] = 0;
                 $product_sale['tax'] = 0;
-                $product_sale['total'] = $total[$i];
+                $product_sale['total'] = $qty[$i] * $net_unit_price[$i];
                 Product_Sale::create($product_sale);
             }
 

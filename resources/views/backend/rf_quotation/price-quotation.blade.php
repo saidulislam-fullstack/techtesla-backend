@@ -202,10 +202,10 @@
                         $value->id))->first()->delivery_days ?? '-' }} Days<br>
                     </td>
                     <td>Pcs</td>
-                    <td>{{ $value->quantity }}</td>
-                    <td>{{ optional(collect($item->priceCollection)->where('rfq_item_id',
+                    <td class="text-right">{{ $value->quantity }}</td>
+                    <td class="text-right">{{ optional(collect($item->priceCollection)->where('rfq_item_id',
                         $value->id))->first()?->total_cost ?? '--' }}</td>
-                    <td>{{ (optional(collect($item->priceCollection)->where('rfq_item_id',
+                    <td class="text-right">{{ (optional(collect($item->priceCollection)->where('rfq_item_id',
                         $value->id))->first()?->total_cost * $value->quantity) ?? '--' }}</td>
                 </tr>
                 @php
