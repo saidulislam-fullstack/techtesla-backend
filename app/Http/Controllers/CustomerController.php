@@ -232,8 +232,8 @@ class CustomerController extends Controller
                 'email' => $person['email'],
                 'phone' => $person['phone'],
                 'designation' => $person['designation'],
-                'visiting_card_front' => $person['visiting_card_front'] ? $person['visiting_card_front']->store('visiting-cards', 'public') : null,
-                'visiting_card_back' => $person['visiting_card_back'] ? $person['visiting_card_back']->store('visiting-cards', 'public') : null,
+                'visiting_card_front' => isset($person['visiting_card_front']) && $person['visiting_card_front'] ? $person['visiting_card_front']->store('visiting-cards', 'public') : null,
+                'visiting_card_back' => isset($person['visiting_card_back']) && $person['visiting_card_back'] ? $person['visiting_card_back']->store('visiting-cards', 'public') : null,
             ]);
         }
 
