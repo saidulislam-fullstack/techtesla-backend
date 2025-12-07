@@ -130,17 +130,15 @@
                     <div
                         style="border-bottom: 1px solid black; margin: 5px 0; width: 100%; border-right: 1px dashed black;">
                         <span class="">Invoice To</span><br>
-                        <span class="bold">TecTesla Techologies Ltd</span><br>
-
-                        60/2, Garfa Main Road, Jadavpur, Kolkata-700075, West Bengal, India <br>
-                        IEC No: 0211025674 / TAN No: CALD09401A GSTIN/UIN: 19AAIFD2879A1ZF <br>
-                        State Name : West Bengal, Code : 19 <br>
-                        E-Mail : accounts@dellstaroverseas.com <br>
+                        <span class="bold">{{ $general_setting->company_name }}</span><br>
+                        {{$default_warehouse->address}} <br>
+                        Phone : {{$default_warehouse->phone}} <br>
+                        E-Mail : {{$default_warehouse->email}} <br>
                     </div>
                     <div
                         style="border-bottom: 1px solid black; margin: 5px 0; width: 100%; border-right: 1px dashed black;">
                         <div style="border-bottom: 1px dashed black;">Consignee (Ship to)</div>
-                        <span class="bold">TecTesla Techologies Ltd (Courier Address)</span><br>
+                        <span class="bold">{{ $general_setting->company_name }} (Courier Address)</span><br>
                         {{ $purchase->warehouse?->name ?? 'N/A' }}<br>
                         {{ $purchase->warehouse?->address ?? 'N/A' }}<br>
                         Mobile: {{ $purchase->warehouse?->phone ?? 'N/A' }}<br>
@@ -161,8 +159,9 @@
                         <tr>
                             <td style="border: 1px solid black; padding: 5px;">
                                 <span class="">Voucher No.</span><br>
-                                <span class="bold" style="color: #00569a">BIPL/TTL/LS/{{$purchase->id}}/{{
-                                    \Carbon\Carbon::parse($purchase->created_at)->format('d-m') }}</span>
+                                {{-- <span class="bold" style="color: #00569a">BIPL/TTL/LS/{{$purchase->id}}/{{
+                                    \Carbon\Carbon::parse($purchase->created_at)->format('d-m') }}</span> --}}
+                                <span class="bold" style="color: #00569a">{{ $purchase->reference_no }}</span>
                             </td>
                             <td style="border: 1px solid black; padding: 5px;">
                                 <span class="">Dated</span><br>
@@ -194,7 +193,7 @@
                                     <span class="">Despatch Information</span><br>
                                     <span class="bold">{{ $purchase->dispatched_through ?? '--' }}</span><br>
                                     <span class="bold">Price Basis: {{ $purchase->price_basis ?? '--' }}</span><br>
-                                    <span class="bold">P&F: {{ $purchase->p_and_f ?? '--' }}l</span><br>
+                                    <span class="bold">P&F: {{ $purchase->p_and_f ?? '--' }}</span><br>
                                     <span class="bold">Freight: {{ $purchase->freight_or_insurance ?? '--' }}</span><br>
                                     <span class="bold">IGST: Extra @ 18%</span><br>
                                     <span class="bold">Documentation: Factory Test / Calibration / Warranty

@@ -44,7 +44,7 @@
                                                     data-live-search="true" title="Select supplier...">
                                                     @foreach ($lims_supplier_list as $supplier)
                                                         <option value="{{ $supplier->id }}">
-                                                            {{ $supplier->name . ' (' . $supplier->company_name . ')' }}
+                                                            {{ $supplier->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -490,12 +490,12 @@
         var lims_product_code = [
             @foreach ($lims_product_list_without_variant as $product)
                 @php
-                    $productArray[] = htmlspecialchars($product->model) . '|' . preg_replace('/[\n\r]/', '<br>', htmlspecialchars($product->name));
+                    $productArray[] = htmlspecialchars($product->code) . ' | ' . preg_replace('/[\n\r]/', '<br>', htmlspecialchars($product->name));
                 @endphp
             @endforeach
             @foreach ($lims_product_list_with_variant as $product)
                 @php
-                    $productArray[] = htmlspecialchars($product->item_code) . '|' . preg_replace('/[\n\r]/', '<br>', htmlspecialchars($product->name));
+                    $productArray[] = htmlspecialchars($product->item_code) . ' | ' . preg_replace('/[\n\r]/', '<br>', htmlspecialchars($product->name));
                 @endphp
             @endforeach
 

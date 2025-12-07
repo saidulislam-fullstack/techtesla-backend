@@ -359,7 +359,7 @@ class PurchaseController extends Controller
         $product_code = explode("|", $request['data']);
         $product_code[0] = rtrim($product_code[0], " ");
         $lims_product_data = Product::where([
-            ['model', $product_code[0]],
+            ['code', $product_code[0]],
             ['is_active', true]
         ])
             ->whereNull('is_variant')
@@ -386,7 +386,7 @@ class PurchaseController extends Controller
         //     $product[] = $lims_product_data->item_code;
         // else
         //     $product[] = $lims_product_data->code;
-        $product[] = $lims_product_data->model;
+        $product[] = $lims_product_data->code;
         $product[] = $lims_product_data->cost;
 
         if ($lims_product_data->tax_id) {
@@ -677,15 +677,15 @@ class PurchaseController extends Controller
             $lims_product_list_without_variant = $this->productWithoutVariant();
             $lims_product_list_with_variant = $this->productWithVariant();
             $purchase = Purchase::with('warehouse', 'supplier')->find($id);
+            $general_setting = GeneralSetting::latest()->first();
+            $default_warehouse = Warehouse::find(1);
             $lims_product_purchase_data = ProductPurchase::where('purchase_id', $id)->get();
             if ($purchase->exchange_rate)
                 $currency_exchange_rate = $purchase->exchange_rate;
             else
                 $currency_exchange_rate = 1;
             $custom_fields = CustomField::where('belongs_to', 'purchase')->get();
-
-            // dd($lims_warehouse_list, $lims_supplier_list, $lims_product_list_without_variant, $lims_product_list_with_variant, $lims_tax_list, $purchase_data, $lims_product_purchase_data, $currency_exchange_rate, $custom_fields);
-            return view('backend.purchase.purchase_order_pdf', compact('lims_warehouse_list', 'lims_supplier_list', 'lims_product_list_without_variant', 'lims_product_list_with_variant', 'lims_tax_list', 'purchase', 'lims_product_purchase_data', 'currency_exchange_rate', 'custom_fields'));
+            return view('backend.purchase.purchase_order_pdf', compact('lims_warehouse_list', 'lims_supplier_list', 'lims_product_list_without_variant', 'lims_product_list_with_variant', 'lims_tax_list', 'purchase', 'lims_product_purchase_data', 'currency_exchange_rate', 'custom_fields', 'general_setting', 'default_warehouse'));
         } else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
     }

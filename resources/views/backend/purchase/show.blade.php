@@ -11,7 +11,7 @@
         <div style="width: 50%;">
             <p style="margin-bottom: 5px;">
                 <strong>Purchase Date:</strong> {{ \Carbon\Carbon::parse($purchase->created_at)->format('m/d/Y') }} <br>
-                <strong>Purchase Code:</strong> {{ $purchase->reference_no }} <br>
+                <strong>Reference / Voucher No:</strong> {{ $purchase->reference_no }} <br>
                 <strong>Warehouse: </strong> {{ $purchase->warehouse?->name }} <br>
                 <strong>Note:</strong> {{ $purchase->note ?? 'N/A' }} <br>
             </p>
@@ -21,7 +21,7 @@
                 <strong>Status:</strong> {{ $purchase->status == 1 ? 'Received' : ($purchase->status == 2
                 ? 'Partial' : ($purchase->status == 4
                 ? 'Ordered' : 'Pending')) }} </br>
-                <strong>Supplier:</strong> {{ $item->supplier?->name ?? 'N/A' }}</br>
+                <strong>Supplier:</strong> {{ $purchase->supplier?->name ?? 'N/A' }}</br>
                 <strong>Payment Status:</strong> {{ $purchase->payment_status == 1 ? 'Due' : 'Paid' }}</br>
                 <strong>RFQ Order:</strong> {{ $purchase->rfq_id ? 'Yes' : 'No' }}</br>
             </p>
@@ -35,7 +35,7 @@
             <tr style="background-color: #d3d3d3;">
                 <th style="border: 1px solid #000; padding: 10px 5px;">SL</th>
                 <th style="border: 1px solid #000; padding: 10px 5px;">{{trans('file.name')}}</th>
-                <th style="border: 1px solid #000; padding: 10px 5px;">{{trans('file.Code')}}</th>
+                <th style="border: 1px solid #000; padding: 10px 5px;">{{trans('file.Model')}}</th>
                 <th style="border: 1px solid #000; padding: 10px 5px;">{{trans('file.Quantity')}}</th>
                 <th style="border: 1px solid #000; padding: 10px 5px;">{{trans('file.Net Unit Cost')}}</th>
                 <th style="border: 1px solid #000; padding: 10px 5px;">{{trans('file.Discount')}}</th>
@@ -105,22 +105,40 @@
             </tr>
             @endforeach
             <tr>
-                <td colspan="3" style="border: 1px solid #000; padding: 5px;"><strong>Total:</strong>
+                <td colspan="3" style="border: 1px solid #000; padding: 5px;">Total Item Cost:
                 </td>
                 <td style="border: 1px solid #000; padding: 5px; text-align: right;">
-                    <strong>{{$purchase->total_qty}}</strong>
+                    {{$purchase->total_qty}}
                 </td>
-                <td></td>
+                <td style="border: 1px solid #000; padding: 5px; text-align: right;"></td>
                 <td style="border: 1px solid #000; padding: 5px; text-align: right;">
-                    <strong>{{ number_format((float)$purchase->total_discount, $general_setting->decimal, '.',
-                        '')}}</strong>
-                </td>
-                <td style="border: 1px solid #000; padding: 5px; text-align: right;">
-                    <strong>{{ number_format((float)$purchase->total_tax, $general_setting->decimal, '.',
-                        '')}}</strong>
+                    {{ number_format((float)$purchase->total_discount, $general_setting->decimal, '.',
+                    '')}}
                 </td>
                 <td style="border: 1px solid #000; padding: 5px; text-align: right;">
-                    <strong>{{ number_format((float)$purchase->total_cost, $general_setting->decimal, '.',
+                    {{ number_format((float)$purchase->total_tax, $general_setting->decimal, '.',
+                    '')}}
+                </td>
+                <td style="border: 1px solid #000; padding: 5px; text-align: right;">
+                    {{ number_format((float)$purchase->total_cost, $general_setting->decimal, '.',
+                    '')}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="7" class="text-right pr-2">Total Discount</td>
+                <td style="border: 1px solid #000; padding: 5px; text-align: right;">
+                    {{ number_format((float)$purchase->total_discount, $general_setting->decimal, '.', '')}}</td>
+            </tr>
+
+            <tr>
+                <td colspan="7" class="text-right pr-2">Shipping Cost</td>
+                <td style="border: 1px solid #000; padding: 5px; text-align: right;">
+                    {{ number_format((float)$purchase->shipping_cost, $general_setting->decimal, '.', '')}}</td>
+            </tr>
+            <tr>
+                <td colspan="7" class="text-right pr-2"><strong>Grand Total</strong></td>
+                <td style="border: 1px solid #000; padding: 5px; text-align: right;">
+                    <strong>{{ number_format((float)$purchase->grand_total, $general_setting->decimal, '.',
                         '')}}</strong>
                 </td>
             </tr>

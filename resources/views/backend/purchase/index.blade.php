@@ -759,7 +759,7 @@
                 }
             },
             order: [
-                ['1', 'desc']
+                ['1', 'asc']
             ],
             'columnDefs': [{
                     "orderable": false,
