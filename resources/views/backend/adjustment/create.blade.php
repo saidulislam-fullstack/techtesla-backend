@@ -36,7 +36,7 @@
                                         <label>{{trans('file.Select Product')}}</label>
                                         <div class="search-box input-group">
                                             <button type="button" class="btn btn-secondary btn-lg"><i class="fa fa-barcode"></i></button>
-                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="form-control" />
+                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product model and select..." class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>{{trans('file.name')}}</th>
-                                                        <th>{{trans('file.Code')}}</th>
+                                                        <th>{{trans('file.Model')}}</th>
                                                         <th>{{trans('file.Quantity')}}</th>
                                                         <th>{{trans('file.action')}}</th>
                                                         <th><i class="dripicons-trash"></i></th>
