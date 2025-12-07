@@ -56,7 +56,7 @@
 
                                                       $points[$customer->id] = $customer->points;
                                                     @endphp
-                                                    <option value="{{$customer->id}}">{{$customer->name . ' (' . $customer->phone_number . ')'}}</option>
+                                                    <option value="{{$customer->id}}">{{$customer->name . ' (' . ($customer->contactPersons->first()?->phone ?? '[Add Phone No]') . ')'}}</option>
                                                 @endforeach
                                                 </select>
                                                 <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#addCustomer"><i class="dripicons-plus"></i></button>
@@ -68,7 +68,7 @@
 
                                                       $points[$customer->id] = $customer->points;
                                                     @endphp
-                                                    <option value="{{$customer->id}}">{{$customer->name . ' (' . $customer->phone_number . ')'}}</option>
+                                                    <option value="{{$customer->id}}">{{$customer->name . ' (' . ($customer->contactPersons->first()?->phone ?? '[Add Phone No]') . ')'}}</option>
                                                 @endforeach
                                                 </select>
                                                 @endif
@@ -122,7 +122,7 @@
                                         <label>{{trans('file.Select Product')}}</label>
                                         <div class="search-box input-group">
                                             <button type="button" class="btn btn-secondary btn-lg"><i class="fa fa-barcode"></i></button>
-                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="form-control" />
+                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product model and select..." class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -134,7 +134,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>{{trans('file.name')}}</th>
-                                                        <th>{{trans('file.Code')}}</th>
+                                                        <th>{{trans('file.Model')}}</th>
                                                         <th>{{trans('file.Quantity')}}</th>
                                                         <th>{{trans('file.Batch No')}}</th>
                                                         <th>{{trans('file.Expired Date')}}</th>

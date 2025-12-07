@@ -79,7 +79,6 @@
     .items-table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 10px;
         font-size: 14px;
     }
 
@@ -134,32 +133,30 @@
         <div class="delivery-date">
             <strong>Delivery Date:</strong> {{ now()->format('d.m.Y') }}
         </div>
-        <div class="details-section">
-            <div class="delivery-to">
-                <p><strong>Delivery To:</strong></p>
-                <p><strong>{{ $sale->customer?->name ?? 'N/A' }}</strong></p>
-                <p>{{ $sale->customer?->address ?? 'N/A' }}</p>
-            </div>
-            <div class="delivery-info">
-                <table class="info-table">
-                    <tr>
-                        <td colspan="2"><strong>Delivery Information:</strong></td>
-                    </tr>
-                    <tr>
-                        <td>Delivery Challan No</td>
-                        <td>: {{ 'DCN' . str_pad($sale?->id, 6, '0', STR_PAD_LEFT) }}</td>
-                    </tr>
-                    <tr>
-                        <td>Reference PO No</td>
-                        <td>: {{ $sale?->reference_no ?? 'N/A' }}</td>
-                    </tr>
-                    <tr>
-                        <td>PO Date</td>
-                        <td>: {{ $sale?->created_at?->format('d/m/Y') ?? '-' }}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+        <table style="border-top: 1px solid black; margin-top: 1px; width: 100%;">
+            <tr>
+                <td colspan="4" style="border: 1px solid black; padding-left: 5px;"><strong>Delivery To:</strong></td>
+                <td colspan="2" style="border: 1px solid black; padding-left: 5px;"><strong>Delivery
+                        Information:</strong></td>
+            </tr>
+            <tr>
+                <td colspan="4"
+                    style="vertical-align: top; border-left: none; width: 50%; border-right: 1px solid black; padding-left: 5px;">
+                    <span style="font-size: 24px;"><strong>{{ $sale->customer?->name ?? 'N/A' }}</strong></span><br>
+                    {{ $sale->customer?->address ?? 'N/A' }}. <br>
+                    <strong>Phone:</strong> {{ $sale->customer?->contactPersons->first()?->phone ?? 'N/A' }}
+                </td>
+                <td colspan="2" style="border-right: none; padding-left: 5px;">
+                    <strong>Reference / Invoice No:</strong> {{ $sale->reference_no }}<br>
+                    <strong>Ref. PO No:</strong> {{ $sale->rfq?->purchases->first()?->reference_no ?? 'N/A' }}<br>
+                    <strong>PO Date:</strong> {{ $sale->rfq?->purchases->first() ?
+                    \Carbon\Carbon::parse($sale->rfq?->purchases->first()?->created_at
+                    )->format('m/d/Y') : 'N/A' }}<br>
+                    <strong>BIN No:</strong> {{ $sale->customer?->bin_number ?? '--' }}<br>
+                    <strong>TIN No:</strong> {{ $sale->customer?->tax_no ?? '--' }}<br>
+                </td>
+            </tr>
+        </table>
         <table class="items-table">
             <thead>
                 <tr>
@@ -229,7 +226,7 @@
                 <tr>
                     <td>{{$index + 1}}</td>
                     <td class="item-description"><strong>{{ $product_data->name ?? 'N/A' }}</strong>
-                        <br><strong>Model:</strong> {{ $product_data->model ?? 'N/A' }}
+                        <br><strong>Model:</strong> {{ $product_data->code ?? 'N/A' }}
                         <br>{!! $product_data->product_details !!}
                     </td>
                     <td>PCS.</td>

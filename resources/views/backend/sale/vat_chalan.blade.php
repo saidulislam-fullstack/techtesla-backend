@@ -188,8 +188,8 @@
 @endpush
 
 @section('content')
-<x-invoice-print title="Purchase #{{ $sale->reference_no }}" filename="vat_chalan_{{ $sale->reference_no }}" :header="false"
-    :footer="false">
+<x-invoice-print title="Purchase #{{ $sale->reference_no }}" filename="vat_chalan_{{ $sale->reference_no }}"
+    :header="false" :footer="false">
     <div class="container">
         <div class="header">
             <div class=""><img style="max-width: 50px;" src="{{asset('goprb.png')}}" alt=""></div>
@@ -200,19 +200,19 @@
                 <p class="bengali">[বিধি ৪০ এর উপ-বিধি (১) এর দফা (গ) ও দফা (চ) দ্রষ্টব্য]</p>
             </div>
             <div class="copy-info">
-                <p class="bengali">প্রথম অপি/দ্বিতীয় কপি</p>
+                <p class="bengali">প্রথম কপি/দ্বিতীয় কপি</p>
                 <p class="bengali">মুশক-৬.৩</p>
             </div>
         </div>
 
         <div class="info-section">
             <div class="info-box">
-                <p><span class="bengali">নিবন্ধিত ব্যক্তির নাম:</span> <span class="english">TecTesla Techologies
-                        Ltd</span></p>
+                <p><span class="bengali">নিবন্ধিত ব্যক্তির নাম:</span> <span
+                        class="english">{{$general_settings->company_name??'--'}}</span></p>
                 <p><span class="bengali">নিবন্ধিত ব্যক্তির বিআইএন:</span> <span class="english">001090653-0103</span>
                 </p>
-                <p><span class="bengali">প্রাঙ্গণের ঠিকানার ঠিকানা:</span> <span class="english">{{
-                        $sale->warehouse?->name }}.</span></p>
+                <p><span class="bengali">চালানপত্র ইস্যুর ঠিকানা:</span> <span class="english">{{
+                        $sale->warehouse?->address }}.</span></p>
             </div>
         </div>
 
@@ -231,8 +231,8 @@
                         }}</span></p>
             </div>
             <div class="info-box" style="width: 35%;">
-                <p><span class="bengali">চালানপত্র নম্বর:</span> <span class="english">CHL-{{ now()->format('y') - 1
-                        }}-{{ now()->format('y') }}-{{ str_pad($sale->id, 7, '0', STR_PAD_LEFT) }}</span></p>
+                <p><span class="bengali">চালানপত্র নম্বর:</span> <span class="english">{{$sale->reference_no}}</span>
+                </p>
                 <p><span class="bengali">ইস্যুর তারিখ:</span> <span class="english">{{
                         $sale->created_at->format('d/m/Y') }}</span></p>
                 <p><span class="bengali">ইস্যুর সময়:</span> <span class="english">{{ $sale->created_at->format('h:i:s
@@ -249,7 +249,8 @@
                 <tr>
                     <th class="bengali">ক্রমিক নং</th>
                     <th class="bengali" style="width: 25%;">পণ্য/সেবার বর্ণনা<br>(প্রযোজ্যক্ষেত্রে ব্র্যান্ড নামসহ)</th>
-                    <th class="bengali">সরবরাহের পরিমাণ<br>একক</th>
+                    <th class="bengali">সরবরাহের একক</th>
+                    <th class="bengali">পরিমাণ</th>
                     <th class="bengali">একক মূল্য<br>( টাকায়)</th>
                     <th class="bengali">মোট মূল্য<br>(টাকায়)</th>
                     <th class="bengali">সম্পূরক<br>শুল্কের<br>হার</th>
@@ -308,7 +309,7 @@
                         $unit_operator[] = 'n/a'. ',';
                         $unit_operation_value[] = 'n/a'. ',';
                     }
-                    $temp_unit_name = $unit_name = implode(",",$unit_name) . ',';
+                    $temp_unit_name = $unit_name = implode(",",$unit_name);
 
                     $temp_unit_operator = $unit_operator = implode(",",$unit_operator) .',';
 
@@ -322,6 +323,7 @@
                     <td>1</td>
                     <td class="text-left english">{{$product_data->name}}</td>
                     <td class="english">{{ $temp_unit_name }}</td>
+                    <td class="text-right english">{{ $product_sale->qty }}</td>
                     <td class="text-right english">{{
                         number_format((float)$product_sale->net_unit_price, $general_setting->decimal, '.', '')}}</td>
                     <td class="text-right english">{{
@@ -337,6 +339,19 @@
                         number_format((float)$product_sale->total, $general_setting->decimal, '.', '')}}</td>
                 </tr>
                 @endforeach
+                <tr>
+                    <td colspan="3">সর্বমোট</td>
+                    <td class="text-right">{{ $sale->total_qty }}</td>
+                    <td></td>
+                    <td class="text-right">{{ number_format((float)$sale->total_price, $general_setting->decimal, '.',
+                        '') }}</td>
+                    <td></td>
+                    <td class="text-right">0</td>
+                    <td></td>
+                    <td class="text-right">0</td>
+                    <td class="text-right">{{ number_format((float)$sale->total_price, $general_setting->decimal, '.',
+                        '') }}</td>
+                </tr>
             </tbody>
         </table>
 

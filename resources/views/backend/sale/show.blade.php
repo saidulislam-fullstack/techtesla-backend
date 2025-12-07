@@ -156,7 +156,7 @@
             reference purchase order:
         </p>
         <div class="delivery-date">
-            <strong>Purchase Date:</strong> {{ \Carbon\Carbon::parse($sale->created_at)->format('m/d/Y') }}
+            <strong>Purchase Date:</strong> {{ \Carbon\Carbon::parse($sale->created_at)->format('d/m/Y') }}
         </div>
 
         <div class="quotation-box">
@@ -171,14 +171,15 @@
                 </tr>
                 <tr>
                     <td colspan="4" style="vertical-align: top; border-left: none; width: 50%;">
-                        <h2>{{ $sale->customer?->name ?? 'N/A' }}</h2>
-                        {{ $sale->customer?->address ?? 'N/A' }}.
+                        <span style="font-size: 24px;"><strong>{{ $sale->customer?->name ?? 'N/A' }}</strong></span><br>
+                        {{ $sale->customer?->address ?? 'N/A' }}. <br>
+                        <strong>Phone:</strong> {{ $sale->customer?->contactPersons->first()?->phone ?? 'N/A' }}
                     </td>
                     <td colspan="2" style="border-right: none;">
-                        <strong>Invoice No:</strong> {{ $sale->reference_no }}<br>
+                        <strong>Reference / Invoice No:</strong> {{ $sale->reference_no }}<br>
                         <strong>Ref. PO No:</strong> {{ $sale->rfq?->purchases->first()?->reference_no ?? 'N/A' }}<br>
-                        <strong>PO Date:</strong> {{ \Carbon\Carbon::parse($sale->rfq?->purchases->first()?->created_at
-                        )->format('m/d/Y') }}<br>
+                        <strong>PO Date:</strong> {{ $sale->rfq?->purchases->first() ? \Carbon\Carbon::parse($sale->rfq?->purchases->first()?->created_at
+                        )->format('m/d/Y') : 'N/A' }}<br>
                         <strong>BIN No:</strong> {{ $sale->customer?->bin_number ?? '--' }}<br>
                         <strong>TIN No:</strong> {{ $sale->customer?->tax_no ?? '--' }}<br>
                     </td>
@@ -254,7 +255,7 @@
                     <td>{{ $index + 1 }}</td>
                     <td>
                         {{ $product_data->name }}<br>
-                        Model: {{ $product_data->model }}<br>
+                        Model: {{ $product_data->code }}<br>
                         {!! $product_data->product_details?? '' !!}
                     </td>
                     <td>{{ $temp_unit_name }}</td>
@@ -282,9 +283,15 @@
                         '.', '')}}</td>
                 </tr>
                 <tr>
+                    <th style="border-right: none">SHIPPING COST (BDT)</th>
+                    <th style="border-left: none; border-right: none;">=</th>
+                    <td style="border-left: none;">{{ number_format((float)$sale->shipping_cost, $general_setting->decimal,
+                        '.', '')}}</td>
+                </tr>
+                <tr>
                     <th style="border-right: none">GRAND TOTAL (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>
-                    <td style="border-left: none;"><strong>{{ number_format((float)$sale->total_price,
+                    <td style="border-left: none;"><strong>{{ number_format((float)$sale->grand_total,
                             $general_setting->decimal, '.', '') }}</strong></td>
                 </tr>
             </table>
@@ -294,7 +301,7 @@
                     In Words:
                     @php
                     $f = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
-                    echo ucfirst($f->format($sale->total_price));
+                    echo ucfirst($f->format($sale->grand_total));
                     @endphp
                 </strong>
             </p>

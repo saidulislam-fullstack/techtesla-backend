@@ -34,7 +34,7 @@
                                             <input type="hidden" name="customer_id_hidden" value="{{ $lims_sale_data->customer_id }}" />
                                             <select required name="customer_id" class="selectpicker form-control" data-live-search="true" id="customer_id" title="Select customer...">
                                                 @foreach($lims_customer_list as $customer)
-                                                <option value="{{$customer->id}}">{{$customer->name . ' (' . $customer->phone_number . ')'}}</option>
+                                                <option value="{{$customer->id}}">{{$customer->name . ' (' . ($customer->contactPersons->first()?->phone ?? '[Add Phone No]') . ')'}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -67,7 +67,7 @@
                                         <label>{{trans('file.Select Product')}}</label>
                                         <div class="search-box input-group">
                                             <button type="button" class="btn btn-secondary btn-lg"><i class="fa fa-barcode"></i></button>
-                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product code and select..." class="form-control" />
+                                            <input type="text" name="product_code_name" id="lims_productcodeSearch" placeholder="Please type product model and select..." class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>{{trans('file.name')}}</th>
-                                                        <th>{{trans('file.Code')}}</th>
+                                                        <th>{{trans('file.Model')}}</th>
                                                         <th>{{trans('file.Quantity')}}</th>
                                                         <th>{{trans('file.Batch No')}}</th>
                                                         <th>{{trans('file.Expired Date')}}</th>
