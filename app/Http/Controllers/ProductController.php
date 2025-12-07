@@ -319,8 +319,13 @@ class ProductController extends Controller
                 //     return $query->where('is_active', 1);
                 // }),
             ]
+        ], [
+            'code.unique' => 'This product model already exists. Please enter a different model.',
         ]);
+
         $data = $request->except('image', 'file');
+
+        $data['model'] = $data['code']; //setting model same as code
 
         if (isset($data['is_variant'])) {
             $data['variant_option'] = json_encode($data['variant_option']);
@@ -981,11 +986,14 @@ class ProductController extends Controller
                         return $query->where('is_active', 1);
                     }),
                 ]
+            ], [
+                'name.unique' => 'The product model has already been taken.'
             ]);
 
             $lims_product_data = Product::findOrFail($request->input('id'));
             $data = $request->except('image', 'file', 'prev_img');
             $data['name'] = htmlspecialchars(trim($data['name']));
+            $data['model'] = $data['code']; //make model same as code
 
             if ($data['type'] == 'combo') {
                 $data['product_list'] = implode(",", $data['product_id']);

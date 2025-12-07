@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('file.Product Code') }} *</strong> </label>
+                                            <label>{{ trans('file.Model') }} *</strong> </label>
                                             <div class="input-group">
                                                 <input type="text" name="code" id="code"
                                                     value="{{ $lims_product_data->code }}" class="form-control" required>
@@ -156,12 +156,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 d-none">
                                         <div class="form-group">
                                             <label>{{ trans('file.Model') }} *</strong> </label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="model" id="model"
-                                                    value="{{ $lims_product_data->model }}" required />
+                                                    value="{{ $lims_product_data->model }}" />
                                                 <span class="validation-msg"></span>
                                             </div>
                                         </div>

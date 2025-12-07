@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>{{ trans('file.Product Code') }} *</strong> </label>
+                                            <label>{{ trans('file.Model') }} *</strong> </label>
                                             <div class="input-group">
                                                 <input type="text" name="code" class="form-control" id="code"
                                                     aria-describedby="code" required>
@@ -112,12 +112,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 d-none">
                                         <div class="form-group">
                                             <label>{{ trans('file.Model') }} *</strong> </label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" name="model" id="model"
-                                                    required />
+                                                <input type="text" class="form-control" name="model" id="model"/>
                                                 <span class="validation-msg"></span>
                                             </div>
                                         </div>
@@ -153,7 +152,7 @@
                                         <div class="col-md-4 form-group"> --}}
                                         <label>{{ trans('file.Product Unit') }} *</strong> </label>
                                         <div class="input-group">
-                                            <select required class="form-control selectpicker" name="unit_id">
+                                            <select required class="form-control selectpicker" name="unit_id" required>
                                                 <option value="" disabled selected>Select Product Unit...
                                                 </option>
                                                 @foreach ($lims_unit_list as $unit)
