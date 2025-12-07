@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\RequestedQuotationDetail;
 use App\DataTables\RequestedQuotationDataTable;
 use App\DataTables\RequestedQuotationReportDataTable;
+use App\Models\GeneralSetting;
 
 class RequestedQuotationController extends Controller
 {
@@ -155,11 +156,13 @@ class RequestedQuotationController extends Controller
     public function priceQuotation($id)
     {
         $rf_quotation = RequestedQuotation::findOrFail($id);
+        $general_settings = GeneralSetting::first();
+        $default_warehouse = Warehouse::where('is_active', true)->first();
         $item = $rf_quotation->load(['items.product', 'customer', 'addedBy', 'priceCollection' => function ($query) {
             $query->where('is_selected', true)->with('supplier:id,name');
         }]);
 
-        return view('backend.rf_quotation.price-quotation', compact('item'));
+        return view('backend.rf_quotation.price-quotation', compact('item', 'general_settings', 'default_warehouse'));
     }
 
     public function rfqStockCheck($rfqId)

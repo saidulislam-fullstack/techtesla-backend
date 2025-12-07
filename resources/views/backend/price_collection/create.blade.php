@@ -42,7 +42,7 @@
                                         <div class="search-box input-group">
                                             <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>
                                             <input type="text" id="productSearch"
-                                                placeholder="Please type product code and select..." class="form-control" />
+                                                placeholder="Please type product model and select..." class="form-control" />
                                         </div>
                                         <ul id="productSearchResult" class="list-group mt-1"></ul>
                                     </div>
@@ -222,7 +222,7 @@
                 html += '<li class="list-group-item product-item" data-id="' + product.id +
                     '" data-name="' + product.name + '" data-rfq-item-id="' + product.rfq_item_id +
                     '" data-rfq-id="' + product.rfq_id + '">' +
-                    product.name + '|' + product.model +
+                    product.name + ' | ' + product.model +
                     '</li>';
             });
             $('#productSearchResult').html(html);

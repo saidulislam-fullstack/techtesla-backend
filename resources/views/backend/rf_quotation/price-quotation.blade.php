@@ -156,25 +156,29 @@
             conditions specified here under:
         </p>
         <div class="delivery-date">
-            <strong>Quotation Date:</strong> {{ \Carbon\Carbon::parse($item->date)->format('m/d/Y') }}
+            <strong>Quotation Date:</strong> {{ \Carbon\Carbon::parse($item->date)->format('d/m/Y') }}
         </div>
 
         <div class="quotation-box">
-            <div style="border-top: 1px solid black; font-size: 14px;"><strong>Price Quotation for Electrical
-                    Spare</strong></div>
+            <div style="border-top: 1px solid black; font-size: 14px;"><strong>Price Quotation For:</strong></div>
             <table style="border-top: 1px solid black; margin-top: 1px;">
                 <tr>
                     <td colspan="4" style="vertical-align: top; border-left: none; width: 50%;">
-                        <h2>BSRM Group of Companies</h2>
-                        Corporate Office, Ali Mansion, 1207/1099, Sadarghat Road, Chittagong, Bangladesh.
+                        <span style="font-size: 24px;"><strong>@if($item->type == 'techtesla_stock') {{
+                                $general_settings->company_name }} @else
+                                {{$item->customer?->name??'--'}} @endif</strong></span><br>
+                        @if($item->type == 'techtesla_stock') {{ $default_warehouse->address }} @else
+                        {{$item->customer?->address??'--'}} @endif.<br>
+                        @if($item->type == 'techtesla_stock') Mobile: {{ $default_warehouse->phone }} @else Mobile:
+                        {{ $item->customer?->contactPersons()->first()?->phone??'--' }} @endif<br>
                     </td>
                     <td colspan="2" style="border-right: none;">
                         <strong>Quotation No:</strong> {{ $item->rfq_no }}<br>
-                        <strong>Customer PR:</strong> N/A<br>
+                        <strong>Customer PR:</strong> {{ $item->type == 'techtesla_stock' ? 'No' : 'Yes' }}<br>
                         <strong>Prepared By:</strong> {{ $item->addedBy?->name ?? 'N/A' }}<br>
-                        <strong>Through:</strong> TTCL Chattogram<br>
-                        <strong>Mobile:</strong> +88 0197003031<br>
-                        <strong>Email:</strong> sohel@tecteslabd.com
+                        <strong>Through:</strong> {{ $default_warehouse->name }}<br>
+                        <strong>Mobile:</strong> {{ $default_warehouse->phone }}<br>
+                        <strong>Email:</strong> {{ $default_warehouse->email }}
                     </td>
                 </tr>
             </table>
@@ -197,7 +201,7 @@
                     <td>{{ $index + 1 }}</td>
                     <td>
                         {{ $value->product?->name }}<br>
-                        Model: {{ $value->product?->model }}<br>
+                        Model: {{ $value->product?->code }}<br>
                         Delivery time: {{ optional(collect($item->priceCollection)->where('rfq_item_id',
                         $value->id))->first()->delivery_days ?? '-' }} Days<br>
                     </td>
