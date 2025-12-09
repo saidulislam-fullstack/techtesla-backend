@@ -317,7 +317,7 @@
 
                     $product_batch_data = \App\Models\ProductBatch::select('batch_no', 'expired_date')->find($product_sale->product_batch_id);
 
-                    
+                    $product_vat_tax = ($product_sale->total * $sale->order_tax_rate) / 100;
                 ?>
                 <tr>
                     <td>1</td>
@@ -331,12 +331,11 @@
                         $general_setting->decimal, '.', '')}}</td>
                     <td class="text-right english">0.00</td>
                     <td class="text-right english">0.00</td>
+                    <td class="text-right english">{{ $sale->order_tax_rate ?? 0 }}%</td>
                     <td class="text-right english">{{
-                        number_format((float)$product_sale->tax, $general_setting->decimal, '.', '')}}</td>
+                        number_format((float)$product_vat_tax, $general_setting->decimal, '.', '')}}</td>
                     <td class="text-right english">{{
-                        number_format((float)$product_sale->tax, $general_setting->decimal, '.', '')}}</td>
-                    <td class="text-right english">{{
-                        number_format((float)$product_sale->total, $general_setting->decimal, '.', '')}}</td>
+                        number_format((float)$product_sale->total + $product_vat_tax, $general_setting->decimal, '.', '')}}</td>
                 </tr>
                 @endforeach
                 <tr>
@@ -347,9 +346,9 @@
                         '') }}</td>
                     <td></td>
                     <td class="text-right">0</td>
-                    <td></td>
-                    <td class="text-right">0</td>
-                    <td class="text-right">{{ number_format((float)$sale->total_price, $general_setting->decimal, '.',
+                    <td class="text-right"></td>
+                    <td class="text-right">{{ $sale->order_tax ?? 0 }}</td>
+                    <td class="text-right">{{ number_format((float)$sale->grand_total, $general_setting->decimal, '.',
                         '') }}</td>
                 </tr>
             </tbody>
@@ -358,7 +357,7 @@
         <div class="totals-section">
             @php
             $formatter = new \NumberFormatter('en', \NumberFormatter::SPELLOUT);
-            $amount = number_format((float)$sale->total_price, $general_setting->decimal, '.', '');
+            $amount = number_format((float)$sale->grand_total, $general_setting->decimal, '.', '');
             $amountInWords = $formatter->format($amount);
 
             $quantity = number_format((float)$sale->total_qty, $general_setting->decimal, '.', '');

@@ -170,6 +170,7 @@
                 @foreach($lims_product_sale_data as $index => $product_sale)
                 <?php
                     $product_data = DB::table('products')->find($product_sale->product_id);
+                    $brand = DB::table('brands')->find($product_data->brand_id);
                     if($product_sale->variant_id){
                         $product_variant_data = \App\Models\ProductVariant::select('id', 'item_code')->FindExactProduct($product_data->id, $product_sale->variant_id)->first();
                         $product_variant_id = $product_variant_data->id;
@@ -226,7 +227,9 @@
                 <tr>
                     <td>{{$index + 1}}</td>
                     <td class="item-description"><strong>{{ $product_data->name ?? 'N/A' }}</strong>
-                        <br><strong>Model:</strong> {{ $product_data->code ?? 'N/A' }}
+                        <br><strong>Model:</strong> {{ $product_data->code ?? 'N/A' }}<br>
+                        <strong>Brand:</strong> {{ $brand?->title }}<br>
+                        <strong>Origin:</strong> {{ $product_data->origin }}
                         <br>{!! $product_data->product_details !!}
                     </td>
                     <td>PCS.</td>

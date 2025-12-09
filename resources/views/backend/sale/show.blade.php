@@ -178,7 +178,8 @@
                     <td colspan="2" style="border-right: none;">
                         <strong>Reference / Invoice No:</strong> {{ $sale->reference_no }}<br>
                         <strong>Ref. PO No:</strong> {{ $sale->rfq?->purchases->first()?->reference_no ?? 'N/A' }}<br>
-                        <strong>PO Date:</strong> {{ $sale->rfq?->purchases->first() ? \Carbon\Carbon::parse($sale->rfq?->purchases->first()?->created_at
+                        <strong>PO Date:</strong> {{ $sale->rfq?->purchases->first() ?
+                        \Carbon\Carbon::parse($sale->rfq?->purchases->first()?->created_at
                         )->format('m/d/Y') : 'N/A' }}<br>
                         <strong>BIN No:</strong> {{ $sale->customer?->bin_number ?? '--' }}<br>
                         <strong>TIN No:</strong> {{ $sale->customer?->tax_no ?? '--' }}<br>
@@ -198,6 +199,7 @@
                 @foreach($lims_product_sale_data as $index => $product_sale)
                 <?php
                     $product_data = DB::table('products')->find($product_sale->product_id);
+                    $brand = DB::table('brands')->find($product_data->brand_id);
                     if($product_sale->variant_id){
                         $product_variant_data = \App\Models\ProductVariant::select('id', 'item_code')->FindExactProduct($product_data->id, $product_sale->variant_id)->first();
                         $product_variant_id = $product_variant_data->id;
@@ -243,7 +245,7 @@
                         $unit_operator[] = 'n/a'. ',';
                         $unit_operation_value[] = 'n/a'. ',';
                     }
-                    $temp_unit_name = $unit_name = implode(",",$unit_name) . ',';
+                    $temp_unit_name = $unit_name = implode(",",$unit_name);
 
                     $temp_unit_operator = $unit_operator = implode(",",$unit_operator) .',';
 
@@ -254,8 +256,10 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>
-                        {{ $product_data->name }}<br>
-                        Model: {{ $product_data->code }}<br>
+                        <strong>{{ $product_data->name }}</strong><br>
+                        <strong>Model:</strong> {{ $product_data->code }}<br>
+                        <strong>Brand:</strong> {{ $brand?->title }}<br>
+                        <strong>Origin:</strong> {{ $product_data->origin }}<br>
                         {!! $product_data->product_details?? '' !!}
                     </td>
                     <td>{{ $temp_unit_name }}</td>
@@ -279,13 +283,14 @@
                 <tr>
                     <th style="border-right: none">VAT (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>
-                    <td style="border-left: none;">{{ number_format((float)$sale->total_tax, $general_setting->decimal,
+                    <td style="border-left: none;">{{ number_format((float)$sale->order_tax, $general_setting->decimal,
                         '.', '')}}</td>
                 </tr>
                 <tr>
                     <th style="border-right: none">SHIPPING COST (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>
-                    <td style="border-left: none;">{{ number_format((float)$sale->shipping_cost, $general_setting->decimal,
+                    <td style="border-left: none;">{{ number_format((float)$sale->shipping_cost,
+                        $general_setting->decimal,
                         '.', '')}}</td>
                 </tr>
                 <tr>
