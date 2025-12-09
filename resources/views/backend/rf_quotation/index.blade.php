@@ -48,22 +48,22 @@
 
                     <div class="row">
 
-                        <div class="col-md-6 mt-3">
+                        <div class="col-md-4 mt-3">
                             <label>VAT Percentage</label>
                             <input type="text" name="vat_percentage" id="vat_percentage" class="form-control">
                         </div>
 
-                        <div class="col-md-6 mt-3">
+                        <div class="col-md-4 mt-3 d-none">
                             <label>VAT Amount</label>
                             <input type="text" name="vat_amount" id="vat_amount" class="form-control">
                         </div>
 
-                        <div class="col-md-6 mt-3">
+                        <div class="col-md-4 mt-3">
                             <label>Payment Term</label>
                             <input type="text" name="payment_term" id="payment_term" class="form-control">
                         </div>
 
-                        <div class="col-md-6 mt-3">
+                        <div class="col-md-4 mt-3">
                             <label>Price Validity</label>
                             <input type="text" name="price_validity" id="price_validity" class="form-control">
                         </div>
