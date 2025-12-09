@@ -47,7 +47,13 @@
             <tr>
                 <td style="border: 1px solid #000; padding: 5px;">{{ $index + 1 }}</td>
                 <td style="border: 1px solid #000; padding: 5px;">{{ $value->product?->code }}</td>
-                <td style="border: 1px solid #000; padding: 5px;">{{ $value->product?->name }}</td>
+                <td style="border: 1px solid #000; padding: 5px;">
+                    <strong>{{ $value->product?->name }}</strong><br>
+                    <strong>Model:</strong> {{ $value->product?->code }}<br>
+                    <strong>Brand:</strong> {{ DB::table('brands')->find($value->product?->id)?->title ?? 'N/A' }}<br>
+                    <strong>Origin:</strong> {{ optional(collect($item->priceCollection)->where('rfq_item_id',
+                    $value->id))->first()->origin ?? 'N/A' }}<br>
+                </td>
                 <td style="border: 1px solid #000; padding: 5px;">{{ $value->product?->description ?? 'N/A' }}</td>
                 <td style="border: 1px solid #000; padding: 5px;">{{ $value->uom ?? 'PCS' }}</td>
                 <td style="border: 1px solid #000; padding: 5px; text-align: right;">{{

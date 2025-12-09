@@ -274,6 +274,9 @@
                     <td>{{ $index + 1 }}</td>
                     <td class="description" style="width: 20%;">
                         <span class="bold">{{$product_data->name}}</span><br>
+                        <strong>Model:</strong> {{ $product_data?->code }}<br>
+                        <strong>Brand:</strong> {{ DB::table('brands')->find($product_data?->id)?->title ?? 'N/A' }}<br>
+                        <strong>Origin:</strong> {{ $product_data?->origin }}<br>
                         {!! $product_data->product_details ?? '--' !!}
                     </td>
                     <td>{{ $product_purchase->created_at->format('d-M-Y') }}</td>
@@ -306,7 +309,7 @@
                     E. & O.E
                 </td>
             </tr>
-            <tr style="border: 1px solid black; height: 50vh;">
+            <tr style="border: 1px solid black; height: 40vh;">
                 <td></td>
                 <td class="text-right p-1" style="padding-top: 150px; vertical-align: bottom;">
                     <span class="bold">for TecTesla Techologies Ltd</span><br><br>

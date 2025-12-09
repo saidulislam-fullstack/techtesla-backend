@@ -200,9 +200,12 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>
-                        {{ $value->product?->name }}<br>
-                        Model: {{ $value->product?->code }}<br>
-                        Delivery time: {{ optional(collect($item->priceCollection)->where('rfq_item_id',
+                        <strong>{{ $value->product?->name }}</strong><br>
+                        <strong>Model:</strong> {{ $value->product?->code }}<br>
+                        <strong>Brand:</strong> {{ DB::table('brands')->find($value->product?->id)?->title ?? 'N/A' }}<br>
+                        <strong>Origin:</strong> {{ optional(collect($item->priceCollection)->where('rfq_item_id',
+                        $value->id))->first()->origin ?? 'N/A' }}<br>
+                        <strong>Delivery time:</strong> {{ optional(collect($item->priceCollection)->where('rfq_item_id',
                         $value->id))->first()->delivery_days ?? '-' }} Days<br>
                     </td>
                     <td>Pcs</td>

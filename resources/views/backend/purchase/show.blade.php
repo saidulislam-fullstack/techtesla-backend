@@ -91,7 +91,12 @@
             ?>
             <tr>
                 <td style="border: 1px solid #000; padding: 5px;">{{ $index + 1 }}</td>
-                <td style="border: 1px solid #000; padding: 5px;">{{$product_data->name}}</td>
+                <td style="border: 1px solid #000; padding: 5px;">
+                    <strong>{{ $product_data?->name }}</strong><br>
+                    <strong>Model:</strong> {{ $product_data?->code }}<br>
+                    <strong>Brand:</strong> {{ DB::table('brands')->find($product_data?->id)?->title ?? 'N/A' }}<br>
+                    <strong>Origin:</strong> {{ $product_data?->origin }}<br>
+                </td>
                 <td style="border: 1px solid #000; padding: 5px;">{{$product_data->code}}</td>
                 <td style="border: 1px solid #000; padding: 5px; text-align: right;">{{$product_purchase->qty}}</td>
                 <td style="border: 1px solid #000; padding: 5px; text-align: right;">{{
