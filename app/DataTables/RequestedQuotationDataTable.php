@@ -58,6 +58,7 @@ class RequestedQuotationDataTable extends DataTable
                 if ($query->priceCollection->count() > 0) {
                     $btn .= '<li><a href="' . route('price-collection.selection', $query->id) . '" class="btn btn-link" title="Selection"><i class="fa fa-check"></i> ' . trans("file.Selection") . '</a></li>';
                 }
+                $btn .= '<li><button type="button" class="btn btn-link" onclick="openOthersInfoModal(' . $query->id . ')"><i class="fa fa-edit"></i> Update Others Info</button></li>';
                 if (! $query->has_price_collection_selected) {
                     $btn .= '<li><a href="' . route('rf-quotation.edit', $query->id) . '" class="btn btn-link" title="Edit"><i class="dripicons-document-edit"></i> ' . trans("file.edit") . '</a></li>';
                     $btn .= '<li><button type="button" class="btn btn-link" onclick="deleteData(' . $query->id . ')" title="Delete"><i class="dripicons-trash"></i> ' . trans("file.delete") . '</button></li>';

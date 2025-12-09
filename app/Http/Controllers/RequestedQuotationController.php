@@ -398,4 +398,62 @@ class RequestedQuotationController extends Controller
         return Product::ActiveStandard()->select('id', 'name', 'code', 'model')
             ->whereNull('is_variant')->get();
     }
+
+    public function getOthersData($id)
+    {
+        $rfq = RequestedQuotation::findOrFail($id);
+        return response()->json([
+            'vat_percentage' => $rfq->vat_percentage,
+            'vat_amount' => $rfq->vat_amount,
+            'payment_term' => $rfq->payment_term,
+            'price_validity' => $rfq->price_validity,
+            'warranty' => $rfq->warranty,
+            'suspension_of_installation' => $rfq->suspension_of_installation,
+            'commissioning' => $rfq->commissioning,
+            'mechanical_works' => $rfq->mechanical_works,
+            'cable_laying' => $rfq->cable_laying,
+            'vat' => $rfq->vat,
+            'tax' => $rfq->tax,
+            'transport' => $rfq->transport,
+        ]);
+    }
+
+    public function othersDataUpdate(Request $request)
+    {
+        $data = $request->validate([
+            'id' => 'required',
+            'vat_percentage' => 'nullable|numeric',
+            'vat_amount' => 'nullable|numeric',
+            'payment_term' => 'nullable|string',
+            'price_validity' => 'nullable|string',
+            'warranty' => 'nullable|string',
+            'suspension_of_installation' => 'nullable|string',
+            'commissioning' => 'nullable|string',
+            'mechanical_works' => 'nullable|string',
+            'cable_laying' => 'nullable|string',
+            'vat' => 'nullable|string',
+            'tax' => 'nullable|string',
+            'transport' => 'nullable|string',
+        ]);
+
+
+        $rfq = RequestedQuotation::findOrFail($data['id']);
+
+        $rfq->update([
+            'vat_percentage' => $data['vat_percentage'] ?? 0,
+            'vat_amount' => $data['vat_amount'] ?? 0,
+            'payment_term' => $data['payment_term'] ?? null,
+            'price_validity' => $data['price_validity'] ?? null,
+            'warranty' => $data['warranty'] ?? null,
+            'suspension_of_installation' => $data['suspension_of_installation'] ?? null,
+            'commissioning' => $data['commissioning'] ?? null,
+            'mechanical_works' => $data['mechanical_works'] ?? null,
+            'cable_laying' => $data['cable_laying'] ?? null,
+            'vat' => $data['vat'] ?? 0,
+            'tax' => $data['tax'] ?? 0,
+            'transport' => $data['transport'] ?? 0,
+        ]);
+
+        return response()->json(['message' => 'Others info updated successfully.']);
+    }
 }

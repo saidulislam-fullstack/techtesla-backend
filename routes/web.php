@@ -332,8 +332,10 @@ Route::group(['middleware' => ['common', 'auth', 'active']], function () {
     Route::get('rf-quotation/report', [RequestedQuotationController::class, 'report'])->name('rf-quotation.report');
     Route::resource('rf-quotation', RequestedQuotationController::class);
     Route::get('rfq-stock-check/{id}', [RequestedQuotationController::class, 'rfqStockCheck'])->name('rfq-stock-check');
-    Route::resource('generate-sale-order', GenerateSaleOrderController::class)->only(['create','store']);
+    Route::resource('generate-sale-order', GenerateSaleOrderController::class)->only(['create', 'store']);
     Route::get('rf-quotation/price-quotation/{id}', [RequestedQuotationController::class, 'priceQuotation'])->name('rf-quotation.price-quotation');
+    Route::get('rf-quotation/get-others-data/{id}', [RequestedQuotationController::class, 'getOthersData'])->name('rf-quotation.getOthersData');
+    Route::post('rf-quotation/others-data-update', [RequestedQuotationController::class, 'othersDataUpdate'])->name('rf-quotation.others-data-update');
 
     // Price Collection
     Route::controller(PriceCollectionController::class)->group(function () {

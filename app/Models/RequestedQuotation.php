@@ -21,6 +21,18 @@ class RequestedQuotation extends Model
         'terms',
         'delivery_info',
         'note',
+        'vat_percentage',
+        'vat_amount',
+        'payment_term',
+        'price_validity',
+        'warranty',
+        'suspension_of_installation',
+        'commissioning',
+        'mechanical_works',
+        'cable_laying',
+        'vat',
+        'tax',
+        'transport'
     ];
 
     protected static function boot()
