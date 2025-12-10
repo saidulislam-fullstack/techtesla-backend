@@ -77,7 +77,7 @@
                                         <td></td>
                                         <td class="text-right">
                                             <strong>
-                                                {{ trans('file.Grand Total') }}
+                                                {{ trans('file.Total') }}
                                             </strong>
                                         </td>
                                         <td>
@@ -86,6 +86,28 @@
                                         </td>
                                 </tfoot>
                             </table>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-md-4 form-group pt-5">
+                            <h3>Additional Informations:</h3>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>{{ trans('file.Tax Rate') }}</label>
+                            <select name="tax_rate" class="form-control selectpicker" required>
+                                <option value="0">{{ trans('file.No Tax') }}</option>
+                                @foreach (DB::table('taxes')->get() as $tax)
+                                <option value="{{ $tax->rate }}">{{ $tax->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>
+                                    {{trans('file.Shipping Cost')}}
+                                </label>
+                                <input type="number" name="shipping_cost" class="form-control" step="any" />
+                            </div>
                         </div>
                     </div>
                     <div class="row">

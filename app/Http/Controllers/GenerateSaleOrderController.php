@@ -68,6 +68,8 @@ class GenerateSaleOrderController extends Controller
             if (!isset($data['reference_no']))
                 $data['reference_no'] = 'sr-' . date("Ymd") . '-' . date("his");
 
+            $tax_amount = ($data['grand_total'] / 100) * $data['tax_rate'];
+
             $lims_sale_data = Sale::create([
                 'reference_no' => $data['reference_no'],
                 'user_id' => $data['user_id'],
@@ -82,15 +84,15 @@ class GenerateSaleOrderController extends Controller
                 'total_discount' => 0,
                 'total_tax' => 0,
                 'total_price' => $data['grand_total'],
-                'order_tax_rate' => 0,
-                'order_tax' => 0,
+                'order_tax_rate' => $data['tax_rate'],
+                'order_tax' => $tax_amount,
                 'order_discount_type' => null,
                 'order_discount_value' => 0,
                 'order_discount' => 0,
                 'coupon_id' => null,
                 'coupon_discount' => 0.00,
-                'shipping_cost' => 0,
-                'grand_total' => $data['grand_total'],
+                'shipping_cost' => $data['shipping_cost'] ?? 0,
+                'grand_total' => $data['grand_total'] + $tax_amount + ($data['shipping_cost'] ?? 0),
                 'currency_id' => 1,
                 'exchange_rate' => 1,
                 'sale_status' => 2,
