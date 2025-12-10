@@ -202,10 +202,12 @@
                     <td>
                         <strong>{{ $value->product?->name }}</strong><br>
                         <strong>Model:</strong> {{ $value->product?->code }}<br>
-                        <strong>Brand:</strong> {{ DB::table('brands')->find($value->product?->id)?->title ?? 'N/A' }}<br>
+                        <strong>Brand:</strong> {{ DB::table('brands')->find($value->product?->id)?->title ?? 'N/A'
+                        }}<br>
                         <strong>Origin:</strong> {{ optional(collect($item->priceCollection)->where('rfq_item_id',
                         $value->id))->first()->origin ?? 'N/A' }}<br>
-                        <strong>Delivery time:</strong> {{ optional(collect($item->priceCollection)->where('rfq_item_id',
+                        <strong>Delivery time:</strong> {{
+                        optional(collect($item->priceCollection)->where('rfq_item_id',
                         $value->id))->first()->delivery_days ?? '-' }} Days<br>
                     </td>
                     <td>Pcs</td>
@@ -222,21 +224,24 @@
                 @endphp
                 @endforeach
             </table>
-
+            @php
+            $vat_amount = ($totalPrice/100) * $item->vat_percentage;
+            @endphp
             <table class="amount-table">
                 <tr>
                     <th style="border-right: none">TOTAL AMOUNT (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>
                     <td style="border-left: none;">{{ $totalPrice }}</td>
                 </tr>
-                {{-- <tr>
-                    <th>10% VAT (BDT)</th>
-                    <td>1,280.00</td>
-                </tr> --}}
+                <tr>
+                    <th style="border-right: none">VAT ({{$item->vat_percentage}}%)</th>
+                    <th style="border-left: none; border-right: none;">=</th>
+                    <td style="border-left: none;">{{ $vat_amount }}</td>
+                </tr>
                 <tr>
                     <th style="border-right: none">GRAND TOTAL (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>
-                    <td style="border-left: none;"><strong>{{ $totalPrice }}</strong></td>
+                    <td style="border-left: none;"><strong>{{ $totalPrice + $vat_amount }}</strong></td>
                 </tr>
             </table>
 
@@ -251,48 +256,43 @@
             <table class="term-conditions">
                 <tr>
                     <td style="background: #e7e7e7; width: 20%"><strong>Payment Term</strong></td>
-                    <td>Upon finalizing the matter 100% advance payments required with purchase
-                        order.</td>
+                    <td>{{ $item->payment_term ?? 'N/A' }}</td>
                 </tr>
                 <tr>
                     <td style="background: #e7e7e7;"><strong>Price Validity</strong></td>
-                    <td>15 Days Only</td>
+                    <td>{{$item->price_validity ?? 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td style=""><strong>Warranty</strong></td>
-                    <td>One Year Limited Warranty for All Products from the date of delivery for Manufacturing Fault
-                        Only. Warranty is not applicable if
-                        damage and shortcomings derived from unusual external factors such as a Short Circuit, lightning
-                        strike or from Natural
-                        disasters, misuse, incorrect use or abnormal use.</td>
+                    <td>{{$item->warranty ?? 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td style="background: #e7e7e7;"><strong>Suspension of Installation</strong></td>
-                    <td>Not Applicable</td>
+                    <td>{{$item->suspension_of_installation ?? 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td style="background: #e7e7e7;"><strong>Commissioning </strong></td>
-                    <td>Not Applicable</td>
+                    <td>{{$item->commissioning ?? 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td style="background: #e7e7e7;"><strong>Mechanical Works</strong></td>
-                    <td>Not Applicable</td>
+                    <td>{{$item->mechanical_works ?? 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td style="background: #e7e7e7;"><strong>Cable Laying </strong></td>
-                    <td>Not Applicable</td>
+                    <td>{{$item->cable_laying ?? 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td style="background: #e7e7e7;"><strong>VAT</strong></td>
-                    <td>Included</td>
+                    <td>{{$item->vat ?? 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td style="background: #e7e7e7;"><strong>TAX</strong></td>
-                    <td>Included</td>
+                    <td>{{$item->tax ?? 'N/A'}}</td>
                 </tr>
                 <tr>
                     <td style="background: #e7e7e7;"><strong>Transport </strong></td>
-                    <td>Included</td>
+                    <td>{{$item->transport ?? 'N/A'}}</td>
                 </tr>
             </table>
 
