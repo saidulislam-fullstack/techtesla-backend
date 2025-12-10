@@ -195,7 +195,7 @@
                                     <span class="bold">Price Basis: {{ $purchase->price_basis ?? '--' }}</span><br>
                                     <span class="bold">P&F: {{ $purchase->p_and_f ?? '--' }}</span><br>
                                     <span class="bold">Freight: {{ $purchase->freight_or_insurance ?? '--' }}</span><br>
-                                    <span class="bold">IGST: Extra @ 18%</span><br>
+                                    {{-- <span class="bold">IGST: Extra @ 18%</span><br> --}}
                                     <span class="bold">Documentation: Factory Test / Calibration / Warranty
                                         Certificate</span>
                                 </div>

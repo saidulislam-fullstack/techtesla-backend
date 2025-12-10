@@ -156,7 +156,7 @@
             reference purchase order:
         </p>
         <div class="delivery-date">
-            <strong>Purchase Date:</strong> {{ \Carbon\Carbon::parse($sale->created_at)->format('d/m/Y') }}
+            <strong>Date:</strong> {{ \Carbon\Carbon::parse($sale->created_at)->format('d/m/Y') }}
         </div>
 
         <div class="quotation-box">
@@ -286,6 +286,7 @@
                     <td style="border-left: none;">{{ number_format((float)$sale->order_tax, $general_setting->decimal,
                         '.', '')}}</td>
                 </tr>
+                @if($sale->shipping_cost)
                 <tr>
                     <th style="border-right: none">SHIPPING COST (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>
@@ -293,6 +294,7 @@
                         $general_setting->decimal,
                         '.', '')}}</td>
                 </tr>
+                @endif
                 <tr>
                     <th style="border-right: none">GRAND TOTAL (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>

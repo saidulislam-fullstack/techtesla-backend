@@ -176,7 +176,7 @@
                         <strong>Quotation No:</strong> {{ $item->rfq_no }}<br>
                         <strong>Customer PR:</strong> {{ $item->type == 'techtesla_stock' ? 'No' : 'Yes' }}<br>
                         <strong>Prepared By:</strong> {{ $item->addedBy?->name ?? 'N/A' }}<br>
-                        <strong>Through:</strong> {{ $default_warehouse->name }}<br>
+                        {{-- <strong>Through:</strong> {{ $default_warehouse->name }}<br> --}}
                         <strong>Mobile:</strong> {{ $default_warehouse->phone }}<br>
                         <strong>Email:</strong> {{ $default_warehouse->email }}
                     </td>
