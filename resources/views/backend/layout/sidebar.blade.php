@@ -291,7 +291,7 @@
         </li>
     @endif
 
-    {{-- @php
+    @php
         $index_permission_active = $role_has_permissions_list->where('name', 'transfers-index')->first();
     @endphp
     @if ($index_permission_active)
@@ -309,13 +309,13 @@
                 @if ($add_permission_active)
                     <li id="transfer-create-menu"><a
                             href="{{ route('transfers.create') }}">{{ trans('file.Add Transfer') }}</a></li>
-                    <li id="transfer-import-menu"><a
+                    {{-- <li id="transfer-import-menu"><a
                             href="{{ url('transfers/transfer_by_csv') }}">{{ trans('file.Import Transfer By CSV') }}</a>
-                    </li>
+                    </li> --}}
                 @endif
             </ul>
         </li>
-    @endif --}}
+    @endif
 
     {{-- @php
         $sale_return_index_permission_active = $role_has_permissions_list->where('name', 'returns-index')->first();
@@ -684,18 +684,18 @@
                     <li id="warehouse-report-menu">
                         <a id="warehouse-report-link" href="">{{ trans('file.Warehouse Report') }}</a>
                     </li>
-                @endif
+                @endif--}}
                 @if ($warehouse_stock_report_active)
                     <li id="warehouse-stock-report-menu">
                         <a
                             href="{{ route('report.warehouseStock') }}">{{ trans('file.Warehouse Stock Chart') }}</a>
                     </li>
                 @endif
-                @if ($product_expiry_report_active)
+                {{-- @if ($product_expiry_report_active)
                     <li id="productExpiry-report-menu">
                         <a href="{{ route('report.productExpiry') }}">{{ trans('file.Product Expiry Report') }}</a>
                     </li>
-                @endif --}}
+                @endif  --}}
                 @if ($product_qty_alert_active)
                     <li id="qtyAlert-report-menu">
                         <a href="{{ route('report.qtyAlert') }}">{{ trans('file.Product Quantity Alert') }}</a>
