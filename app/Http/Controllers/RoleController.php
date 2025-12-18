@@ -15,7 +15,7 @@ class RoleController extends Controller
     public function index()
     {
         if (Auth::user()->role_id <= 2) {
-            $lims_role_all = Roles::where('is_active', true)->get();
+            $lims_role_all = Roles::where('is_active', true)->where('id', '>', 5)->orWhere('id', '<', 2)->get();
             return view('backend.role.create', compact('lims_role_all'));
         } else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
