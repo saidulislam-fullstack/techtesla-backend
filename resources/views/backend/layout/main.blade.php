@@ -727,7 +727,10 @@
                         {!! Form::open(['route' => 'expenses.store', 'method' => 'post']) !!}
                         <?php
                         $lims_expense_category_list = DB::table('expense_categories')->where('is_active', true)->get();
-                        if (Auth::user()->role_id > 2) {
+                        if(Auth::user()->role_id == 8){
+                            $lims_warehouse_list = DB::table('warehouses')->where('is_active', true)->get();
+                        }
+                        elseif (Auth::user()->role_id > 2) {
                             $lims_warehouse_list = DB::table('warehouses')
                                 ->where([['is_active', true], ['id', Auth::user()->warehouse_id]])
                                 ->get();
