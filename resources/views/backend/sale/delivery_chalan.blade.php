@@ -131,7 +131,7 @@
             order:
         </p>
         <div class="delivery-date">
-            <strong>Delivery Date:</strong> {{ now()->format('d.m.Y') }}
+            <strong>Delivery Date:</strong> {{ \Carbon\Carbon::parse($sale->created_at)->format('d/m/Y') }}
         </div>
         <table style="border-top: 1px solid black; margin-top: 1px; width: 100%;">
             <tr>
