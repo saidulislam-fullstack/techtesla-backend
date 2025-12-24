@@ -179,9 +179,11 @@
                         <strong>Invoice No:</strong> {{ 'INV-'.date('Ymd').'-'.str_pad($sale->id, 3, '0',
                         STR_PAD_LEFT) }}<br>
                         <strong>Reference:</strong> {{ $sale->reference_no }}<br>
-                        {{-- <strong>Ref. PO No:</strong> {{ $sale->rfq?->purchases->first()?->reference_no ?? 'N/A' }}<br> --}}
+                        {{-- <strong>Ref. PO No:</strong> {{ $sale->rfq?->purchases->first()?->reference_no ?? 'N/A'
+                        }}<br> --}}
                         <strong>Ref. PO No:</strong> {{ $sale->po_number ?? 'N/A' }}<br>
-                        <strong>PO Date:</strong> {{ $sale->po_date ? \Carbon\Carbon::parse($sale->po_date)->format('m/d/Y') : 'N/A' }}<br>
+                        <strong>PO Date:</strong> {{ $sale->po_date ?
+                        \Carbon\Carbon::parse($sale->po_date)->format('m/d/Y') : 'N/A' }}<br>
                         <strong>BIN No:</strong> {{ $sale->customer?->bin_number ?? '--' }}<br>
                         <strong>TIN No:</strong> {{ $sale->customer?->tax_no ?? '--' }}<br>
                     </td>
@@ -281,12 +283,14 @@
                     <td style="border-left: none;">{{ number_format((float)$sale->total_price,
                         $general_setting->decimal, '.', '') }}</td>
                 </tr>
+                @if($sale->order_tax)
                 <tr>
                     <th style="border-right: none">VAT (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>
                     <td style="border-left: none;">{{ number_format((float)$sale->order_tax, $general_setting->decimal,
                         '.', '')}}</td>
                 </tr>
+                @endif
                 @if($sale->shipping_cost)
                 <tr>
                     <th style="border-right: none">SHIPPING COST (BDT)</th>
@@ -326,8 +330,7 @@
         </div>
         <div class="office">
             <h3>Chattogram Office (Registered):</h3>
-            Standard City Plaza (6th Floor), 533/536 Sheikh Mujib Road, Double Mooring,
-            Chattogram-4100, Bangladesh.<br><br>
+            SH Square, Flat no: C1, Level-2, GEC by Lane, Beside of premier University, Chattogram, Bangladesh.<br><br>
             <h3>Dhaka Office:</h3>
             House No:2/A (1st Floor), Road No:12, Nikunja-2, Khilkhet, Dhaka-1229, Bangladesh.<br>
             +8801970-003031, +8801969-003031, Email: info@tecteslabd.com
