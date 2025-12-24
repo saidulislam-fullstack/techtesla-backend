@@ -209,7 +209,7 @@
             <div class="info-box">
                 <p><span class="bengali">নিবন্ধিত ব্যক্তির নাম:</span> <span
                         class="english">{{$general_settings->company_name??'--'}}</span></p>
-                <p><span class="bengali">নিবন্ধিত ব্যক্তির বিআইএন:</span> <span class="english">001090653-0103</span>
+                <p><span class="bengali">নিবন্ধিত ব্যক্তির বিআইএন:</span> <span class="english">{{$general_settings->bin_number??'--'}}</span>
                 </p>
                 <p><span class="bengali">চালানপত্র ইস্যুর ঠিকানা:</span> <span class="english">{{
                         $sale->warehouse?->address }}.</span></p>
@@ -231,12 +231,15 @@
                         }}</span></p>
             </div>
             <div class="info-box" style="width: 35%;">
-                <p><span class="bengali">চালানপত্র নম্বর:</span> <span class="english">{{$sale->reference_no}}</span>
+                <p><span class="bengali">চালানপত্র নম্বর:</span> <span class="english">{{
+                        'VAT-'.date('Ymd').'-'.str_pad($sale->id, 3, '0',
+                        STR_PAD_LEFT) }}</span>
                 </p>
-                <p><span class="bengali">ইস্যুর তারিখ:</span> <span class="english">{{
-                        $sale->created_at->format('d/m/Y') }}</span></p>
-                <p><span class="bengali">ইস্যুর সময়:</span> <span class="english">{{ $sale->created_at->format('h:i:s
-                        A') }}</span></p>
+                <p><span class="bengali">ইস্যুর তারিখ:</span> <span class="english">{{ $sale->vat_chalan_date ?
+                        \Carbon\Carbon::parse($sale->vat_chalan_date)->format('d/m/Y') : 'N/A' }}</span></p>
+                <p><span class="bengali">ইস্যুর সময়:</span> <span class="english">{{ $sale->vat_chalan_date ?
+                        \Carbon\Carbon::parse($sale->vat_chalan_date)->format('h:i:s
+                        A') : 'N/A' }}</span></p>
             </div>
         </div>
 
@@ -340,7 +343,8 @@
                     <td class="text-right english">{{
                         number_format((float)$product_vat_tax, $general_setting->decimal, '.', '')}}</td>
                     <td class="text-right english">{{
-                        number_format((float)$product_sale->total + $product_vat_tax, $general_setting->decimal, '.', '')}}</td>
+                        number_format((float)$product_sale->total + $product_vat_tax, $general_setting->decimal, '.',
+                        '')}}</td>
                 </tr>
                 @endforeach
                 <tr>
