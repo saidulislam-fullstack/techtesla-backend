@@ -156,7 +156,7 @@
             reference purchase order:
         </p>
         <div class="delivery-date">
-            <strong>Date:</strong> {{ \Carbon\Carbon::parse($sale->created_at)->format('d/m/Y') }}
+            <strong>Date:</strong> {{ \Carbon\Carbon::parse($sale->invoice_date??$sale->created_at)->format('d/m/Y') }}
         </div>
 
         <div class="quotation-box">
@@ -176,11 +176,12 @@
                         <strong>Phone:</strong> {{ $sale->customer?->contactPersons->first()?->phone ?? 'N/A' }}
                     </td>
                     <td colspan="2" style="border-right: none;">
-                        <strong>Reference / Invoice No:</strong> {{ $sale->reference_no }}<br>
-                        <strong>Ref. PO No:</strong> {{ $sale->rfq?->purchases->first()?->reference_no ?? 'N/A' }}<br>
-                        <strong>PO Date:</strong> {{ $sale->rfq?->purchases->first() ?
-                        \Carbon\Carbon::parse($sale->rfq?->purchases->first()?->created_at
-                        )->format('m/d/Y') : 'N/A' }}<br>
+                        <strong>Invoice No:</strong> {{ 'INV-'.date('Ymd').'-'.str_pad($sale->id, 3, '0',
+                        STR_PAD_LEFT) }}<br>
+                        <strong>Reference:</strong> {{ $sale->reference_no }}<br>
+                        {{-- <strong>Ref. PO No:</strong> {{ $sale->rfq?->purchases->first()?->reference_no ?? 'N/A' }}<br> --}}
+                        <strong>Ref. PO No:</strong> {{ $sale->po_number ?? 'N/A' }}<br>
+                        <strong>PO Date:</strong> {{ $sale->po_date ? \Carbon\Carbon::parse($sale->po_date)->format('m/d/Y') : 'N/A' }}<br>
                         <strong>BIN No:</strong> {{ $sale->customer?->bin_number ?? '--' }}<br>
                         <strong>TIN No:</strong> {{ $sale->customer?->tax_no ?? '--' }}<br>
                     </td>
