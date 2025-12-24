@@ -40,7 +40,12 @@ class Sale extends Model
         "staff_note",
         "created_at",
         "woocommerce_order_id",
-        'requested_quotation_id'
+        'requested_quotation_id',
+        'po_number',
+        'po_date',
+        'invoice_date',
+        'delivery_date',
+        'vat_chalan_date',
     ];
 
     public function biller()
