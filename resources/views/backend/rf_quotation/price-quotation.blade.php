@@ -202,7 +202,7 @@
                     <td>
                         <strong>{{ $value->product?->name }}</strong><br>
                         <strong>Model:</strong> {{ $value->product?->code }}<br>
-                        <strong>Brand:</strong> {{ DB::table('brands')->find($value->product?->id)?->title ?? 'N/A'
+                        <strong>Brand:</strong> {{ DB::table('brands')->find($value->product?->brand_id)?->title ?? 'N/A'
                         }}<br>
                         <strong>Origin:</strong> {{ optional(collect($item->priceCollection)->where('rfq_item_id',
                         $value->id))->first()->origin ?? 'N/A' }}<br>

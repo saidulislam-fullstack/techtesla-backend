@@ -50,7 +50,7 @@
                 <td style="border: 1px solid #000; padding: 5px;">
                     <strong>{{ $value->product?->name }}</strong><br>
                     <strong>Model:</strong> {{ $value->product?->code }}<br>
-                    <strong>Brand:</strong> {{ DB::table('brands')->find($value->product?->id)?->title ?? 'N/A' }}<br>
+                    <strong>Brand:</strong> {{ DB::table('brands')->find($value->product?->brand_id)?->title ?? 'N/A' }}<br>
                     <strong>Origin:</strong> {{ optional(collect($item->priceCollection)->where('rfq_item_id',
                     $value->id))->first()->origin ?? 'N/A' }}<br>
                 </td>
