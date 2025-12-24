@@ -114,6 +114,25 @@
         border-top: 2px dashed #000;
         margin-bottom: 5px;
     }
+
+    .bottom-bar {
+        margin-top: 30px;
+        border-bottom: 1px solid black;
+        text-align: right;
+        font-weight: bold;
+        color: red;
+        padding-top: 5px;
+    }
+
+    .office {
+        text-align: center;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .office h3 {
+        text-decoration: underline;
+    }
 </style>
 @endpush
 
@@ -131,7 +150,8 @@
             order:
         </p>
         <div class="delivery-date">
-            <strong>Delivery Date:</strong> {{ \Carbon\Carbon::parse($sale->created_at)->format('d/m/Y') }}
+            <strong>Delivery Date:</strong> {{ $sale->delivery_date ?
+            \Carbon\Carbon::parse($sale->delivery_date)->format('d/m/Y') : 'N/A' }}
         </div>
         <table style="border-top: 1px solid black; margin-top: 1px; width: 100%;">
             <tr>
@@ -147,11 +167,12 @@
                     <strong>Phone:</strong> {{ $sale->customer?->contactPersons->first()?->phone ?? 'N/A' }}
                 </td>
                 <td colspan="2" style="border-right: none; padding-left: 5px;">
-                    <strong>Reference / Invoice No:</strong> {{ $sale->reference_no }}<br>
-                    <strong>Ref. PO No:</strong> {{ $sale->rfq?->purchases->first()?->reference_no ?? 'N/A' }}<br>
-                    <strong>PO Date:</strong> {{ $sale->rfq?->purchases->first() ?
-                    \Carbon\Carbon::parse($sale->rfq?->purchases->first()?->created_at
-                    )->format('m/d/Y') : 'N/A' }}<br>
+                    <strong>Delivery No:</strong> {{ 'DCH-'.date('Ymd').'-'.str_pad($sale->id, 3, '0',
+                    STR_PAD_LEFT) }}<br>
+                    <strong>Reference:</strong> {{ $sale->reference_no }}<br>
+                    <strong>Ref. PO No:</strong> {{ $sale->po_number ?? 'N/A' }}<br>
+                    <strong>PO Date:</strong> {{ $sale->po_date ?
+                    \Carbon\Carbon::parse($sale->po_date)->format('m/d/Y') : 'N/A' }}<br>
                     <strong>BIN No:</strong> {{ $sale->customer?->bin_number ?? '--' }}<br>
                     <strong>TIN No:</strong> {{ $sale->customer?->tax_no ?? '--' }}<br>
                 </td>
@@ -248,6 +269,17 @@
                 <div class="signature-line"></div>
                 Receiver Signature with Designation, Seal & Date
             </div>
+        </div>
+
+        <div class="bottom-bar" style="margin-top: 10vh;">
+            www.tecteslabd.com
+        </div>
+        <div class="office">
+            <h3>Chattogram Office (Registered):</h3>
+            SH Square, Flat no: C1, Level-2, GEC by Lane, Beside of premier University, Chattogram, Bangladesh.<br><br>
+            <h3>Dhaka Office:</h3>
+            House No:2/A (1st Floor), Road No:12, Nikunja-2, Khilkhet, Dhaka-1229, Bangladesh.<br>
+            +8801970-003031, +8801969-003031, Email: info@tecteslabd.com
         </div>
     </div>
 </x-invoice-print>
