@@ -75,6 +75,12 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
+                                        <label>BIN Number</label>
+                                        <input type="text" name="bin_number" class="form-control" value="@if($lims_general_setting_data){{$lims_general_setting_data->bin_number}}@endif" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
                                         <label>{{trans('file.Time Zone')}}</label>
                                         @if($lims_general_setting_data)
                                         <input type="hidden" name="timezone_hidden" value="{{env('APP_TIMEZONE')}}">

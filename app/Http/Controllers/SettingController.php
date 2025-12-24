@@ -107,6 +107,7 @@ class SettingController extends Controller
             $general_setting->is_zatca = false;
         $general_setting->company_name = $data['company_name'];
         $general_setting->vat_registration_number = $data['vat_registration_number'];
+        $general_setting->bin_number = $data['bin_number'];
         $general_setting->currency = $data['currency'];
         $general_setting->currency_position = $data['currency_position'];
         $general_setting->decimal = $data['decimal'];

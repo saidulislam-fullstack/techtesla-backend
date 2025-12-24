@@ -38,6 +38,7 @@ class GeneralSetting extends Model
         "razorpay_secret",
         "is_zatca",
         "company_name",
-        "vat_registration_number"
+        "vat_registration_number",
+        "bin_number"
     ];
 }
