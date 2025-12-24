@@ -1877,6 +1877,10 @@ class SaleController extends Controller
 
         $lims_product_sale_data = Product_Sale::where('sale_id', $id)->get();
         $data['created_at'] = date("Y-m-d", strtotime(str_replace("/", "-", $data['created_at'])));
+        $data['po_date'] = date("Y-m-d", strtotime(str_replace("/", "-", $data['po_date'])));
+        $data['invoice_date'] = date("Y-m-d", strtotime(str_replace("/", "-", $data['invoice_date'])));
+        $data['delivery_date'] = date("Y-m-d", strtotime(str_replace("/", "-", $data['delivery_date'])));
+        $data['vat_chalan_date'] = date("Y-m-d", strtotime(str_replace("/", "-", $data['vat_chalan_date'])));
         $product_id = $data['product_id'];
         $imei_number = $data['imei_number'];
         $product_batch_id = $data['product_batch_id'];
