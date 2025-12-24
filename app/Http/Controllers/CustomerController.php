@@ -319,6 +319,7 @@ class CustomerController extends Controller
 
         $input['name'] = $input['customer_name'];
         $input['bin_number'] = $input['bin_no'];
+        $input['tax_no'] = $input['tax_no'];
         $lims_customer_data->update($input);
 
 
@@ -377,8 +378,7 @@ class CustomerController extends Controller
 
             /* --------------------------------------
                 NEW CONTACT PERSON
-            --------------------------------------- */
-            else {
+            --------------------------------------- */ else {
 
                 $frontPath = null;
                 $backPath = null;
