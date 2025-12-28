@@ -1765,13 +1765,14 @@ class SaleController extends Controller
             $lims_biller_list = Biller::where('is_active', true)->get();
             $lims_tax_list = Tax::where('is_active', true)->get();
             $sale = Sale::with('warehouse', 'customer')->find($id);
+            $general_settings = GeneralSetting::latest()->first();
             $lims_product_sale_data = Product_Sale::where('sale_id', $id)->get();
             if ($sale->exchange_rate)
                 $currency_exchange_rate = $sale->exchange_rate;
             else
                 $currency_exchange_rate = 1;
             $custom_fields = CustomField::where('belongs_to', 'sale')->get();
-            return view('backend.sale.show', compact('lims_customer_list', 'lims_warehouse_list', 'lims_biller_list', 'lims_tax_list', 'sale', 'lims_product_sale_data', 'currency_exchange_rate', 'custom_fields'));
+            return view('backend.sale.show', compact('lims_customer_list', 'lims_warehouse_list', 'lims_biller_list', 'lims_tax_list', 'sale', 'lims_product_sale_data', 'currency_exchange_rate', 'custom_fields', 'general_settings'));
         } else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
     }
@@ -1806,13 +1807,14 @@ class SaleController extends Controller
             $lims_biller_list = Biller::where('is_active', true)->get();
             $lims_tax_list = Tax::where('is_active', true)->get();
             $sale = Sale::with('warehouse', 'customer')->find($id);
+            $general_settings = GeneralSetting::latest()->first();
             $lims_product_sale_data = Product_Sale::where('sale_id', $id)->get();
             if ($sale->exchange_rate)
                 $currency_exchange_rate = $sale->exchange_rate;
             else
                 $currency_exchange_rate = 1;
             $custom_fields = CustomField::where('belongs_to', 'sale')->get();
-            return view('backend.sale.delivery_chalan', compact('lims_customer_list', 'lims_warehouse_list', 'lims_biller_list', 'lims_tax_list', 'sale', 'lims_product_sale_data', 'currency_exchange_rate', 'custom_fields'));
+            return view('backend.sale.delivery_chalan', compact('lims_customer_list', 'lims_warehouse_list', 'lims_biller_list', 'lims_tax_list', 'sale', 'lims_product_sale_data', 'currency_exchange_rate', 'custom_fields', 'general_settings'));
         } else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
     }
