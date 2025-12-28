@@ -975,9 +975,9 @@ class ProductController extends Controller
             $this->validate($request, [
                 'name' => [
                     'max:255',
-                    Rule::unique('products')->ignore($request->input('id'))->where(function ($query) {
-                        return $query->where('is_active', 1);
-                    }),
+                    // Rule::unique('products')->ignore($request->input('id'))->where(function ($query) {
+                    //     return $query->where('is_active', 1);
+                    // }),
                 ],
 
                 'code' => [
@@ -987,7 +987,7 @@ class ProductController extends Controller
                     }),
                 ]
             ], [
-                'name.unique' => 'The product model has already been taken.'
+                'code.unique' => 'The product model has already been taken.'
             ]);
 
             $lims_product_data = Product::findOrFail($request->input('id'));
