@@ -422,8 +422,8 @@ class RequestedQuotationController extends Controller
     {
         $data = $request->validate([
             'id' => 'required',
-            'vat_percentage' => 'nullable|numeric',
-            'vat_amount' => 'nullable|numeric',
+            'vat_percentage' => 'nullable|string',
+            'vat_amount' => 'nullable|string',
             'payment_term' => 'nullable|string',
             'price_validity' => 'nullable|string',
             'warranty' => 'nullable|string',
