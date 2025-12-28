@@ -209,7 +209,8 @@
             <div class="info-box">
                 <p><span class="bengali">নিবন্ধিত ব্যক্তির নাম:</span> <span
                         class="english">{{$general_settings->company_name??'--'}}</span></p>
-                <p><span class="bengali">নিবন্ধিত ব্যক্তির বিআইএন:</span> <span class="english">{{$general_settings->bin_number??'--'}}</span>
+                <p><span class="bengali">নিবন্ধিত ব্যক্তির বিআইএন:</span> <span
+                        class="english">{{$general_settings->bin_number??'--'}}</span>
                 </p>
                 <p><span class="bengali">চালানপত্র ইস্যুর ঠিকানা:</span> <span class="english">{{
                         $sale->warehouse?->address }}.</span></p>
@@ -391,7 +392,9 @@
                 </div>
             </div> --}}
         </div>
-        <p class="print-info english">Printed on: MAR-20-25 11:45 AM</p>
+        <p class="print-info english">
+            Printed on: {{ \Carbon\Carbon::now()->format('M-d-y h:i A') }}
+        </p>
     </div>
 </x-invoice-print>
 @endsection
