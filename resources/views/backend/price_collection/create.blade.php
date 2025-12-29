@@ -309,7 +309,7 @@
             $('.changeModal').on('input', function() {
                 let exchangeRate = $('#currencyRateModal').val() || 1;
                 let profitPercentage = $('#profitPercentageModal').val();
-                let profitAmount = (marketPrice * profitPercentage) / 100;
+                let profitAmount = ((marketPrice * exchangeRate) * profitPercentage) / 100;
                 let shippingWeight = $('#shippingWeightModal').val() || 0;
                 let customsUnitCost = $('#customsUnitCostModal').val() || 0;
                 $('#profitAmountModal').val(profitAmount.toFixed(2));

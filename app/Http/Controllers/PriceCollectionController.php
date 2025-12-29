@@ -74,6 +74,10 @@ class PriceCollectionController extends Controller
         ]);
 
         foreach ($request->rfq_id as $key => $rfq_id) {
+            $currencyConvertedPrice = $request->market_price[$key] * $request->currency_rate[$key];
+            $profitAmount = ($currencyConvertedPrice * $request->profit_margin_percentage[$key]) / 100;
+            $othersCost = $request->customs_total_cost[$key] + $profitAmount + $request->tax_amount[$key] + $request->vat_amount[$key];
+            $totalCost = $currencyConvertedPrice + $othersCost;
             PriceCollection::create([
                 'rfq_id' => $rfq_id,
                 'rfq_item_id' => $request->rfq_item_id[$key],
@@ -87,11 +91,11 @@ class PriceCollectionController extends Controller
                 'customs_unit_cost' => $request->customs_unit_cost[$key],
                 'customs_total_cost' => $request->customs_total_cost[$key],
                 'profit_margin_percentage' => $request->profit_margin_percentage[$key],
-                'profit_margin_amount' => $request->profit_margin_amount[$key],
+                'profit_margin_amount' => $profitAmount,
                 'tax_amount' => $request->tax_amount[$key],
                 'vat_amount' => $request->vat_amount[$key],
-                'other_cost' => $request->other_cost[$key],
-                'total_cost' => $request->total_cost[$key],
+                'other_cost' => $othersCost,
+                'total_cost' => $totalCost,
                 'origin' => $request->origin[$key],
                 'delivery_days' => $request->delivery_days[$key],
             ]);

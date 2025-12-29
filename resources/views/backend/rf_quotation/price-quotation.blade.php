@@ -195,8 +195,16 @@
                 @php
                 $totalQty = 0;
                 $totalPrice = 0;
+                $totalVatTax = 0;
                 @endphp
                 @foreach ($item->items as $index => $value)
+                @php
+                $vatTaxAmount = (optional(collect($item->priceCollection)->where('rfq_item_id',
+                $value->id))->first()?->vat_amount ?? 0) +
+                (optional(collect($item->priceCollection)->where('rfq_item_id',
+                $value->id))->first()?->tax_amount ?? 0);
+                $totalVatTax += $vatTaxAmount * $value->quantity;
+                @endphp
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>
@@ -215,15 +223,15 @@
                     </td>
                     <td>Pcs</td>
                     <td class="text-right">{{ $value->quantity }}</td>
-                    <td class="text-right">{{ optional(collect($item->priceCollection)->where('rfq_item_id',
-                        $value->id))->first()?->total_cost ?? '--' }}</td>
-                    <td class="text-right">{{ (optional(collect($item->priceCollection)->where('rfq_item_id',
-                        $value->id))->first()?->total_cost * $value->quantity) ?? '--' }}</td>
+                    <td class="text-right">{{ ((optional(collect($item->priceCollection)->where('rfq_item_id',
+                        $value->id))->first()?->total_cost) - $vatTaxAmount) ?? '--' }}</td>
+                    <td class="text-right">{{ (((optional(collect($item->priceCollection)->where('rfq_item_id',
+                        $value->id))->first()?->total_cost) - $vatTaxAmount) * $value->quantity) ?? '--' }}</td>
                 </tr>
                 @php
                 $totalQty += $value->quantity;
-                $totalPrice += optional(collect($item->priceCollection)->where('rfq_item_id',
-                $value->id))->first()?->total_cost * $value->quantity
+                $totalPrice += ((optional(collect($item->priceCollection)->where('rfq_item_id',
+                $value->id))->first()?->total_cost) - $vatTaxAmount) * $value->quantity
                 @endphp
                 @endforeach
             </table>
@@ -236,15 +244,17 @@
                     <th style="border-left: none; border-right: none;">=</th>
                     <td style="border-left: none;">{{ $totalPrice }}</td>
                 </tr>
+                @if($totalVatTax)
                 <tr>
-                    <th style="border-right: none">VAT ({{$item->vat_percentage}}%)</th>
+                    <th style="border-right: none">VAT</th>
                     <th style="border-left: none; border-right: none;">=</th>
-                    <td style="border-left: none;">{{ $vat_amount }}</td>
+                    <td style="border-left: none;">{{ $totalVatTax }}</td>
                 </tr>
+                @endif
                 <tr>
                     <th style="border-right: none">GRAND TOTAL (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>
-                    <td style="border-left: none;"><strong>{{ $totalPrice + $vat_amount }}</strong></td>
+                    <td style="border-left: none;"><strong>{{ $totalPrice + $totalVatTax }}</strong></td>
                 </tr>
             </table>
 
@@ -252,7 +262,7 @@
             <p><strong>In Words:</strong>
                 @php
                 $f = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
-                echo ucfirst($f->format($totalPrice));
+                echo ucfirst($f->format($totalPrice + $totalVatTax));
                 @endphp
             </p>
 
