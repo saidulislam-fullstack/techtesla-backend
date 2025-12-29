@@ -288,34 +288,34 @@ class CustomerController extends Controller
         $input = $request->all();
         $lims_customer_data = Customer::find($id);
 
-        if (isset($input['user'])) {
-            $this->validate($request, [
-                'name' => [
-                    'max:255',
-                    Rule::unique('users')->where(function ($query) {
-                        return $query->where('is_deleted', false);
-                    }),
-                ],
-                'email' => [
-                    'email',
-                    'max:255',
-                    Rule::unique('users')->where(function ($query) {
-                        return $query->where('is_deleted', false);
-                    }),
-                ],
-            ]);
+        // if (isset($input['user'])) {
+        //     $this->validate($request, [
+        //         'name' => [
+        //             'max:255',
+        //             Rule::unique('users')->where(function ($query) {
+        //                 return $query->where('is_deleted', false);
+        //             }),
+        //         ],
+        //         'email' => [
+        //             'email',
+        //             'max:255',
+        //             Rule::unique('users')->where(function ($query) {
+        //                 return $query->where('is_deleted', false);
+        //             }),
+        //         ],
+        //     ]);
 
-            $input['phone'] = $input['phone_number'];
-            $input['role_id'] = 5;
-            $input['is_active'] = true;
-            $input['is_deleted'] = false;
-            $input['password'] = bcrypt($input['password']);
-            $user = User::create($input);
-            $input['user_id'] = $user->id;
-            $message = 'Customer updated and user created successfully';
-        } else {
-            $message = 'Customer updated successfully';
-        }
+        //     $input['phone'] = $input['phone_number'];
+        //     $input['role_id'] = 5;
+        //     $input['is_active'] = true;
+        //     $input['is_deleted'] = false;
+        //     $input['password'] = bcrypt($input['password']);
+        //     $user = User::create($input);
+        //     $input['user_id'] = $user->id;
+        //     $message = 'Customer updated and user created successfully';
+        // } else {
+        //     $message = 'Customer updated successfully';
+        // }
 
         $input['name'] = $input['customer_name'];
         $input['bin_number'] = $input['bin_no'];
@@ -450,7 +450,7 @@ class CustomerController extends Controller
             DB::table('customers')->where('id', $lims_customer_data->id)->update($custom_field_data);
         $this->cacheForget('customer_list');
 
-        return redirect('customer')->with('edit_message', $message);
+        return redirect('customer')->with('edit_message', 'Customer updated successfully');
     }
 
     public function importCustomer(Request $request)
