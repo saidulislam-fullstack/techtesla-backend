@@ -1,196 +1,196 @@
 @extends('backend.layout.main')
 @section('content')
-    <section class="forms">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header d-flex align-items-center">
-                            <h4>{{ trans('file.Add Price Collection') }}</h4>
-                        </div>
-                        <div class="card-body">
-                            <p class="italic">
-                                <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
-                            </p>
-                            <form method="post" action="{{ route('price-collection.store') }}" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="rfq_id">{{ trans('file.RFQ') }}</label><span class="required">
-                                                *</span>
-                                            <select name="rfq_id" id="rfq_id" class="form-control selectpicker"
-                                                    data-live-search="true"
-                                                    onchange="getRfq(this)" required>
-                                                <option value="">{{ trans('file.Select RFQ') }}</option>
-                                                @foreach ($rfqs as $item)
-                                                    <option value="{{ $item->id }}" @selected(request()->rfq_id == $item->id)>
-                                                        {{ $item->rfq_no }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <ul class="list-group" id="productResultUl">
-                                        </ul>
+<section class="forms">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h4>{{ trans('file.Add Price Collection') }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="italic">
+                            <small>{{ trans('file.The field labels marked with * are required input fields') }}.</small>
+                        </p>
+                        <form method="post" action="{{ route('price-collection.store') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="rfq_id">{{ trans('file.RFQ') }}</label><span class="required">
+                                            *</span>
+                                        <select name="rfq_id" id="rfq_id" class="form-control selectpicker"
+                                            data-live-search="true" onchange="getRfq(this)" required>
+                                            <option value="">{{ trans('file.Select RFQ') }}</option>
+                                            @foreach ($rfqs as $item)
+                                            <option value="{{ $item->id }}" @selected(request()->rfq_id == $item->id)>
+                                                {{ $item->rfq_no }}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 mt-2">
-                                        <label>{{ trans('file.Select Product') }}</label>
-                                        <div class="search-box input-group">
-                                            <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>
-                                            <input type="text" id="productSearch"
-                                                placeholder="Please type product model and select..." class="form-control" />
-                                        </div>
-                                        <ul id="productSearchResult" class="list-group mt-1"></ul>
+                                <div class="col-md-6">
+                                    <ul class="list-group" id="productResultUl">
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mt-2">
+                                    <label>{{ trans('file.Select Product') }}</label>
+                                    <div class="search-box input-group">
+                                        <button class="btn btn-secondary"><i class="fa fa-barcode"></i></button>
+                                        <input type="text" id="productSearch"
+                                            placeholder="Please type product model and select..."
+                                            class="form-control" />
+                                    </div>
+                                    <ul id="productSearchResult" class="list-group mt-1"></ul>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-12">
+                                    <h5>{{ trans('file.Collection Table') }} *</h5>
+                                    <div class="table-responsive mt-3">
+                                        <table id="myTable" class="table table-hover order-list">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ trans('file.Product') }}</th>
+                                                    <th>{{ trans('file.Supplier') }}</th>
+                                                    <th>{{ trans('file.Note') }}</th>
+                                                    <th>{{ trans('file.Supplier Price') }}</th>
+                                                    <th>{{ trans('file.Action') }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <div class="row mt-5">
-                                    <div class="col-md-12">
-                                        <h5>{{ trans('file.Collection Table') }} *</h5>
-                                        <div class="table-responsive mt-3">
-                                            <table id="myTable" class="table table-hover order-list">
-                                                <thead>
-                                                    <tr>
-                                                        <th>{{ trans('file.Product') }}</th>
-                                                        <th>{{ trans('file.Supplier') }}</th>
-                                                        <th>{{ trans('file.Note') }}</th>
-                                                        <th>{{ trans('file.Supplier Price') }}</th>
-                                                        <th>{{ trans('file.Action') }}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="submit" value="{{ trans('file.submit') }}" class="btn btn-primary"
+                                            id="submit-button" />
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="submit" value="{{ trans('file.submit') }}"
-                                                class="btn btn-primary" id="submit-button" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Calculation Modal -->
-    <div class="modal fade" id="calculationModal" tabindex="-1" role="dialog" aria-labelledby="calculationModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="calculationModalLabel">Additional Calculations</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="calculationForm">
-                        <div class="row">
-                            <input type="hidden" id="marketPriceModal" value="0">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="#currencyModal">{{ trans('file.Currency') }}</label>
-                                    <select id="currencyModal" class="form-control" data-live-search="true">
-                                        <option value="">{{ trans('file.Select Currency') }}</option>
-                                        @foreach ($currencies as $currency)
-                                            <option value="{{ $currency->id }}" data-rate={{$currency->exchange_rate}}>{{ $currency->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="currencyRateModal">{{ trans('file.Currency Rate') }}</label>
-                                    <input type="number" id="currencyRateModal" class="form-control changeModal"
-                                        step="0.01" value="1">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="shippingWeightModal">{{ trans('file.Shipping Weight') }}</label>
-                                    <input type="number" id="shippingWeightModal" class="form-control changeModal">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="customsUnitCostModal">{{ trans('file.Customs Unit Cost') }}</label>
-                                    <input type="number" id="customsUnitCostModal" class="form-control changeModal">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="profitPercentageModal">{{ trans('file.Profit Percentage') }}(%)</label>
-                                    <input type="number" id="profitPercentageModal" class="form-control changeModal">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="profitAmountModal">{{ trans('file.Profit Amount') }}</label>
-                                    <input type="number" id="profitAmountModal" class="form-control changeModal"
-                                        readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="taxAmountModal">{{ trans('file.Tax Amount') }}</label>
-                                    <input type="number" id="taxAmountModal" class="form-control changeModal">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="vatAmountModal">{{ trans('file.Vat Amount') }}</label>
-                                    <input type="number" id="vatAmountModal" class="form-control changeModal">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="otherCostModal">{{ trans('file.Other Cost') }}</label>
-                                    <input type="number" id="otherCostModal" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="totalCostModal">{{ trans('file.Total Cost') }}</label>
-                                    <input type="number" id="totalCostModal" class="form-control" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="recommendedOriginModal">{{ trans('file.Recommended Origin') }}</label>
-                                    <input type="text" id="recommendedOriginModal" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="deliveryDaysModal">{{ trans('file.Delivery Days') }}</label>
-                                    <input type="number" id="deliveryDaysModal" class="form-control">
-                                </div>
+    </div>
+</section>
+<!-- Calculation Modal -->
+<div class="modal fade" id="calculationModal" tabindex="-1" role="dialog" aria-labelledby="calculationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="calculationModalLabel">Additional Calculations</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="calculationForm">
+                    <div class="row">
+                        <input type="hidden" id="marketPriceModal" value="0">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="#currencyModal">{{ trans('file.Currency') }}</label>
+                                <select id="currencyModal" class="form-control" data-live-search="true">
+                                    <option value="">{{ trans('file.Select Currency') }}</option>
+                                    @foreach ($currencies as $currency)
+                                    <option value="{{ $currency->id }}" data-rate={{$currency->exchange_rate}}>{{
+                                        $currency->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveCalculation">Save</button>
-                </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="currencyRateModal">{{ trans('file.Currency Rate') }}</label>
+                                <input type="number" id="currencyRateModal" class="form-control changeModal" step="0.01"
+                                    value="1">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="shippingWeightModal">{{ trans('file.Shipping Weight') }}</label>
+                                <input type="number" id="shippingWeightModal" class="form-control changeModal">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="customsUnitCostModal">{{ trans('file.Customs Unit Cost') }}</label>
+                                <input type="number" id="customsUnitCostModal" class="form-control changeModal">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="profitPercentageModal">{{ trans('file.Profit Percentage') }}(%)</label>
+                                <input type="number" id="profitPercentageModal" class="form-control changeModal">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="profitAmountModal">{{ trans('file.Profit Amount') }}</label>
+                                <input type="number" id="profitAmountModal" class="form-control changeModal" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="taxAmountModal">{{ trans('file.Tax Amount') }}</label>
+                                <input type="number" id="taxAmountModal" class="form-control changeModal">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="vatAmountModal">{{ trans('file.Vat Amount') }}</label>
+                                <input type="number" id="vatAmountModal" class="form-control changeModal">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="otherCostModal">{{ trans('file.Other Cost') }}</label>
+                                <input type="number" id="otherCostModal" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="totalCostModal">{{ trans('file.Total Cost') }}</label>
+                                <input type="number" id="totalCostModal" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="recommendedOriginModal">{{ trans('file.Recommended Origin') }}</label>
+                                <input type="text" id="recommendedOriginModal" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="deliveryDaysModal">{{ trans('file.Delivery Days') }}</label>
+                                <input type="number" id="deliveryDaysModal" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveCalculation">Save</button>
             </div>
         </div>
     </div>
+</div>
 @endsection
 @push('scripts')
-    <script type="text/javascript">
-
-        $("ul#price-collection").siblings('a').attr('aria-expanded', 'true');
+<script type="text/javascript">
+    $("ul#price-collection").siblings('a').attr('aria-expanded', 'true');
         $("ul#price-collection").addClass("show");
         $("ul#price-collection #price-collection-create-menu").addClass("active");
         $('.selectpicker').selectpicker({
@@ -257,7 +257,7 @@
                 '<input type="hidden" name="delivery_days[]" class="form-control delivery_days" min="0" step="1" value="0" />' +
                 '</td>' +
 
-                '<td><select name="supplier_id[]" class="form-control selectpicker" required><option value="">Select Supplier</option>' +
+                '<td><select name="supplier_id[]" class="form-control" required><option value="">Select Supplier</option>' +
                 suppliers.map(supplier => '<option value="' + supplier.id + '">' + supplier.name + '</option>') +
                 '</select></td>' +
                 '<td><input type="text" name="note[]" class="form-control" /></td>' +
@@ -459,5 +459,5 @@
             $('.changeModal').trigger('input');
         });
 
-    </script>
+</script>
 @endpush
