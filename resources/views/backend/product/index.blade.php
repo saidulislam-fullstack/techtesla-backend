@@ -112,7 +112,8 @@
                 <div class="row">
                     <div class="col-md-5" id="slider-content"></div>
                     <div class="col-md-5 offset-1" id="product-content"></div>
-                    @if($role_id <= 2) <div class="col-md-12 mt-2" id="product-warehouse-section">
+                    {{-- @if($role_id <= 2)  --}}
+                    <div class="col-md-12 mt-2" id="product-warehouse-section">
                         <h5>{{trans('file.Warehouse Quantity')}}</h5>
                         <table class="table table-bordered table-hover product-warehouse-list">
                             <thead>
@@ -120,8 +121,8 @@
                             <tbody>
                             </tbody>
                         </table>
-                </div>
-                @endif
+                    </div>
+                {{-- @endif --}}
                 <div class="col-md-7 mt-2" id="product-variant-section">
                     <h5>{{trans('file.Product Variant Information')}}</h5>
                     <table class="table table-bordered table-hover product-variant-list">
@@ -131,7 +132,8 @@
                         </tbody>
                     </table>
                 </div>
-                @if($role_id <= 2) <div class="col-md-5 mt-2" id="product-variant-warehouse-section">
+            {{-- @if($role_id <= 2)  --}}
+                <div class="col-md-5 mt-2" id="product-variant-warehouse-section">
                     <h5>{{trans('file.Warehouse quantity of product variants')}}</h5>
                     <table class="table table-bordered table-hover product-variant-warehouse-list">
                         <thead>
@@ -139,8 +141,8 @@
                         <tbody>
                         </tbody>
                     </table>
-            </div>
-            @endif
+                </div>
+            {{-- @endif --}}
         </div>
 
         <h5 id="combo-header"></h5>
@@ -340,7 +342,7 @@
                 });
                 $("#product-variant-section").removeClass('d-none');
             }
-            if(role_id <= 2) {
+            // if(role_id <= 2) {
                 $.get('products/product_warehouse/' + product[12], function(data) {
                     if(data.product_warehouse[0].length != 0) {
                         warehouse = data.product_warehouse[0];
@@ -393,7 +395,7 @@
                         $("#product-variant-warehouse-section").removeClass('d-none');
                     }
                 });
-            }
+            // }
         }
 
         $('#product-content').html(htmltext);
