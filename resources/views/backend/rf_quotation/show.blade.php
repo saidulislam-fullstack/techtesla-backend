@@ -54,7 +54,7 @@
                     <strong>Origin:</strong> {{ optional(collect($item->priceCollection)->where('rfq_item_id',
                     $value->id))->first()->origin ?? 'N/A' }}<br>
                 </td>
-                <td style="border: 1px solid #000; padding: 5px;">{{ $value->product?->description ?? 'N/A' }}</td>
+                <td style="border: 1px solid #000; padding: 5px;">{{ $value->product?->product_details ?? 'N/A' }}</td>
                 <td style="border: 1px solid #000; padding: 5px;">{{ $value->uom ?? 'PCS' }}</td>
                 <td style="border: 1px solid #000; padding: 5px; text-align: right;">{{
                     number_format($value->quantity, 3) }}</td>

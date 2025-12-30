@@ -309,17 +309,19 @@
             $('.changeModal').on('input', function() {
                 let exchangeRate = $('#currencyRateModal').val() || 1;
                 let profitPercentage = $('#profitPercentageModal').val();
-                let profitAmount = ((marketPrice * exchangeRate) * profitPercentage) / 100;
-                let shippingWeight = $('#shippingWeightModal').val() || 0;
-                let customsUnitCost = $('#customsUnitCostModal').val() || 0;
-                $('#profitAmountModal').val(profitAmount.toFixed(2));
-                let customsTotalCost = shippingWeight * customsUnitCost;
-                $('#customsTotalCostModal').val(customsTotalCost.toFixed(2));
                 let vatAmount = parseFloat($('#vatAmountModal').val()) || 0;
                 let taxAmount = parseFloat($('#taxAmountModal').val()) || 0;
+                let shippingWeight = $('#shippingWeightModal').val() || 0;
+                let customsUnitCost = $('#customsUnitCostModal').val() || 0;
+                // let profitAmount = (((marketPrice * exchangeRate) + vatAmount + taxAmount + customsTotalCost) * profitPercentage) / 100;
+                // $('#profitAmountModal').val(profitAmount.toFixed(2));
+                let customsTotalCost = shippingWeight * customsUnitCost;
+                $('#customsTotalCostModal').val(customsTotalCost.toFixed(2));
+                let profitAmount = (((marketPrice * exchangeRate) + vatAmount + taxAmount + customsTotalCost) * profitPercentage) / 100;
+                $('#profitAmountModal').val(profitAmount.toFixed(2));
                 let otherCost = profitAmount + vatAmount + taxAmount + customsTotalCost;
                 $('#otherCostModal').val(otherCost.toFixed(2));
-                let totalCost = (parseFloat(marketPrice) + otherCost) * parseFloat(exchangeRate);
+                let totalCost = (parseFloat(marketPrice * exchangeRate) + otherCost) ;
                 $('#totalCostModal').val(totalCost.toFixed(2));
             });
 

@@ -75,7 +75,9 @@ class PriceCollectionController extends Controller
 
         foreach ($request->rfq_id as $key => $rfq_id) {
             $currencyConvertedPrice = $request->market_price[$key] * $request->currency_rate[$key];
-            $profitAmount = ($currencyConvertedPrice * $request->profit_margin_percentage[$key]) / 100;
+            $shippingCosts = $request->shipping_weight[$key] * $request->customs_unit_cost[$key];
+            $totalVatTax = $request->vat_amount[$key] + $request->tax_amount[$key];
+            $profitAmount = (($currencyConvertedPrice + $shippingCosts + $totalVatTax) * $request->profit_margin_percentage[$key]) / 100;
             $othersCost = $request->customs_total_cost[$key] + $profitAmount + $request->tax_amount[$key] + $request->vat_amount[$key];
             $totalCost = $currencyConvertedPrice + $othersCost;
             PriceCollection::create([
