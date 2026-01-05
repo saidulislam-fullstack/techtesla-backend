@@ -51,6 +51,28 @@
 
         body {
             background-color: #fff;
+            margin: 0;
+        }
+
+        /* Prevent extra blank page */
+        @page {
+            margin: 20mm;
+        }
+
+        /* Footer sticks to bottom ONLY in print */
+        .print-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            text-align: center;
+            background: #fff;
+        }
+
+        /* Avoid content overlapping footer */
+        .challan-container {
+            padding-bottom: 50px;
         }
     }
 </style>
