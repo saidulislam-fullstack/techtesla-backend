@@ -249,8 +249,9 @@
                     <td>{{$index + 1}}</td>
                     <td class="item-description"><strong>{{ $product_data->name ?? 'N/A' }}</strong>
                         <br><strong>Model:</strong> {{ $product_data->code ?? 'N/A' }}<br>
-                        <strong>Brand:</strong> {{ $brand?->title }}<br>
-                        <strong>Origin:</strong> {{ $product_data->origin }}
+                        <strong>Brand:</strong> {{ $brand?->title ?? 'N/A' }}<br>
+                        <strong>Origin:</strong> {{ $product_data->origin ?? 'N/A' }}<br>
+                        <strong>Serial No:</strong> {{ $product_sale->imei_number ?? 'N/A' }}
                         <br>{!! $product_data->product_details !!}
                     </td>
                     <td>PCS.</td>

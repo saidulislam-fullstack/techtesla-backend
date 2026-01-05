@@ -509,7 +509,7 @@
                                                 {{ trans('file.This product has batch and expired date') }}</h5>
                                         @endif
                                     </div>
-                                    <div class="col-md-12 mt-3 d-none" id="imei-option">
+                                    <div class="col-md-12 mt-3" id="imei-option">
                                         @if ($lims_product_data->is_imei)
                                             <h5><input name="is_imei" type="checkbox" id="is-imei" value="1"
                                                     checked>&nbsp;

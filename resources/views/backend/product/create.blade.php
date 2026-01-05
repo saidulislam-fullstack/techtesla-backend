@@ -464,7 +464,7 @@
                                         <h5><input name="is_batch" type="checkbox" id="is-batch" value="1">&nbsp;
                                             {{ trans('file.This product has batch and expired date') }}</h5>
                                     </div>
-                                    <div class="col-md-12 mt-3 d-none" id="imei-option">
+                                    <div class="col-md-12 mt-3" id="imei-option">
                                         <h5><input name="is_imei" type="checkbox" id="is-imei" value="1">&nbsp;
                                             {{ trans('file.This product has IMEI or Serial numbers') }}</h5>
                                     </div>
