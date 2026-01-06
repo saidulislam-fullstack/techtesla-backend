@@ -243,19 +243,22 @@
                 <tr>
                     <th style="border-right: none">TOTAL AMOUNT (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>
-                    <td style="border-left: none;">{{ $totalPrice }}</td>
+                    <td style="border-left: none;">{{ $totalPrice + $totalVatTax }}</td>
                 </tr>
-                @if($totalVatTax)
+                @if($item->vat_percentage && $item->vat_percentage > 0)
+                @php
+                    $vatAmounts = ($totalPrice + $totalVatTax) * ($item->vat_percentage / 100);
+                @endphp
                 <tr>
                     <th style="border-right: none">VAT</th>
                     <th style="border-left: none; border-right: none;">=</th>
-                    <td style="border-left: none;">{{ $totalVatTax }}</td>
+                    <td style="border-left: none;">{{ $vatAmounts }}</td>
                 </tr>
                 @endif
                 <tr>
                     <th style="border-right: none">GRAND TOTAL (BDT)</th>
                     <th style="border-left: none; border-right: none;">=</th>
-                    <td style="border-left: none;"><strong>{{ $totalPrice + $totalVatTax }}</strong></td>
+                    <td style="border-left: none;"><strong>{{ $totalPrice + $totalVatTax + $vatAmounts }}</strong></td>
                 </tr>
             </table>
 
@@ -263,7 +266,7 @@
             <p><strong>In Words:</strong>
                 @php
                 $f = new \NumberFormatter("en", \NumberFormatter::SPELLOUT);
-                echo ucfirst($f->format($totalPrice + $totalVatTax));
+                echo ucfirst($f->format($totalPrice + $totalVatTax + $vatAmounts));
                 @endphp
             </p>
 
