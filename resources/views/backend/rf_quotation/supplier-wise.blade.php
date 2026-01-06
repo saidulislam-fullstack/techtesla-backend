@@ -23,7 +23,7 @@
                                     <label for="rfq_id">{{ trans('file.RFQ') }}:</label><span class="required">
                                         *</span>
                                     <select name="rfq_id" id="rfq_id" class="form-control selectpicker"
-                                        onchange="selectRFQ(this)" required>
+                                        onchange="selectRFQ(this)" data-live-search="true" required>
                                         <option value="">{{ trans('file.Select RFQ') }}</option>
                                         @foreach ($rfQs as $item)
                                             <option value="{{ $item->id }}">{{ $item->rfq_no }}</option>
@@ -36,7 +36,7 @@
                                     <label for="supplier_id">{{ trans('file.Supplier') }}</label><span class="required">
                                         *</span>
                                     <select name="supplier_id" id="supplier_id" class="form-control selectpicker"
-                                        onchange="selectSuppler(this)" required>
+                                        onchange="selectSuppler(this)" data-live-search="true" required>
                                         <option value="">{{ trans('file.Select Supplier') }}</option>
                                     </select>
                                 </div>
