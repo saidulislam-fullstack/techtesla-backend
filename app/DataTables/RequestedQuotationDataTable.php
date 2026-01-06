@@ -67,6 +67,18 @@ class RequestedQuotationDataTable extends DataTable
                 $btn .= '</div>';
                 return $btn;
             })
+            // SEARCH (CRITICAL PART)
+            ->filterColumn('customer', function ($query, $keyword) {
+                $query->whereHas('customer', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%{$keyword}%");
+                });
+            })
+
+            ->filterColumn('addedBy', function ($query, $keyword) {
+                $query->whereHas('addedBy', function ($q) use ($keyword) {
+                    $q->where('name', 'like', "%{$keyword}%");
+                });
+            })
             ->rawColumns(['action'])
             ->setRowId('id')
             ->addIndexColumn();
@@ -140,21 +152,44 @@ class RequestedQuotationDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('DT_RowIndex')->title('SL')->searchable(false)->orderable(false)->width(30)->addClass('text-center'),
+            Column::make('DT_RowIndex')
+                ->title('SL')
+                ->searchable(false)
+                ->orderable(false)
+                ->width(30)
+                ->addClass('text-center'),
+
             Column::make('rfq_no')->title('RFQ No'),
-            Column::make('customer')->title('Customer'),
+
+            Column::make('customer')
+                ->title('Customer')
+                ->searchable(true),
+
             Column::make('type')->title('Type'),
-            Column::make('has_purchase')->title('PO Generated'),
-            Column::make('has_sale')->title('SO Generated'),
+
+            Column::make('has_purchase')
+                ->title('PO Generated')
+                ->searchable(false),
+
+            Column::make('has_sale')
+                ->title('SO Generated')
+                ->searchable(false),
+
             Column::make('date')->title('Date'),
-            Column::make('addedBy')->title('Created By'),
+
+            Column::make('addedBy')
+                ->title('Created By')
+                ->searchable(false),
+
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
+                ->searchable(false)
                 ->width(60)
                 ->addClass('text-center'),
         ];
     }
+
 
     /**
      * Get filename for export.
