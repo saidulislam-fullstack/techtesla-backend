@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header mt-2">
-                <h3 class="text-center">{{ trans('file.Supplier Wise RFQ Show') }}</h3>
+                <h3 class="text-center">Generate Sales Order</h3>
             </div>
             <div class="card-body">
                 <p class="italic">
@@ -23,7 +23,7 @@
                                 <label for="rfq_id">{{ trans('file.RFQ') }}:</label><span class="required">
                                     *</span>
                                 <select name="rfq_id" id="rfq_id" class="form-control selectpicker"
-                                    onchange="selectRFQ(this)" required>
+                                    onchange="selectRFQ(this)" data-live-search="true" required>
                                     <option value="">{{ trans('file.Select RFQ') }}</option>
                                     @foreach ($rfqs as $item)
                                     <option value="{{ $item->id }}">{{ $item->rfq_no }}</option>
