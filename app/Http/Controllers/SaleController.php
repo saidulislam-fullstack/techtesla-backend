@@ -660,7 +660,7 @@ class SaleController extends Controller
             } else
                 $mail_data['products'][$i] = $lims_product_data->name;
             //deduct imei number if available
-            if ($imei_number[$i]) {
+            if (isset($lims_product_warehouse_data) && $imei_number[$i]) {
                 $imei_numbers = explode(",", $imei_number[$i]);
                 $all_imei_numbers = explode(",", $lims_product_warehouse_data->imei_number);
                 foreach ($imei_numbers as $number) {
@@ -1878,11 +1878,12 @@ class SaleController extends Controller
             $data['payment_status'] = 4;
 
         $lims_product_sale_data = Product_Sale::where('sale_id', $id)->get();
+
         $data['created_at'] = date("Y-m-d", strtotime(str_replace("/", "-", $data['created_at'])));
-        $data['po_date'] = date("Y-m-d", strtotime(str_replace("/", "-", $data['po_date'])));
-        $data['invoice_date'] = date("Y-m-d", strtotime(str_replace("/", "-", $data['invoice_date'])));
-        $data['delivery_date'] = date("Y-m-d", strtotime(str_replace("/", "-", $data['delivery_date'])));
-        $data['vat_chalan_date'] = date("Y-m-d", strtotime(str_replace("/", "-", $data['vat_chalan_date'])));
+        $data['po_date'] = $data['po_date'] ? date("Y-m-d", strtotime(str_replace("/", "-", $data['po_date']))) : null;
+        $data['invoice_date'] = $data['invoice_date'] ? date("Y-m-d", strtotime(str_replace("/", "-", $data['invoice_date']))) : null;
+        $data['delivery_date'] = $data['delivery_date'] ? date("Y-m-d", strtotime(str_replace("/", "-", $data['delivery_date']))) : null;
+        $data['vat_chalan_date'] = $data['vat_chalan_date'] ? date("Y-m-d", strtotime(str_replace("/", "-", $data['vat_chalan_date']))) : null;
         $product_id = $data['product_id'];
         $imei_number = $data['imei_number'];
         $product_batch_id = $data['product_batch_id'];
@@ -1973,7 +1974,7 @@ class SaleController extends Controller
                 $lims_product_warehouse_data->save();
             }
 
-            if ($product_sale_data->imei_number) {
+            if (isset($lims_product_warehouse_data) && $product_sale_data->imei_number) {
                 if ($lims_product_warehouse_data->imei_number)
                     $lims_product_warehouse_data->imei_number .= ',' . $product_sale_data->imei_number;
                 else
@@ -2070,7 +2071,7 @@ class SaleController extends Controller
                 $sale_unit_id = 0;
 
             //deduct imei number if available
-            if ($imei_number[$key]) {
+            if (isset($lims_product_warehouse_data) && $imei_number[$key]) {
                 $imei_numbers = explode(",", $imei_number[$key]);
                 $all_imei_numbers = explode(",", $lims_product_warehouse_data->imei_number);
                 foreach ($imei_numbers as $number) {
@@ -2124,6 +2125,7 @@ class SaleController extends Controller
             } else
                 Product_Sale::create($product_sale);
         }
+        
         $lims_sale_data->update($data);
         //inserting data for custom fields
         $custom_field_data = [];
