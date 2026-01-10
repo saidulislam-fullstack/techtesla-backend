@@ -133,6 +133,27 @@
     .office h3 {
         text-decoration: underline;
     }
+
+    @media print {
+        @page {
+            margin: 20mm;
+
+            @bottom-center {
+                content:
+                    "www.tecteslabd.com | Email: info@tecteslabd.com \A"
+                    "Chattogram Office: SH Square, Flat C1, Level-2, GEC by Lane, Beside Premier University, Chattogram \A"
+                    "Dhaka Office: House 2/A (1st Floor), Road 12, Nikunja-2, Khilkhet, Dhaka-1229 | "
+                    "+8801970-003031, +8801969-003031 \A"
+                    "Page " counter(page) " of " counter(pages);
+
+                font-size: 10px;
+                line-height: 1.4;
+                color: #000;
+                white-space: pre;
+                text-align: center;
+            }
+        }
+    }
 </style>
 @endpush
 
@@ -272,20 +293,21 @@
             </div>
         </div>
 
-        <div class="print-footer">
-            <div class="bottom-bar" style="margin-top: 10vh;">
-                www.tecteslabd.com
-            </div>
-            <div class="office ">
-                <h3>Chattogram Office (Registered):</h3>
-                SH Square, Flat no: C1, Level-2, GEC by Lane, Beside of premier University, Chattogram,
-                Bangladesh.<br><br>
-                <h3>Dhaka Office:</h3>
-                House No:2/A (1st Floor), Road No:12, Nikunja-2, Khilkhet, Dhaka-1229, Bangladesh.<br>
-                +8801970-003031, +8801969-003031, Email: info@tecteslabd.com
-            </div>
-        </div>
+        
     </div>
+    {{-- <div class="print-footer">
+        <div class="bottom-bar" style="margin-top: 10vh;">
+            www.tecteslabd.com
+        </div>
+        <div class="office ">
+            <h3>Chattogram Office (Registered):</h3>
+            SH Square, Flat no: C1, Level-2, GEC by Lane, Beside of premier University, Chattogram,
+            Bangladesh.<br><br>
+            <h3>Dhaka Office:</h3>
+            House No:2/A (1st Floor), Road No:12, Nikunja-2, Khilkhet, Dhaka-1229, Bangladesh.<br>
+            +8801970-003031, +8801969-003031, Email: info@tecteslabd.com
+        </div>
+    </div> --}}
 </x-invoice-print>
 @endsection
 
