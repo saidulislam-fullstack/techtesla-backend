@@ -24,6 +24,19 @@
                 <strong>Expected Date:</strong> {{ \Carbon\Carbon::parse($item->expected_date ??
                 $item->date)->format('m/d/Y') }}</br>
                 <strong>Urgency:</strong> {{ ucfirst($item->urgency ?? 'Medium') }}
+                @if ($item->documents->count() > 0)
+                    <div class="document-view">
+                        <strong>Documents:</strong>
+                        <ul class="mt-2 document-view">
+                            @foreach ($item->documents as $index => $document)
+                                <li class="">
+                                    <a href="{{ asset('storage/' . $document->file_path) }}"
+                                        target="_blank">Document {{ $index + 1 }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </p>
         </div>
     </div>
