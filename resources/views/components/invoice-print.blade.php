@@ -49,6 +49,10 @@
             display: none;
         }
 
+        .document-view {
+            display: none;
+        }
+
         body {
             background-color: #fff;
             margin: 0;

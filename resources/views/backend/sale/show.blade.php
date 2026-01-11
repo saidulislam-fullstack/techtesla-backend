@@ -187,6 +187,14 @@
                         {{-- <strong>BIN No:</strong> {{ $sale->customer?->bin_number ?? '--' }}<br> --}}
                         <strong>BIN No:</strong> {{ $general_settings->bin_number??'--' }}<br>
                         <strong>TIN No:</strong> {{ $general_settings->vat_registration_number??'--' }}<br>
+                        @if(!empty($sale->document))
+                        <div class="document-view">
+                            <strong>Document:</strong>
+                            <a href="{{ asset('public/documents/sale/' . $sale->document) }}" target="_blank">
+                                Click To view Document
+                            </a>
+                        </div>
+                        @endif
                     </td>
                 </tr>
             </table>

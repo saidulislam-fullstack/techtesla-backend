@@ -24,6 +24,14 @@
                 <strong>Supplier:</strong> {{ $purchase->supplier?->name ?? 'N/A' }}</br>
                 <strong>Payment Status:</strong> {{ $purchase->payment_status == 1 ? 'Due' : 'Paid' }}</br>
                 <strong>RFQ Order:</strong> {{ $purchase->rfq_id ? 'Yes' : 'No' }}</br>
+                @if($purchase->document)
+                <div class="document-view">
+                    <strong>Document:</strong>
+                    <a href="{{ asset('public/documents/purchase/' . $purchase->document) }}" target="_blank">
+                        Click To view Document
+                    </a>
+                </div>
+                @endif
             </p>
         </div>
     </div>
