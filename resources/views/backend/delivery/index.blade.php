@@ -48,7 +48,7 @@
 
                     $barcode = \DNS2D::getBarcodePNG($delivery->reference_no, 'QRCODE');
                 ?>
-                <tr class="delivery-link" data-barcode="{{$barcode}}" data-delivery='["{{date($general_setting->date_format, strtotime($delivery->created_at->toDateString()))}}", "{{$delivery->reference_no}}", "{{$delivery->sale->reference_no}}", "{{$status}}", "{{$delivery->id}}", "{{$delivery->sale->customer->name}}", "{{$delivery->sale->customer->phone_number}}", "{{$delivery->sale->customer->address}}", "{{$delivery->sale->customer->city}}", "{{$delivery->note}}", "{{$delivery->user->name}}", "{{$delivery->delivered_by}}", "{{$delivery->recieved_by}}"]'>
+                <tr class="delivery-link" data-file="{{ $delivery->file }}" data-barcode="{{$barcode}}" data-delivery='["{{date($general_setting->date_format, strtotime($delivery->created_at->toDateString()))}}", "{{$delivery->reference_no}}", "{{$delivery->sale->reference_no}}", "{{$status}}", "{{$delivery->id}}", "{{$delivery->sale->customer->name}}", "{{$delivery->sale->customer->phone_number}}", "{{$delivery->sale->customer->address}}", "{{$delivery->sale->customer->city}}", "{{$delivery->note}}", "{{$delivery->user->name}}", "{{$delivery->delivered_by}}", "{{$delivery->recieved_by}}"]'>
                     <td>{{$key}}</td>
                     <td>{{ $delivery->reference_no }}</td>
                     <td>{{ $customer_sale[0]->reference_no }}</td>
@@ -254,10 +254,11 @@
     $("tr.delivery-link td:not(:first-child, :last-child)").on("click", function() {
         var delivery = $(this).parent().data('delivery');
         var barcode = $(this).parent().data('barcode');
-        deliveryDetails(delivery, barcode);
+        var file = $(this).parent().data('file');
+        deliveryDetails(delivery, barcode, file);
     });
 
-    function deliveryDetails(delivery, barcode) {
+    function deliveryDetails(delivery, barcode, file) {
         $('input[name="delivery_id"]').val(delivery[4]);
         $("#delivery-content tbody").remove();
         var newBody = $("<tbody>");
@@ -270,9 +271,22 @@
         rows += '<tr><td>Address</td><td>'+delivery[7]+', '+delivery[8]+'</td></tr>';
         rows += '<tr><td>Phone Number</td><td>'+delivery[6]+'</td></tr>';
         rows += '<tr><td>Note</td><td>'+delivery[9]+'</td></tr>';
+        rows += '<tr><td>Attachment</td><td id="delivery-file"></td></tr>';
 
         newBody.append(rows);
         $("table#delivery-content").append(newBody);
+
+        if (file) {
+            let fileUrl = "{{ asset('public/documents/delivery') }}/" + file;
+
+            let html = `<a href="${fileUrl}" target="_blank" rel="noopener noreferrer">
+                            View Attachment
+                        </a>`;
+
+            $('#delivery-file').html(html);
+        } else {
+            $('#delivery-file').html('N/A');
+        }
 
         $.get('delivery/product_delivery/' + delivery[4], function(data) {
             $(".product-delivery-list tbody").remove();
