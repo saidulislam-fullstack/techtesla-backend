@@ -336,6 +336,8 @@ class RequestedQuotationController extends Controller
             'items.quantity.*' => 'required|numeric',
             'items.unit_id.*' => 'required|integer|exists:units,id',
             'items.unit_price.*' => 'required|numeric|min:1',
+            'items.supplier_price.*' => 'nullable|numeric|min:1',
+            'items.currency_id.*' => 'nullable|integer|exists:currencies,id',
             'total_item' => 'required|numeric|min:1',
             'total_quantity' => 'required|numeric|min:1',
             'grand_total' => 'required|numeric|min:1',

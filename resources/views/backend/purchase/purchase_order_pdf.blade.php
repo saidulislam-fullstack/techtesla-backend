@@ -221,6 +221,10 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                $totalPrice = 0;
+                $currency = '';
+                @endphp
                 @foreach ($lims_product_purchase_data as $index => $product_purchase)
                 <?php
                     $product_data = DB::table('products')->find($product_purchase->product_id);
@@ -281,20 +285,29 @@
                     </td>
                     <td>{{ $product_purchase->created_at->format('d-M-Y') }}</td>
                     <td>{{ $product_purchase->qty }} {{$temp_unit_name}}</td>
-                    <td class="rate">{{ number_format((float)$product_purchase->net_unit_cost,
-                        $general_setting->decimal, '.', '') }}</td>
+                    <td class="rate">{{ number_format((float)($product_purchase->supplier_price ??
+                        $product_purchase->net_unit_cost),
+                        $general_setting->decimal, '.', '') }} ({{$product_purchase->supplierCurrency?->code ?? ''}})
+                    </td>
                     <td>{{$temp_unit_name}}</td>
-                    <td class="amount">{{ number_format((float)$product_purchase->total, $general_setting->decimal, '.',
-                        '') }}</td>
+                    <td class="amount">{{ number_format((float)($product_purchase->supplier_price ?
+                        $product_purchase->supplier_price * $product_purchase->qty : $product_purchase->total),
+                        $general_setting->decimal, '.',
+                        '') }} ({{$product_purchase->supplierCurrency?->code ?? ''}})</td>
                 </tr>
+                @php
+                $totalPrice += ($product_purchase->supplier_price ? $product_purchase->supplier_price *
+                $product_purchase->qty : $product_purchase->total);
+                $currency = $product_purchase->supplierCurrency?->code ?? '';
+                @endphp
                 @endforeach
                 <tr>
                     <td colspan="3" class="text-right bold">Total</td>
                     <td class="bold">{{$purchase->total_qty}}</td>
                     <td colspan="2"></td>
-                    <td class="amount bold">{{ number_format((float)$purchase->total_cost, $general_setting->decimal,
+                    <td class="amount bold">{{ number_format((float)$totalPrice, $general_setting->decimal,
                         '.',
-                        '')}}</td>
+                        '')}} ({{$currency}})</td>
                 </tr>
             </tbody>
         </table>
@@ -303,7 +316,7 @@
             <tr style="border: 1px solid black;">
                 <td class="w-70 p-1">
                     <span class="">Amount Chargeable (in words):</span><br>
-                    <span class="bold">{{ ucfirst($amountInWords) }} Only</span>
+                    <span class="bold">{{ ucfirst($formatter->format($totalPrice)) }} Only</span>
                 </td>
                 <td class="w-30 text-right p-1">
                     E. & O.E

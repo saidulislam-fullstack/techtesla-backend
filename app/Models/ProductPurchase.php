@@ -51,4 +51,9 @@ class ProductPurchase extends Model
     {
         return $this->belongsTo(RequestedQuotationDetail::class, 'rfq_item_id');
     }
+
+    public function supplierCurrency()
+    {
+        return $this->belongsTo(Currency::class, 'supplier_currency_id');
+    }
 }
