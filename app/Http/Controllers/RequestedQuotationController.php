@@ -90,6 +90,8 @@ class RequestedQuotationController extends Controller
             'quantity.*' => 'required|integer',
             'proposed_price.*' => 'required|numeric',
             'note.*' => 'nullable|string',
+            'priority' => 'nullable|in:low,medium,high',
+            'expected_date' => 'nullable|date',
         ]);
 
         DB::transaction(function () use ($data, $request) {
@@ -111,6 +113,8 @@ class RequestedQuotationController extends Controller
                 'type' => $data['type'],
                 'note' => $data['remarks'],
                 'delivery_info' => $data['delivery_info'],
+                'priority' => $data['priority'] ?? 'medium',
+                'expected_date' => $data['expected_date'] ?? null,
             ]);
 
             if ($request->hasFile('document')) {

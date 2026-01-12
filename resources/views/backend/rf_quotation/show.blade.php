@@ -21,22 +21,22 @@
             <p style="margin-bottom: 5px;">
                 <strong>Status:</strong> {{ ucfirst($item->status ?? 'Pending') }}</br>
                 <strong>Created By:</strong> {{ $item->addedBy?->name ?? 'N/A' }}</br>
-                <strong>Expected Date:</strong> {{ \Carbon\Carbon::parse($item->expected_date ??
-                $item->date)->format('m/d/Y') }}</br>
-                <strong>Urgency:</strong> {{ ucfirst($item->urgency ?? 'Medium') }}
+                <strong>Expected Date:</strong> {{ $item->expected_date ?
+                \Carbon\Carbon::parse($item->expected_date)->format('d/m/Y') : 'N/A' }}</br>
+                <strong>Urgency:</strong> {{ ucfirst($item->priority ?? 'Medium') }}
                 @if ($item->documents->count() > 0)
-                    <div class="document-view">
-                        <strong>Documents:</strong>
-                        <ul class="mt-2 document-view">
-                            @foreach ($item->documents as $index => $document)
-                                <li class="">
-                                    <a href="{{ asset('storage/' . $document->file_path) }}"
-                                        target="_blank">Document {{ $index + 1 }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+            <div class="document-view">
+                <strong>Documents:</strong>
+                <ul class="mt-2 document-view">
+                    @foreach ($item->documents as $index => $document)
+                    <li class="">
+                        <a href="{{ asset('storage/' . $document->file_path) }}" target="_blank">Document {{ $index + 1
+                            }}</a>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             </p>
         </div>
     </div>
@@ -63,11 +63,12 @@
                 <td style="border: 1px solid #000; padding: 5px;">
                     <strong>{{ $value->product?->name }}</strong><br>
                     <strong>Model:</strong> {{ $value->product?->code }}<br>
-                    <strong>Brand:</strong> {{ DB::table('brands')->find($value->product?->brand_id)?->title ?? 'N/A' }}<br>
+                    <strong>Brand:</strong> {{ DB::table('brands')->find($value->product?->brand_id)?->title ?? 'N/A'
+                    }}<br>
                     <strong>Origin:</strong> {{ optional(collect($item->priceCollection)->where('rfq_item_id',
                     $value->id))->first()->origin ?? 'N/A' }}<br>
                 </td>
-                <td style="border: 1px solid #000; padding: 5px;">{{ $value->product?->product_details ?? 'N/A' }}</td>
+                <td style="border: 1px solid #000; padding: 5px;">{!! $value->product?->product_details ?? 'N/A' !!}</td>
                 <td style="border: 1px solid #000; padding: 5px;">{{ $value->uom ?? 'PCS' }}</td>
                 <td style="border: 1px solid #000; padding: 5px; text-align: right;">{{
                     number_format($value->quantity, 3) }}</td>

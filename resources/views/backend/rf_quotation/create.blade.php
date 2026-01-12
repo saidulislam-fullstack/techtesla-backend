@@ -60,6 +60,24 @@
                                             accept=".jpg,.jpeg,.png,.gif,.pdf,.csv,.docx,.xlsx,.txt" multiple />
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="customer-label">Priority</label>
+                                        <select id="priority" name="priority" class="selectpicker form-control"
+                                            id="customer-id" title="Select customer...">
+                                            <option value="low">Low</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="high">High</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="expected_date">Expected Date</label><span class="required"></span>
+                                        <input type="date" name="expected_date" id="expected_date"
+                                            class="form-control" />
+                                    </div>
+                                </div>
                                 <div class="col-md-12 mt-2">
                                     <label>{{ trans('file.Select Product') }}</label>
                                     <div class="search-box input-group">
