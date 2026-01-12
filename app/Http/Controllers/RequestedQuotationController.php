@@ -312,6 +312,7 @@ class RequestedQuotationController extends Controller
             'priceCollection.product:id,name,code,type,cost,price,is_variant,unit_id',
             'priceCollection.product.unit:id,unit_name,unit_code,base_unit,operator,operation_value',
             'priceCollection.supplier:id,name,company_name,email,phone_number,address',
+            'priceCollection.currency',
             'items'
         ])
             ->whereHas('priceCollection', function ($query) {
@@ -371,6 +372,9 @@ class RequestedQuotationController extends Controller
                     'qty' => $data['items']['quantity'][$key],
                     'purchase_unit_id' => $data['items']['unit_id'][$key],
                     'net_unit_cost' => $data['items']['unit_price'][$key],
+                    'supplier_price' => $data['items']['supplier_price'][$key] ?? null,
+                    'supplier_currency_id' => $data['items']['currency_id'][$key] ?? null,
+                    'currency_rate' => 1,
                     'discount' => 0,
                     'tax_rate' => 0,
                     'recieved' => 0,

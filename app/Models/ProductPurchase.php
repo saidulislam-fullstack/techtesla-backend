@@ -21,7 +21,10 @@ class ProductPurchase extends Model
         "discount",
         "tax_rate",
         "tax",
-        "total"
+        "total",
+        "supplier_currency_id",
+        "currency_rate",
+        "supplier_price",
     ];
 
     public function product()
