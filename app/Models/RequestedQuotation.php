@@ -32,7 +32,9 @@ class RequestedQuotation extends Model
         'cable_laying',
         'vat',
         'tax',
-        'transport'
+        'transport',
+        'priority',
+        'expected_date',
     ];
 
     protected static function boot()
