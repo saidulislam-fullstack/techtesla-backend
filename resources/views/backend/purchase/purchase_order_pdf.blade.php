@@ -115,6 +115,21 @@
     .signature-section {
         margin-top: 40px;
     }
+
+    @media print {
+        .po-page {
+            page-break-before: always;
+            page-break-after: always;
+            break-before: page;
+            break-after: page;
+        }
+
+        /* Prevent blank page before first page */
+        .po-page:first-child {
+            page-break-before: auto;
+            break-before: auto;
+        }
+    }
 </style>
 @endpush
 
@@ -279,7 +294,7 @@
                     <td class="description" style="width: 20%;">
                         <span class="bold">{{$product_data->name}}</span><br>
                         <strong>Model:</strong> {{ $product_data?->code }}<br>
-                        <strong>Brand:</strong> {{ DB::table('brands')->find($product_data?->brand_id)?->title ?? 'N/A' }}<br>
+                        <strong>Brand:</strong> {{ DB::table('brands')->find($product_data?->id)?->title ?? 'N/A' }}<br>
                         <strong>Origin:</strong> {{ $product_data?->origin }}<br>
                         {!! $product_data->product_details ?? '--' !!}
                     </td>
@@ -322,7 +337,7 @@
                     E. & O.E
                 </td>
             </tr>
-            <tr style="border: 1px solid black; height: 40vh;">
+            <tr style="border: 1px solid black; height: 20vh;">
                 <td></td>
                 <td class="text-right p-1" style="padding-top: 150px; vertical-align: bottom;">
                     <span class="bold">for TecTesla Techologies Ltd</span><br><br>
