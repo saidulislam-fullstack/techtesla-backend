@@ -910,6 +910,9 @@ class PurchaseController extends Controller
             $tax = $data['tax'];
             $total = $data['subtotal'];
             $imei_number = $new_imei_number = $data['imei_number'];
+            $supplier_price = $data['supplier_price'];
+            $supplier_currency_id = $data['supplier_currency_id'];
+            $currency_rate = $data['currency_rate'];
             $product_purchase = [];
 
             foreach ($lims_product_purchase_data as $key => $product_purchase_data) {
@@ -1079,6 +1082,9 @@ class PurchaseController extends Controller
                 $product_purchase['tax'] = $tax[$key];
                 $product_purchase['total'] = $total[$key];
                 $product_purchase['imei_number'] = $imei_number[$key];
+                $product_purchase['supplier_price'] = $supplier_price[$key];
+                $product_purchase['supplier_currency_id'] = $supplier_currency_id[$key];
+                $product_purchase['currency_rate'] = $currency_rate[$key];
                 ProductPurchase::create($product_purchase);
             }
             DB::commit();

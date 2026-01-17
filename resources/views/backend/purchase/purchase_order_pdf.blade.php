@@ -302,18 +302,18 @@
                     <td>{{ $product_purchase->qty }} {{$temp_unit_name}}</td>
                     <td class="rate">{{ number_format((float)($product_purchase->supplier_price ??
                         $product_purchase->net_unit_cost),
-                        $general_setting->decimal, '.', '') }} ({{$product_purchase->supplierCurrency?->code ?? ''}})
+                        $general_setting->decimal, '.', '') }} ({{$product_purchase->supplierCurrency?->code ?? 'BDT'}})
                     </td>
                     <td>{{$temp_unit_name}}</td>
                     <td class="amount">{{ number_format((float)($product_purchase->supplier_price ?
                         $product_purchase->supplier_price * $product_purchase->qty : $product_purchase->total),
                         $general_setting->decimal, '.',
-                        '') }} ({{$product_purchase->supplierCurrency?->code ?? ''}})</td>
+                        '') }} ({{$product_purchase->supplierCurrency?->code ?? 'BDT'}})</td>
                 </tr>
                 @php
                 $totalPrice += ($product_purchase->supplier_price ? $product_purchase->supplier_price *
                 $product_purchase->qty : $product_purchase->total);
-                $currency = $product_purchase->supplierCurrency?->code ?? '';
+                $currency = $product_purchase->supplierCurrency?->code ?? 'BDT';
                 @endphp
                 @endforeach
                 <tr>

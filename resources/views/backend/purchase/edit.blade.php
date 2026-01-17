@@ -247,6 +247,9 @@
                                                         <input type="hidden" class="net_unit_cost" name="net_unit_cost[]" value="{{$product_purchase->net_unit_cost}}" />
                                                         <input type="hidden" class="discount-value" name="discount[]" value="{{$product_purchase->discount}}" />
                                                         <input type="hidden" class="tax-rate" name="tax_rate[]" value="{{$product_purchase->tax_rate}}"/>
+                                                        <input type="hidden" class="supplier_price" name="supplier_price[]" value="{{$product_purchase->supplier_price}}">
+                                                        <input type="hidden" class="supplier_currency_id" name="supplier_currency_id[]" value="{{$product_purchase->supplier_currency_id}}">
+                                                        <input type="hidden" class="currency_rate" name="currency_rate[]" value="{{$product_purchase->currency_rate}}">
                                                         @if($tax)
                                                         <input type="hidden" class="tax-name" value="{{$tax->name}}" />
                                                         @else
