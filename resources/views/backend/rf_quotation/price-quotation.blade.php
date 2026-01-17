@@ -139,6 +139,27 @@
         border: none;
         padding: 0 6px !important;
     }
+
+    @media print {
+        @page {
+            margin: 20mm;
+
+            @bottom-center {
+                content:
+                    "www.tecteslabd.com | Email: info@tecteslabd.com \A"
+                    "Chattogram Office (Registered): SH Square, Flat C1, Level-2, GEC by Lane, Beside Premier University, Chattogram \A"
+                    "Dhaka Office: House 2/A (1st Floor), Road 12, Nikunja-2, Khilkhet, Dhaka-1229 | "
+                    "+8801970-003031, +8801969-003031 \A";
+                    /* "Page " counter(page) " of " counter(pages); */
+
+                font-size: 10px;
+                line-height: 1.4;
+                color: #000;
+                white-space: pre;
+                text-align: center;
+            }
+        }
+    }
 </style>
 @endpush
 
@@ -320,7 +341,7 @@
             </div>
         </div>
 
-        <div class="print-footer">
+        {{-- <div class="print-footer">
             <div class="bottom-bar" style="margin-top: 10vh;">
                 www.tecteslabd.com
             </div>
@@ -332,7 +353,7 @@
                 House No:2/A (1st Floor), Road No:12, Nikunja-2, Khilkhet, Dhaka-1229, Bangladesh.<br>
                 +8801970-003031, +8801969-003031, Email: info@tecteslabd.com
             </div>
-        </div>
+        </div> --}}
     </div>
 
 
