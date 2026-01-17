@@ -141,10 +141,10 @@
             @bottom-center {
                 content:
                     "www.tecteslabd.com | Email: info@tecteslabd.com \A"
-                    "Chattogram Office: SH Square, Flat C1, Level-2, GEC by Lane, Beside Premier University, Chattogram \A"
+                    "Chattogram Office (Registered): SH Square, Flat C1, Level-2, GEC by Lane, Beside Premier University, Chattogram \A"
                     "Dhaka Office: House 2/A (1st Floor), Road 12, Nikunja-2, Khilkhet, Dhaka-1229 | "
-                    "+8801970-003031, +8801969-003031 \A"
-                    "Page " counter(page) " of " counter(pages);
+                    "+8801970-003031, +8801969-003031 \A";
+                    /* "Page " counter(page) " of " counter(pages); */
 
                 font-size: 10px;
                 line-height: 1.4;
