@@ -325,7 +325,7 @@
                     $product_vat_tax = ($product_sale->total * $sale->order_tax_rate) / 100;
                 ?>
                 <tr>
-                    <td>1</td>
+                    <td>{{$index + 1}}</td>
                     <td class="text-left english">
                         {{$product_data->name}}<br>Model: {{ $product_data->code }}<br>
                         Brand: {{ $brand?->title }}<br>

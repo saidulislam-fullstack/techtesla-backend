@@ -294,7 +294,7 @@
                     <td class="description" style="width: 20%;">
                         <span class="bold">{{$product_data->name}}</span><br>
                         <strong>Model:</strong> {{ $product_data?->code }}<br>
-                        <strong>Brand:</strong> {{ DB::table('brands')->find($product_data?->id)?->title ?? 'N/A' }}<br>
+                        <strong>Brand:</strong> {{ DB::table('brands')->find($product_data?->brand_id)?->title ?? 'N/A' }}<br>
                         <strong>Origin:</strong> {{ $product_data?->origin }}<br>
                         {!! $product_data->product_details ?? '--' !!}
                     </td>
