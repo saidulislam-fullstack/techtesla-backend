@@ -227,17 +227,17 @@
                     $add_permission_active = $role_has_permissions_list->where('name', 'rf-quotes-dashboard')->first();
                 @endphp
                 @if ($add_permission_active)
-                    {{-- <li id="rf-quotation-report-menu">
+                    <li id="rf-quotation-report-menu">
                         <a href="{{ route('rf-quotation.report') }}">{{ trans('file.Report') }}</a>
-                    </li> --}}
-                    <li id="rfqota-report-menu">
+                    </li>
+                    {{-- <li id="rfqota-report-menu">
                         {!! Form::open(['route' => 'rfq.report.product', 'method' => 'post', 'id' => 'rfq-report-form']) !!}
                         <input type="hidden" name="start_date" value="{{ date('Y-m') . '-' . '01' }}" />
                         <input type="hidden" name="end_date" value="{{ date('Y-m-d') }}" />
                         <input type="hidden" name="warehouse_id" value="0" />
                         <a id="rfq-report-link" href="" @if(request()->routeIs('rfq.report.product')) style="color:#7c5cc4;" @endif>{{ trans('file.Report') }}</a>
                         {!! Form::close() !!}
-                    </li>
+                    </li> --}}
                 @endif
             </ul>
         </li>
